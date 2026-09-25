@@ -28,7 +28,7 @@ def plain_abstract(m):
     t = t[t.index("\\begin{abstract}") + len("\\begin{abstract}"):t.index("\\end{abstract}")]
     t = re.sub(r"\\n([A-Za-z]+)", lambda mo: m.get(mo.group(1), mo.group(0)), t)
     t = re.sub(r"\s*\((?:see )?App\.~\\ref\{[^}]*\}\)", "", t)
-    for a, b in [("\\times", "x"), ("\\beta", "beta"), ("\\rho", "rho"), ("{<}\\,", "<"), ("\\$", "\x00"), ("--", "-"), ("\\%", "%"), ("~", " "),
+    for a, b in [("\\times", "x"), ("\\kappa", "kappa"), ("\\beta", "beta"), ("\\rho", "rho"), ("{<}\\,", "<"), ("\\$", "\x00"), ("--", "-"), ("\\%", "%"), ("~", " "),
                  ("\\emph{", "{"), ("\\texttt{", "{"), ("$", ""), ("\x00", "$")]:
         t = t.replace(a, b)
     t = re.sub(r"[{}]", "", t)

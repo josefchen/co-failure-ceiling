@@ -44,29 +44,24 @@
 \maketitle
 
 \begin{abstract}
-Agentic systems often route or ensemble across multiple models. Any such system that returns one model's output is
-capped at $1-\beta$, where $\beta$ is the rate at which all models fail.
+Multi-model LLM systems such as routing, voting, cascades, fusion, and mixture-of-agents are used to beat single-model
+accuracy. We show that their gain is capped by a quantity the field rarely reports. For any policy whose output is one
+member model answer, accuracy cannot exceed $1-\beta$, where $\beta$ is the rate at which every model is wrong on the same
+query. In contrast, the usual diagnostic, average pairwise error correlation $\rho$, cannot identify $\beta$: error laws
+with identical marginals and pairwise correlations can have different all-wrong rates. A Clopper--Pearson bound on $\beta$
+gives a finite-sample certificate on the largest gain any router, vote, or cascade could deliver before training a router.
 
-We show that pairwise error correlation ($\rho$), commonly used to predict the benefits of ensembling, cannot reveal
-$\beta$, since identical pairwise correlations may have different $\beta$s. When models share a common failure mode,
-models calibrated on $\rho$ underestimate $\beta$ by a gap that grows with model count. In contrast, a Clopper--Pearson
-bound on $\beta$ provides a free upper bound on ensembling gains, valid at $95\%$ confidence. On the spurious
-common-failure tail of our first MATH-500 release, a tetrachoric model matched to pairwise correlations
-underestimates it $\nArtRatioTet\times$, more for larger model counts.
-
-We analyze up to $\nMathM$ frontier models from $21$ providers, including GPT-5.5, Claude Opus 4.8, Gemini 3.1 Pro,
-Grok-4.3, DeepSeek V4, Qwen3.7-Max and Kimi K2.7, on MATH-500, MATH-Hard, AIME, GPQA-Diamond and a
-competition code benchmark, and at smaller scale on MMLU(-Pro), GSM8K and ARC. On the first five, no problem defeats
-every model: on MATH-500, with $95\%$ confidence, $\beta$ is below $\nMathBetaHi$ and no ensemble gains more than
-$\nMathCert$ over the best single model, which already scores $\nMathSB$.
-
-On pools of $15$ models, learned routers do worse than the best model on unseen problems, and an LLM router
-always picks it. Majority voting does worse than its best member in $\nBNegSatPct$--$\nBNegHardPct\%$
-of the ensembles we analyze.
-
-The common-failure rates reported in our first release were artifacts: answer keys no grader could match, wrong or
-ambiguous answer keys, and correct programs rejected by exact-match grading. We release the $\nMathM$-model outcome
-matrices, all model responses, code to compute certificates, and errata for six benchmarks.
+Across $\nMathM$ models from $21$ providers, including GPT-5.5, Claude Opus 4.8, Gemini 3.1 Pro, Grok-4.3, DeepSeek V4,
+Qwen3.7-Max and Kimi K2.7, no MATH-500, MATH-Hard, AIME, GPQA-Diamond or competition-code question defeats every model
+once the all-wrong questions are audited ($\beta=0$; below $\nMathBetaHi$ on MATH-500 at $95\%$ confidence), and the best
+single model already scores $\nMathSB$ on MATH-500. The tails our first release reported ($\beta=\nMathJuneBeta$ on
+open-ended mathematics, $\nCodeJuneBeta$ on code) were manufactured by the evaluation, yet a tetrachoric-calibrated
+single-factor model still underprices the mathematics tail about $\nArtRatioTet$ times, more as the pool grows. Re-asking
+the same GPQA-Diamond questions in free-response rather than multiple-choice form does not reopen the tail ($\beta=0$; a
+five-judge panel with $\kappa$ $\nKappaLo$ to $\nKappaHi$). Majority voting loses to its own best member in
+$\nBNegSatPct$--$\nBNegHardPct\%$ of ensembles and every learned router we train scores below the single best model: on
+checkable tasks in our pool, combining models rarely beats the single best model without a strong query-level routing
+signal. Gains come from models failing on different questions, not from adding more models.
 \end{abstract}
 
 \section{Introduction}
