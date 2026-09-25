@@ -57,9 +57,12 @@ def copy(src, dst):
 def main():
     card = os.path.join(ROOT, "release", "dataset_card.md")
     keep = open(card).read() if os.path.exists(card) else None     # rendered by scripts/render_docs.py
-    for d in (GH, HF):
+    for d in (GH, HF):                   # clear the staging folders but keep the GitHub checkout's .git
         if os.path.isdir(d):
-            shutil.rmtree(d)
+            for e in os.listdir(d):
+                if e != ".git":
+                    p = os.path.join(d, e)
+                    shutil.rmtree(p) if os.path.isdir(p) and not os.path.islink(p) else os.remove(p)
     if keep is None:
         raise SystemExit("run scripts/render_docs.py first (release/dataset_card.md missing)")
     for f in GH_FILES:

@@ -28,10 +28,12 @@ def plain_abstract(m):
     t = t[t.index("\\begin{abstract}") + len("\\begin{abstract}"):t.index("\\end{abstract}")]
     t = re.sub(r"\\n([A-Za-z]+)", lambda mo: m.get(mo.group(1), mo.group(0)), t)
     t = re.sub(r"\s*\((?:see )?App\.~\\ref\{[^}]*\}\)", "", t)
-    for a, b in [("\\beta", "beta"), ("\\rho", "rho"), ("\\$", "\x00"), ("--", "-"), ("\\%", "%"), ("~", " "),
+    for a, b in [("\\beta", "beta"), ("\\rho", "rho"), ("{<}\\,", "<"), ("\\$", "\x00"), ("--", "-"), ("\\%", "%"), ("~", " "),
                  ("\\emph{", "{"), ("\\texttt{", "{"), ("$", ""), ("\x00", "$")]:
         t = t.replace(a, b)
     t = re.sub(r"[{}]", "", t); t = re.sub(r"\s+", " ", t).strip()
+    if len(t) > 1920:
+        print(f"[docs] WARNING: abstract is {len(t)} characters; arXiv accepts at most 1920")
     return "\n".join(textwrap.wrap(t, 120, break_on_hyphens=False))
 
 
