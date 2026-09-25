@@ -73,7 +73,7 @@ the raters). After the audit, no MATH-500, MATH-Hard, AIME or GPQA-Diamond quest
 | GPQA-Diamond (MC) | {{GmcM}} | {{GmcN}} | {{GmcSB}} | {{GmcAwGraded}} → {{GmcK}} |
 | MMLU-Pro | {{MmluM}} | {{MmluN}} | {{MmluSB}} | {{MmluAwGraded}} → {{MmluK}} |
 
-## Honest scope
+## Scope
 
 Free-response GPQA is graded by a five-judge LLM panel (κ {{KappaLo}}–{{KappaHi}}), not by humans. Code is graded against
 private and generated tests by exact output match, which cannot verify multi-answer problems. The all-wrong adjudication used
