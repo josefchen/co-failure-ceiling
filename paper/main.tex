@@ -44,23 +44,23 @@
 \maketitle
 
 \begin{abstract}
-Multi-model LLM systems, including routing, voting, cascades, fusion, and mixture-of-agents (MoA), are increasingly
-used to push accuracy beyond any single model. We show that the achievable gain has a ceiling, fixed by a quantity
-other than the one the field usually reports. For any policy whose output is one of the member models' answers, such
-as a router, a majority vote, or a cascade, accuracy cannot exceed $1-\beta$, where $\beta$ is the rate at which
-every model is wrong on the same query. Practice instead reports the average pairwise error correlation $\rho$, and
-we prove that $\rho$ cannot identify $\beta$: error laws with identical marginals and identical pairwise correlations
-can still differ in $\beta$. A Clopper--Pearson bound on $\beta$ turns one graded, held-out query set into a \$0
-certificate on the largest gain any such policy could deliver, before a router is trained. Across $\nMathM$ frontier
-models from $21$ providers, among them GPT-5.5, Claude Opus 4.8, Gemini 3.1 Pro, Grok-4.3, DeepSeek V4,
-Qwen3.7-Max, and Kimi K2.7, not a single MATH-500, MATH-Hard, AIME, GPQA-Diamond or competition-code question defeats every model
-($\beta=0$; below $\nMathBetaHi$ on MATH-500 at $95\%$ confidence), and the best single model already reaches $\nMathSB$ on MATH-500.
-The mathematics and code tails of our first release were grading artifacts, yet a correctly (tetrachoric)
-calibrated single-factor model underprices the MATH-500 one $\nArtRatioTet$-fold, by a margin that widens with the size of the pool: the
-blind spot the theory predicts. Majority voting loses to its own best member
-in $\nBNegSatPct$--$\nBNegHardPct\%$ of ensembles. Re-asking the same GPQA-Diamond questions in free-response form
-opens no tail either ($\beta=0$; a five-judge LLM panel, $\kappa$ from $\nKappaLo$ to $\nKappaHi$). On our pool, and on tasks where answers can be checked, combining models rarely
-beats the single best model: every learned router we train scores below it on held-out queries.
+Routing, voting, cascades and mixture-of-agents (MoA) promise accuracy beyond any single model. We prove a hard ceiling
+on all of them and measure it on $\nMathM$ frontier models. For any policy that returns one member's answer, accuracy is
+capped at $1-\beta$, where $\beta$ is the rate at which every model is wrong on the same query. The field reads pairwise
+error correlation $\rho$ instead, and we prove that $\rho$ cannot identify $\beta$: identical pairwise error laws can
+differ in $\beta$, and a model calibrated to $\rho$ underprices any common-mode failure by a factor that grows with the
+pool. A Clopper--Pearson bound on $\beta$ turns one graded query set into a \$0 certificate on the most any router, vote
+or cascade can gain. Across $\nMathM$ models from $21$ providers (GPT-5.5, Claude Opus 4.8, Gemini 3.1 Pro, Grok-4.3,
+DeepSeek V4, Qwen3.7-Max, Kimi K2.7 and $60$ more), audited question by question, not a single MATH-500, MATH-Hard,
+AIME, GPQA-Diamond or competition-code question defeats every model ($\beta=0$; ${<}\,\nMathBetaHi$ on MATH-500 at
+$95\%$ confidence), and the best single model already scores $\nMathSB$ on MATH-500. The headroom that remains is out
+of reach: on 15-model pools every learned router scores below the single best model on held-out queries, an LLM router
+simply picks it, and majority voting loses to its own best member in $\nBNegSatPct$--$\nBNegHardPct\%$ of ensembles.
+Every co-failure tail our first release reported was manufactured by the evaluation (answer keys no response could
+match, valid code outputs rejected by exact match), yet a tetrachoric model calibrated to $\rho$ underprices the
+MATH-500 one $\nArtRatioTet$-fold, more as the pool grows: the blind spot the theory predicts. We release the
+$\nMathM$-model outcome matrices with every raw response, a one-line certificate for any model pool, and benchmark errata
+for MATH-500, MATH-Hard, MMLU, MMLU-Pro, GSM8K and ARC.
 \end{abstract}
 
 \section{Introduction}

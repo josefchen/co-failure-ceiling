@@ -26,7 +26,7 @@ def facts():
     lab = lambda x: sum(1 for i in items if i["label"] == x)
     why = lambda x: sum(1 for i in items if i.get("exclude_reason") == x)
     return {
-        "67 market models": (67, len(reg)), "21 provider families": (21, len({r["provider_family"] for r in reg})),
+        "67 market models": (67, len(reg)), "abstract: 7 named models and 60 more": (60, len(reg) - 7), "21 provider families": (21, len({r["provider_family"] for r in reg})),
         "15-model pool": (15, len(mix)), "9 families in the 15-model pool":
             (9, len({r["provider_family"] for r in pool if r["model_id"] in mix})),
         "63 code problems": (63, len(code)), "140 code problems fetched":
