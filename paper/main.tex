@@ -44,10 +44,8 @@
 \maketitle
 
 \begin{abstract}
-Agentic systems often use ensembling or routing strategies that draw answers from multiple models. These
-approaches have been reported to substantially outperform the best constituent model. We provide an upper bound that
-applies to any such system that returns the output of one of the models. This upper bound is determined by the common
-failure rate, the rate at which all models fail, which we call $\beta$.
+Agentic systems often route or ensemble across multiple models. Any such system that returns one model's output is
+capped at $1-\beta$, where $\beta$ is the rate at which all models fail.
 
 We show that pairwise error correlation ($\rho$), commonly used to predict the benefits of ensembling, cannot reveal
 $\beta$, since identical pairwise correlations may have different $\beta$s. When models share a common failure mode,
@@ -56,7 +54,8 @@ bound on $\beta$ provides a free upper bound on ensembling gains, valid at $95\%
 common-failure tail of our first MATH-500 release, a tetrachoric model matched to pairwise correlations
 underestimates it $\nArtRatioTet\times$, more for larger model counts.
 
-We analyze up to $\nMathM$ frontier models from $21$ providers on MATH-500, MATH-Hard, AIME, GPQA-Diamond and a
+We analyze up to $\nMathM$ frontier models from $21$ providers, including GPT-5.5, Claude Opus 4.8, Gemini 3.1 Pro,
+Grok-4.3, DeepSeek V4, Qwen3.7-Max and Kimi K2.7, on MATH-500, MATH-Hard, AIME, GPQA-Diamond and a
 competition code benchmark, and at smaller scale on MMLU(-Pro), GSM8K and ARC. On the first five, no problem defeats
 every model: on MATH-500, with $95\%$ confidence, $\beta$ is below $\nMathBetaHi$ and no ensemble gains more than
 $\nMathCert$ over the best single model, which already scores $\nMathSB$.
