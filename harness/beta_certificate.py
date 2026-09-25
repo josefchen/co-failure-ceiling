@@ -18,8 +18,10 @@ If the certified bound is below your orchestration overhead, NO policy in the cl
 decided from one sample, $0 of routing. Pairwise rho is never needed (Prop. nonid: it cannot identify beta).
 
 Usage:
-  python3 beta_certificate.py --matrix runs/matrix_marketE3.json --dataset math500 [--overhead 0.0] [--delta 0.05]
-  python3 beta_certificate.py --k 17 --n 330 --a_sb 0.93           # counts-only mode
+  python3 beta_certificate.py --csv my_grades.csv [--overhead 0.02]    # your own eval: rows = questions, columns = models,
+                                                                        # 1 = correct, 0 = wrong (header row optional)
+  python3 beta_certificate.py --matrix runs/matrix_marketE3_final.json --dataset math500
+  python3 beta_certificate.py --k 0 --n 330 --a_sb 0.988                # counts only (single best treated as pre-specified)
 """
 import argparse, json, os
 import numpy as np
@@ -42,12 +44,24 @@ def from_matrix(path, dataset):
     R = json.load(open(path))
     qs = [q for q, v in R.items() if dataset is None or v.get("dataset") == dataset]
     models = sorted({m for q in qs for m in R[q]["models"]})
-    qs = [q for q in qs if all(m in R[q]["models"] for m in models)]
+    qs = [q for q in qs if all(m in R[q]["models"] and not R[q]["models"][m].get("missing") for m in models)]
     M = np.array([[R[q]["models"][m]["correct"] for q in qs] for m in models], float)
     n = M.shape[1]
     k = int((M.sum(0) == 0).sum())
     a_sb = float(M.mean(1).max())
     return k, n, a_sb, M.shape[0], [int(c) for c in M.sum(1)]
+
+
+def from_csv(path):
+    """0/1 grades, one row per question and one column per model; a first row that is not numeric is read as a header"""
+    import csv
+    rows = [r for r in csv.reader(open(path)) if r]
+    try:
+        [float(x) for x in rows[0]]
+    except ValueError:
+        rows = rows[1:]
+    M = np.array([[float(x) for x in r] for r in rows]).T          # models x questions
+    return int((M.sum(0) == 0).sum()), M.shape[1], float(M.mean(1).max()), M.shape[0], [int(c) for c in M.sum(1)]
 
 
 def certificate(k, n, a_sb, overhead=0.0, delta=0.05, m=None, correct_counts=None):
@@ -81,14 +95,16 @@ def certificate(k, n, a_sb, overhead=0.0, delta=0.05, m=None, correct_counts=Non
 
 def main():
     ap = argparse.ArgumentParser()
-    ap.add_argument("--matrix"); ap.add_argument("--dataset")
+    ap.add_argument("--matrix"); ap.add_argument("--dataset"); ap.add_argument("--csv")
     ap.add_argument("--k", type=int); ap.add_argument("--n", type=int); ap.add_argument("--a_sb", type=float)
     ap.add_argument("--overhead", type=float, default=0.0); ap.add_argument("--delta", type=float, default=0.05)
     a = ap.parse_args()
-    if a.matrix:
+    if a.csv:
+        k, n, a_sb, m, counts = from_csv(a.csv)
+    elif a.matrix:
         k, n, a_sb, m, counts = from_matrix(a.matrix, a.dataset)
     else:
-        assert a.k is not None and a.n is not None and a.a_sb is not None, "need --matrix or (--k --n --a_sb)"
+        assert a.k is not None and a.n is not None and a.a_sb is not None, "need --csv, --matrix or (--k --n --a_sb)"
         k, n, a_sb, m, counts = a.k, a.n, a.a_sb, None, None
     cert = certificate(k, n, a_sb, a.overhead, a.delta, m, counts)
     print(json.dumps(cert, indent=2))

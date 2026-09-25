@@ -29,7 +29,7 @@ RUNS_FINAL = [
     "matrix_marketGPQAOPENv2.json", "matrix_stageA2v3_final.json", "matrix_hardAv3_final.json", "matrix_churnD_final.json",
     "fusion_eqq2_final.json", "fusion_eqq2_math_final.json", "fusion_eqqA_final.json", "cascade_stageC2v3_final.json",
     "cascade_advC_final.json", "router_llm_stageA2v3_final.json", "items_snapshot.json", "codegen_problems.json",
-    "judge_open_v2_meta.json", "rerun_log.csv", "spend_ledger.csv", "cost_registry.csv", "audit_spend.json",
+    "judge_open_v2_meta.json", "code_checker_regrade.json", "rerun_log.csv", "spend_ledger.csv", "cost_registry.csv", "audit_spend.json",
     # correction stages and the first release, so every correction can be diffed
     "matrix_marketE3.json", "matrix_marketMH.json", "matrix_marketCG.json", "matrix_marketE2.json", "matrix_marketGPQAOPEN.json",
     "matrix_stageA2v3.json", "matrix_hardAv3.json", "matrix_churnD.json", "matrix_stageA2v2.json",

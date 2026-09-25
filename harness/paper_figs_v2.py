@@ -114,7 +114,7 @@ def fig_regime_map():
         ("MATH-500", mk["math500"]["k"], mk["math500"]["n"], mk["math500"]["allwrong_graded"], H_MATH, f"open-ended math · {mk['math500']['m']} models"),
         ("MATH-Hard", mk["mathhard"]["k"], mk["mathhard"]["n"], mk["mathhard"]["allwrong_graded"], H_MATH, f"open-ended math · {mk['mathhard']['m']} models"),
         ("AIME 2024+25", mk["aime"]["k"], mk["aime"]["n"], mk["aime"]["allwrong_graded"], H_MATH, f"integer answers · {mk['aime']['m']} models"),
-        ("code_contests", mk["code"]["unique_output"]["k"], mk["code"]["unique_output"]["n"], None, H_CODE, f"unique-output problems · {mk['code']['m']} models"),
+        ("code_contests", mk["code"]["k"], mk["code"]["n"], mk["code"]["allwrong_graded"], H_CODE, f"execution-graded, special checkers · {mk['code']['m']} models"),
         ("GPQA (free-response)", g["k"], g["n"], None, H_SCI, "v2 question set · 18 models"),
         ("GPQA (multiple choice)", mk["gpqamc"]["k"], mk["gpqamc"]["n"], mk["gpqamc"]["allwrong_graded"], H_SCI, f"{mk['gpqamc']['m']} models"),
         ("MMLU-Pro", mk["mmlupro"]["k"], mk["mmlupro"]["n"], mk["mmlupro"]["allwrong_graded"], H_MATH, f"direct-answer multiple choice · {mk['mmlupro']['m']} models"),

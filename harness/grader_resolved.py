@@ -19,7 +19,9 @@ if __name__ == "__main__":
         r = json.loads(line)
         if (r["matrix"], r["qid"]) in want and r.get("correct"):
             it = S[r["qid"]]
-            a = grade.extract_math(r["content"] or "") if it["kind"] == "math" else grade.extract(it["kind"], r["content"] or "")
+            a = (grade.extract_math(r["content"] or "") if it["kind"] == "math" else
+                 "valid program (special checker, code_checkers.py)" if it["kind"] == "codegen" else
+                 grade.extract(it["kind"], r["content"] or ""))
             found[(r["matrix"], r["qid"])][str(a)] += 1
     out = [{"matrix": m, "qid": q, "reference": S[q]["gold"], "answers_marked_correct": dict(found[(m, q)].most_common())}
            for m, q in sorted(want)]

@@ -8,7 +8,7 @@ import os, sys, shutil
 from huggingface_hub import snapshot_download
 
 REPO = "josefchen/co-failure-67-models"
-REVISION = "03b23c8c6feffe203ec461461cc1ac4df86e9803"
+REVISION = "f2dd304420cfe48bf8e5c10dcb6735ec3dd5252c"
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..")
 
 if __name__ == "__main__":

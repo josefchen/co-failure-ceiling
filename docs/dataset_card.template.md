@@ -28,13 +28,12 @@ Best Model: A Provable Co-Failure Ceiling Across 67 Frontier Models** (Josef Che
 ## Version 2 (September 2026): correction notice
 
 The first release (June 2026) reported that all 67 models fail {{MathJuneK}} of {{MathJuneN}} MATH-500 questions together, a co-failure tail
-that pairwise correlation underpriced. An audit of every all-wrong question found an evaluation error behind each mathematics one (and a problem exact-match grading
-cannot verify behind each code one): of {{TotJune}}
+that pairwise correlation underpriced. An audit of every all-wrong question found an evaluation error behind each mathematics and code one: of {{TotJune}}
 all-wrong events ({{TotJuneQ}} distinct questions), {{TotGrader}} were grader defects (reference answers such as "x=5" or
 "864 \mbox{ inches}^2" that no response could match), {{TotRefErr}} had wrong reference answers, {{TotAmbig}} were
-ambiguous, {{TotMulti}} were code problems with several correct outputs, {{TotTrunc}} were answered with a longer token
+ambiguous, {{TotTrunc}} were answered with a longer token
 budget, {{TotCorrupt}} after re-querying a corrupt response, and {{TotGenuine}} were genuine, on {{TotGenuineQ}} MMLU-Pro questions asked for a direct answer (both also judged ambiguous by
-the raters). After the audit, no MATH-500, MATH-Hard, AIME or GPQA-Diamond question defeats every model. Full account:
+the raters). After the audit, no MATH-500, MATH-Hard, AIME, GPQA-Diamond or competition-code question defeats every model. Full account:
 [DATA_AUDIT.md](DATA_AUDIT.md). The first-release files are kept under their original names and in the `v1-2026-06` tag.
 
 ## What's here
@@ -46,7 +45,7 @@ the raters). After the audit, no MATH-500, MATH-Hard, AIME or GPQA-Diamond quest
 | `matrix_marketE3_final.json` | MATH-500 and AIME 2024/25, 67 models |
 | `matrix_marketMH_final.json` | MATH-Hard (Level-5), 67 models |
 | `matrix_marketE2_final.json` | GPQA-Diamond multiple choice (52-model complete-coverage subset used), MMLU-Pro, a MATH-500 slice |
-| `matrix_marketCG_final.json` | code_contests, 18 models, execution-graded; `multi_answer` marks problems with several correct outputs |
+| `matrix_marketCG_final.json` | code_contests, 18 models, execution-graded; problems with several correct outputs that decide an all-wrong question use special checkers (`code_checker_regrade.json`) |
 | `matrix_marketGPQAOPENv2.json` | free-response GPQA, v2 question set (protocol written before the data), five-judge panel verdicts (`judge_open_v2_votes.json`) |
 | `matrix_stageA2v3_final.json`, `matrix_hardAv3_final.json` | the 15-model pools (mix; MMLU-Pro) |
 | `matrix_churnD_final.json`, `fusion_*_final.json`, `cascade_*_final.json` | churn pool, matched-quality fusion samples, cascades (Opus 4.8 and Mistral-Large as the strong model) |
@@ -76,7 +75,8 @@ the raters). After the audit, no MATH-500, MATH-Hard, AIME or GPQA-Diamond quest
 ## Scope
 
 Free-response GPQA is graded by a five-judge LLM panel (κ {{KappaLo}}–{{KappaHi}}), not by humans. Code is graded against
-private and generated tests by exact output match, which cannot verify multi-answer problems. The all-wrong adjudication used
+private and generated tests by exact output match, with special checkers for the multi-answer problems that decide an
+all-wrong question. The all-wrong adjudication used
 two AI raters under a rule written before the second rater's labels were read. All generations at temperature 0 unless noted (fusion and cascade samples:
 0.7).
 

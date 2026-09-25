@@ -11,11 +11,11 @@ filled in by `scripts/render_docs.py` from the macros the pipeline writes (`pape
 The first release reported a co-failure tail on open-ended mathematics and code (for example 17 of 330 MATH-500
 questions failed by all 67 models) and read its underpricing by pairwise correlation as the paper's central empirical
 result. **That tail was an evaluation artifact, not model co-failure.** Of the 58 all-wrong events of the first
-release (52 distinct questions; a question in two pools counts once per pool), 39 were grader defects, 5 had wrong reference answers, 3 were ambiguous,
-5 were code problems that accept several correct outputs, 3 were resolved by a longer token budget,
+release (52 distinct questions; a question in two pools counts once per pool), 44 were grader defects, 5 had wrong reference answers, 3 were ambiguous,
+3 were resolved by a longer token budget,
 0 by re-querying a corrupt response, and 3 were genuine (2 distinct MMLU-Pro questions, asked for a direct answer; both raters also judged
 both of them ambiguous, so this is an upper bound).
-After the audit, no MATH-500, MATH-Hard, AIME or GPQA-Diamond question defeats every model.
+After the audit, no MATH-500, MATH-Hard, AIME, GPQA-Diamond or competition-code question defeats every model.
 
 The theory (the 1 − β ceiling, the non-identification of β from ρ, the pool-size underpricing of any common-mode atom) and
 the $0 certificate are unaffected. The title claim stands for a different reason: the ceiling is high, the best single
@@ -34,6 +34,10 @@ tetrachoric single-factor model, growing with pool size), and reading the all-wr
   "\frac43", and "1+\sqrt{19}, 1-\sqrt{19}" against "1 \pm \sqrt{19}". A reference no response can match makes every
   model wrong at once.
 * **Multiple choice.** "**Answer:** A" and "The final answer is: I" returned no letter.
+* **Code with several correct outputs.** Exact-match grading scored valid alternative outputs as wrong. Each of the five code
+  problems all models "failed" accepts any valid answer; with a special checker per problem (`harness/code_checkers.py`,
+  results in `runs/code_checker_regrade.json`, every changed cell in `runs/rerun_log.csv`), each is solved by at least three
+  models.
 * **Numbers.** An answer on the line after "####" was missed.
 * **Stale grading.** The 15-model pools, the churn pool and the fusion samples had been scored by still earlier extractors
   (a first-letter extractor that could not read MMLU-Pro's letters E–J), although the paper said every output had been
@@ -139,7 +143,7 @@ identity, the pool-bias monotonicity proof, the optimal ensemble size, notation 
 |---|---|---|
 | MATH-500 all-models-wrong β | 0.052 (17/330) | 0.000 (0/330; 95% upper 0.011) |
 | MATH-Hard β | 0.044 (13/298) | 0.000 (0/298) |
-| code β | 0.079 (5/63) | not verifiable (0/48 on unique-output problems) |
+| code β | 0.079 (5/63) | 0.000 (0/63; special checkers) |
 | free-response GPQA β | 0.127 (10/79) | 0.000 (0/54) |
 | MATH-500 best single model | 0.836 | 0.988 |
 | ρ underprices frontier co-failure | 2.5× on MATH-500 | not supported: no genuine tail |

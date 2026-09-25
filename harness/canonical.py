@@ -205,7 +205,8 @@ def trace(name, adj, final_cls):
             right = {m for m, c in R[q]["models"].items() if c["correct"]}
             if right and right <= set(flips.get(q, {})):
                 steps = {flips[q][m] for m in right}
-                cause = STAGE_NAMES[0] if steps == {"requery-empty"} else STAGE_NAMES[1]
+                cause = (STAGE_NAMES[0] if steps == {"requery-empty"} else STAGE_NAMES[1] if steps == {"detruncate"}
+                         else STAGE_NAMES[2] if steps == {"code-checker"} else STAGE_NAMES[1])
         if cause is None:
             cause = final_cls.get(q, adj.get(q, "unaudited"))
         out["causes"].setdefault(cause, []).append(q)

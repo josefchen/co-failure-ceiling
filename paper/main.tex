@@ -53,10 +53,10 @@ we prove that $\rho$ cannot identify $\beta$: error laws with identical marginal
 can still differ in $\beta$. A Clopper--Pearson bound on $\beta$ turns one graded, held-out query set into a \$0
 certificate on the largest gain any such policy could deliver, before a router is trained. Across $\nMathM$ frontier
 models from $21$ providers, among them GPT-5.5, Claude Opus 4.8, Gemini 3.1 Pro, Grok-4.3, DeepSeek V4,
-Qwen3.7-Max, and Kimi K2.7, not a single MATH-500, MATH-Hard, AIME or GPQA-Diamond question defeats every model
+Qwen3.7-Max, and Kimi K2.7, not a single MATH-500, MATH-Hard, AIME, GPQA-Diamond or competition-code question defeats every model
 ($\beta=0$; below $\nMathBetaHi$ on MATH-500 at $95\%$ confidence), and the best single model already reaches $\nMathSB$ on MATH-500.
-The MATH-500 tail of our first release was a grading artifact, yet a correctly (tetrachoric)
-calibrated single-factor model underprices it $\nArtRatioTet$-fold, by a margin that widens with the size of the pool: the
+The mathematics and code tails of our first release were grading artifacts, yet a correctly (tetrachoric)
+calibrated single-factor model underprices the MATH-500 one $\nArtRatioTet$-fold, by a margin that widens with the size of the pool: the
 blind spot the theory predicts. Majority voting loses to its own best member
 in $\nBNegSatPct$--$\nBNegHardPct\%$ of ensembles. Re-asking the same GPQA-Diamond questions in free-response form
 opens no tail either ($\beta=0$; a five-judge LLM panel, $\kappa$ from $\nKappaLo$ to $\nKappaHi$). On our pool, and on tasks where answers can be checked, combining models rarely
@@ -78,7 +78,7 @@ can gain over the single best model. On the 2026 frontier the answer is: almost 
 all models miss, $\beta$ is zero on mathematics and graduate science, the best model sits at the ceiling on MATH-500 and
 MATH-Hard, and where it does not (AIME, GPQA), the gap is disagreement that a router would have to exploit query by query, which none of
 ours manages on the pools where we train them. The same
-measurement shows why $\beta$ must be \emph{audited}: every mathematics question that all models missed in our first
+measurement shows why $\beta$ must be \emph{audited}: every mathematics and code question that all models missed in our first
 release traced to an evaluation error, precisely the kind of common-mode event a pairwise statistic cannot see.
 
 \paragraph{What is classical, and what is new.} The equicorrelated variance floor is classical portfolio and ensemble theory
@@ -102,7 +102,7 @@ dependence without such an atom does not produce the same divergence.
 $21$ provider families the certified ceiling is near $1$ on every benchmark; the best single model sits at it on MATH-500 and
 MATH-Hard; every learned router we train scores below the single best model; and majority voting loses to its own best member
 in most ensembles. Of the $\nTotJune$ all-wrong events of our first release, $\nTotGrader$ were grader defects and the rest
-wrong or ambiguous references, multi-answer code and truncation; the $\nTotGenuine$ that survive sit on $\nTotGenuineQ$
+wrong or ambiguous references and truncation; the $\nTotGenuine$ that survive sit on $\nTotGenuineQ$
 ambiguous MMLU-Pro questions asked for a direct answer. The spurious tail carried the underpricing signature of
 Prop.~\ref{prop:poolbias}, and only the audit exposed it.
 \item \emph{Supporting economics} (App.~\ref{app:econ}): budget-constrained routing as a priced assignment with a single shadow
@@ -323,9 +323,8 @@ signal the routers above could not find. Genuine co-failures appear only on MMLU
 $\nMmluK$ of $\nMmluN$ across all $\nMmluM$ models and $\nProK$ of $\nProN$ in the 15-model pool ($\nGenuineQ$ distinct
 questions); the saturated mix has $\nMixK$ of $\nMixN$. Both raters found both questions to admit more than one defensible answer, so this is an upper bound. On the
 67-model question the single-factor model predicts $\nMmluRatioTet\times$ fewer all-wrong questions than observed: one
-question, but the direction Prop.~\ref{prop:poolbias} predicts. On code, every problem that all models fail accepts several correct outputs, which
-exact-match grading cannot verify; on the $\nCodeUniqN$ problems with a unique correct output none defeats every model
-($95\%$ upper limit $\nCodeUniqBetaHi$).
+question, but the direction Prop.~\ref{prop:poolbias} predicts. On code, graded with special checkers wherever a problem accepts several correct outputs, none of the $\nCodeN$
+problems defeats every model ($95\%$ upper limit $\nCodeBetaHi$).
 
 \begin{table}[h]\centering\small\setlength{\tabcolsep}{3.2pt}
 \begin{tabular}{lcccccccc}
@@ -337,18 +336,16 @@ MATH-Hard & \nHardM{} / \nHardN & \nHardSB & \nHardOracle & \nHardG & \nHardAwGr
 AIME 2024+25 & \nAimeM{} / \nAimeN & \nAimeSB & \nAimeOracle & \nAimeG & \nAimeAwGraded & \nAimeK & \nAimeBetaHi & \nAimeCert \\
 GPQA-Diamond (MC) & \nGmcM{} / \nGmcN & \nGmcSB & \nGmcOracle & \nGmcG & \nGmcAwGraded & \nGmcK & \nGmcBetaHi & \nGmcCert \\
 MMLU-Pro & \nMmluM{} / \nMmluN & \nMmluSB & \nMmluOracle & \nMmluG & \nMmluAwGraded & \nMmluK & \nMmluBetaHi & \nMmluCert \\
-code\_contests$^{\dagger}$ & \nCodeM{} / \nCodeN & \nCodeSB & \nCodeOracle & \nCodeG & \nCodeAwGraded & \nCodeK & \nCodeUniqBetaHi$^{\dagger}$ & \nCodeCert \\
+code\_contests$^{\dagger}$ & \nCodeM{} / \nCodeN & \nCodeSB & \nCodeOracle & \nCodeG & \nCodeAwGraded & \nCodeK & \nCodeBetaHi & \nCodeCert \\
 15-model mix & \nMixM{} / \nMixN & \nMixSB & \nMixOracle & \nMixG & \nMixAwGraded & \nMixK & \nMixBetaHi & \nMixCert \\
 15-model MMLU-Pro & \nProM{} / \nProN & \nProSB & \nProOracle & \nProG & \nProAwGraded & \nProK & \nProBetaHi & \nProCert \\
 \bottomrule
 \end{tabular}
 \caption{The certified ceiling per benchmark (\texttt{canonical.py}). ``All-wrong (graded)'': questions every model fails under
-the corrected grader; ``genuine'': those that survive the audit (reference errors, ambiguous questions and multi-answer code
-problems removed); $\beta$ upper: two-sided $95\%$ Clopper--Pearson limit on the genuine rate; certified max gain: the
+the corrected grader; ``genuine'': those that survive the audit (reference errors and ambiguous questions removed); $\beta$ upper: two-sided $95\%$ Clopper--Pearson limit on the genuine rate; certified max gain: the
 Prop.~\ref{prop:cert}(iii) upper bound on the gain of any selection policy over the single best model ($\delta=0.05$).
-$^{\dagger}$All $\nCodeAwGraded$ all-wrong code problems accept several correct outputs and cannot be verified by exact-match
-grading; they are not counted as genuine, and the code row's $\beta$ upper limit is on the $\nCodeUniqN$ problems with a unique
-correct output.}\label{tab:cert}
+$^{\dagger}$Problems that accept several correct outputs are graded with special checkers where exact match would decide an
+all-wrong question (App.~\ref{app:codegen}).}\label{tab:cert}
 \end{table}
 
 \paragraph{The all-wrong audit.} Our first release reported a co-failure tail on MATH-500 ($\nMathJuneK/\nMathJuneN$), MATH-Hard
@@ -360,27 +357,28 @@ every model was adjudicated by two AI raters who solved it blind to the referenc
 classification rule written before the second rater's labels were read (App.~\ref{app:audit}). Each event is attributed to
 the first check that removes it (in the 15-model pools the longer budget came after re-grading). $\nTotGrader$ were grader
 defects---reference answers no response could match as written (``$x{=}5$'' against $5$, ``$10{,}\!080$'' against $10080$,
-``$864\ \mathrm{inches}^2$'' against $864$) or multiple-choice letters the extractor missed; $\nTotRefErr$ were wrong reference
+``$864\ \mathrm{inches}^2$'' against $864$) multiple-choice letters the extractor missed, or valid alternative outputs to code problems that exact-match
+grading rejected; $\nTotRefErr$ were wrong reference
 answers (the arithmetic-series question in MATH-Hard, whose reference $3$ should be $-3$, is one); $\nTotAmbig$ were ambiguous
-questions; $\nTotMulti$ were multi-answer code problems; $\nTotTrunc$ were resolved by the longer budget; $\nTotCorrupt$ by
+questions; $\nTotTrunc$ were resolved by the longer budget; $\nTotCorrupt$ by
 re-querying a corrupt response; and $\nTotGenuine$ were genuine, on $\nTotGenuineQ$ distinct MMLU-Pro questions. The first release's free-response GPQA tail ($\nOpenOneK$
 questions) was likewise $\nOpenOneOpt$ questions that depend on stripped options and $\nOpenOneDoubt$ with doubtful references
 (App.~\ref{app:opengpqa}).
 
 \begin{table}[h]\centering\small\setlength{\tabcolsep}{3.4pt}
-\begin{tabular}{lcccccccc}
+\begin{tabular}{lccccccc}
 \toprule
- & \shortstack{June\\all-wrong} & corrupt & \shortstack{trun-\\cation} & grader & \shortstack{wrong\\ref.} & \shortstack{ambi-\\guous} & \shortstack{multi-\\answer} & genuine \\
+ & \shortstack{June\\all-wrong} & corrupt & \shortstack{trun-\\cation} & grader & \shortstack{wrong\\ref.} & \shortstack{ambi-\\guous} & genuine \\
 \midrule
-MATH-500 (67) & \nMathJuneK & \nMathJuneCorrupt & \nMathJuneTrunc & \nMathJuneGrader & \nMathJuneRefErr & \nMathJuneAmbig & \nMathJuneMulti & \nMathJuneGenuine \\
-MATH-Hard (67) & \nHardJuneK & \nHardJuneCorrupt & \nHardJuneTrunc & \nHardJuneGrader & \nHardJuneRefErr & \nHardJuneAmbig & \nHardJuneMulti & \nHardJuneGenuine \\
-code\_contests (18) & \nCodeJuneK & \nCodeJuneCorrupt & \nCodeJuneTrunc & \nCodeJuneGrader & \nCodeJuneRefErr & \nCodeJuneAmbig & \nCodeJuneMulti & \nCodeJuneGenuine \\
-MMLU-Pro (67) & \nMmluJuneK & \nMmluJuneCorrupt & \nMmluJuneTrunc & \nMmluJuneGrader & \nMmluJuneRefErr & \nMmluJuneAmbig & \nMmluJuneMulti & \nMmluJuneGenuine \\
-GPQA-Diamond MC (52) & \nGmcJuneK & \nGmcJuneCorrupt & \nGmcJuneTrunc & \nGmcJuneGrader & \nGmcJuneRefErr & \nGmcJuneAmbig & \nGmcJuneMulti & \nGmcJuneGenuine \\
-15-model mix & \nMixJuneK & \nMixJuneCorrupt & \nMixJuneTrunc & \nMixJuneGrader & \nMixJuneRefErr & \nMixJuneAmbig & \nMixJuneMulti & \nMixJuneGenuine \\
-15-model MMLU-Pro & \nProJuneK & \nProJuneCorrupt & \nProJuneTrunc & \nProJuneGrader & \nProJuneRefErr & \nProJuneAmbig & \nProJuneMulti & \nProJuneGenuine \\
+MATH-500 (67) & \nMathJuneK & \nMathJuneCorrupt & \nMathJuneTrunc & \nMathJuneGrader & \nMathJuneRefErr & \nMathJuneAmbig & \nMathJuneGenuine \\
+MATH-Hard (67) & \nHardJuneK & \nHardJuneCorrupt & \nHardJuneTrunc & \nHardJuneGrader & \nHardJuneRefErr & \nHardJuneAmbig & \nHardJuneGenuine \\
+code\_contests (18) & \nCodeJuneK & \nCodeJuneCorrupt & \nCodeJuneTrunc & \nCodeJuneGrader & \nCodeJuneRefErr & \nCodeJuneAmbig & \nCodeJuneGenuine \\
+MMLU-Pro (67) & \nMmluJuneK & \nMmluJuneCorrupt & \nMmluJuneTrunc & \nMmluJuneGrader & \nMmluJuneRefErr & \nMmluJuneAmbig & \nMmluJuneGenuine \\
+GPQA-Diamond MC (52) & \nGmcJuneK & \nGmcJuneCorrupt & \nGmcJuneTrunc & \nGmcJuneGrader & \nGmcJuneRefErr & \nGmcJuneAmbig & \nGmcJuneGenuine \\
+15-model mix & \nMixJuneK & \nMixJuneCorrupt & \nMixJuneTrunc & \nMixJuneGrader & \nMixJuneRefErr & \nMixJuneAmbig & \nMixJuneGenuine \\
+15-model MMLU-Pro & \nProJuneK & \nProJuneCorrupt & \nProJuneTrunc & \nProJuneGrader & \nProJuneRefErr & \nProJuneAmbig & \nProJuneGenuine \\
 \midrule
-total & \nTotJune & \nTotCorrupt & \nTotTrunc & \nTotGrader & \nTotRefErr & \nTotAmbig & \nTotMulti & \nTotGenuine \\
+total & \nTotJune & \nTotCorrupt & \nTotTrunc & \nTotGrader & \nTotRefErr & \nTotAmbig & \nTotGenuine \\
 \bottomrule
 \end{tabular}
 \caption{Every all-wrong question of the June 2026 release, by the first check that removes it (\texttt{canonical.py},
@@ -615,7 +613,7 @@ than useless: unequal members outvote the strongest one (\S\ref{sec:results}).
 $\beta$ is zero or close to it. A genuine co-failure tail may well exist on harder workloads---research-level mathematics,
 long-horizon agentic tasks, or code at a difficulty where the frontier fails---and there the underpricing of
 Prop.~\ref{prop:poolbias} would matter; the certificate and the audit protocol apply unchanged, but we have not measured such a
-tail. A code measurement in particular needs a checker for every problem that accepts several outputs.
+tail.
 \textbf{Grading.} Programmatic grading covers verifiable tasks only. Our math normalization follows the MATH benchmark's reference
 evaluation and a symbolic fallback, but it can still miss unusual equivalent forms (an implicit product such as $2\sqrt3$ written
 without a multiplication sign does not parse symbolically); every all-wrong question is audited, and every all-wrong event the corrected grader resolved was resolved by
@@ -641,8 +639,8 @@ verdict is clear: no mathematics or science question in our benchmarks defeats e
 at the ceiling where the frontier is strong, and no router we train captures the headroom that remains. Combining models rarely
 beats the single best model, and the reason is not that models fail together. The one co-failure tail we measured was our own
 evaluation's making, and it fooled a pairwise model the way the theory predicts; reading the all-wrong questions caught it.
-The rule for practice: certify $\beta$ before you build a router, and audit every all-wrong question before you trust the
-certificate. Whether a genuine co-failure tail appears on harder workloads, such as research-level mathematics or long-horizon
+The rule for practice: certify $\beta$ before you build a router (one line on any 0/1 grade matrix with our released
+\texttt{beta\_certificate.py}), and audit every all-wrong question before you trust the certificate. Whether a genuine co-failure tail appears on harder workloads, such as research-level mathematics or long-horizon
 agents, is the open question.
 
 \bibliographystyle{plainnat}
@@ -897,7 +895,9 @@ public: code at \url{https://github.com/josefchen/co-failure-ceiling}, data at
 \url{https://huggingface.co/spaces/josefchen/orchestration-is-allocation}. The data are the per-cell outcome matrices (every
 model's graded correctness, token counts, and metered cost on every query), the exact question text, reference answer, and
 token budget of every item (\texttt{items\_snapshot.json}), the raw model response behind every graded cell, the judge votes,
-the model registry with dated snapshots and prices, and a per-cell log of every re-run. \texttt{reproduce.sh} downloads the
+the model registry with dated snapshots and prices, and a per-cell log of every re-run. We also release the benchmark
+errata the audit produced: wrong and ambiguous reference answers in MATH-Hard, MMLU-Pro, MMLU, GSM8K and ARC, and the
+MATH-500 and MATH-Hard questions a naive grader marks all-wrong, with the reason (\texttt{audit/benchmark\_errata.md}). \texttt{reproduce.sh} downloads the
 pinned data, recomputes every number in this paper, and fails if any differs from the typeset value: the paper's numbers are
 macros generated by \texttt{harness/canonical.py} (\texttt{paper/numbers.tex}) and \texttt{harness/pillars.py}
 (\texttt{paper/numbers\_pillars.tex}), never typed by hand. It then regenerates the figures. No API key is needed; only the
@@ -999,18 +999,15 @@ inside a memory-capped sandbox, enforcing $3\times$ the official (C++-calibrated
 that correct-but-slower Python is not failed (which would manufacture co-failure). $18$ models $\times$ $63$ problems
 spanning rating $1900$--$3500$.
 
-\paragraph{Result: no verified co-failure.} Mean accuracy is $\nCodeMeanAcc$ (these are genuinely hard problems), and
-$\nCodeAwGraded$ problems are failed by every model. All $\nCodeAwGraded$ state that any valid answer is accepted
-(``if there are multiple answers, print any of them'', or an output that is a free choice of paths or orderings). Our grader
-compares a program's output with the one reference output, so a model that printed a different valid answer is scored wrong;
-these events cannot be verified without problem-specific checkers, which \texttt{code\_contests} does not ship. Of the
-$\nCodeN$ problems, $\nCodeUniqN$ have a unique correct output, and none of those is failed by every model ($95\%$ upper limit
-on $\beta$: $\nCodeUniqBetaHi$). Our first release reported these five problems as a co-failure tail; three of them also rested
-on Gemini-3.1-Pro calls that had returned nothing, which on re-query that model answered wrongly (App.~\ref{app:audit}).
-
-\paragraph{What we do and do not claim.} Execution-graded code, like mathematics and science, shows no verified co-failure on
-this pool. A code co-failure measurement would need a checker for every multi-answer problem (or a problem set restricted to
-unique outputs at a difficulty where the frontier fails), the official hidden tests, and the full $\nMathM$-model pool.
+\paragraph{Result: no co-failure.} Mean accuracy is $\nCodeMeanAcc$ (these are genuinely hard problems), yet none of the
+$\nCodeN$ problems is failed by every model ($95\%$ upper limit on $\beta$: $\nCodeBetaHi$). Our first release reported five
+problems as a co-failure tail. Every one states that any valid answer is accepted (``if there are multiple answers, print any
+of them'', or a free choice of paths or orderings), and the exact-match grader scored valid alternative outputs as wrong. We
+wrote a special checker for each, as the official Codeforces judges use (\texttt{harness/code\_checkers.py}: replay the
+operations, check the path or ordering, or verify the optimum), and re-ran every model's released program: each of the five
+is solved by at least three models. Three of the five had also rested on Gemini-3.1-Pro calls that returned nothing and were
+re-queried (App.~\ref{app:audit}). The other problems that accept several outputs are still graded by exact match, which can
+only understate accuracy.
 
 \section{Content-controlled format test: free-response GPQA (LLM-judge panel)}\label{app:opengpqa}
 To test whether the science regime is an artifact of multiple choice, we hold content fixed and vary only the format: the
@@ -1055,7 +1052,7 @@ graduate science stays in the realizability-bound regime. Grading is still by an
 \section{Revision history and data audit (version 2)}\label{app:audit}
 This version corrects the first release (June 2026). Its central empirical claim---a co-failure tail on open-ended
 mathematics and code that pairwise $\rho$ underprices---does not survive: every mathematics question behind it traces to an
-evaluation error, and every code one to a problem that exact-match grading cannot verify (Table~\ref{tab:trace}). The theory, the certificate and the title claim stand; the measurement now supports
+evaluation error, as does every code one (Table~\ref{tab:trace}). The theory, the certificate and the title claim stand; the measurement now supports
 them for a different reason (\S\ref{sec:results}). Every change is logged in the released \texttt{DATA\_AUDIT.md} and, cell by
 cell, in \texttt{rerun\_log.csv} and \texttt{regrade\_final\_report.json}; the first-release matrices are released unchanged
 for comparison, and every number in this version is generated from the released data (App.~\ref{app:repro}).
@@ -1107,7 +1104,7 @@ checked to reproduce its first-version output exactly from the first-version inp
 \midrule
 MATH-500 all-models-wrong rate $\beta$ & $\nMathJuneBeta$ ($\nMathJuneK/\nMathJuneN$) & $\nMathBeta$ ($\nMathK/\nMathN$; $95\%$ upper $\nMathBetaHi$) \\
 MATH-Hard $\beta$ & $\nHardJuneBeta$ ($\nHardJuneK/\nHardJuneN$) & $\nHardBeta$ ($\nHardK/\nHardN$) \\
-code $\beta$ & $\nCodeJuneBeta$ ($\nCodeJuneK/\nCodeJuneN$) & none verifiable ($\nCodeUniqK/\nCodeUniqN$ unique-output problems) \\
+code $\beta$ & $\nCodeJuneBeta$ ($\nCodeJuneK/\nCodeJuneN$) & $\nCodeBeta$ ($\nCodeK/\nCodeN$) \\
 free-response GPQA $\beta$ & $\nOpenOneBeta$ ($\nOpenOneK/\nOpenOneN$) & $\nOpenBeta$ ($\nOpenK/\nOpenN$) \\
 MATH-500 best single model & $\nMathJuneSB$ & $\nMathSB$ \\
 $\rho$ underprices frontier co-failure on math & $2.5\times$ & not supported (no genuine tail) \\

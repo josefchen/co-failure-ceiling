@@ -28,18 +28,37 @@ Measured on 67 models from 21 providers and audited question by question:
 | GPQA-Diamond (MC) | 0.846 | 1.000 | 0 → 0 | 0.281 |
 | MMLU-Pro | 0.960 | 0.992 | 1 → 1 | 0.136 |
 
-Not one mathematics or science question defeats every model. The best single model already scores 0.988 on MATH-500
+Not one mathematics, science or competition-code question defeats every model. The best single model already scores 0.988 on MATH-500
 and 0.993 on MATH-Hard. The headroom that remains is out of reach: on the 15-model pools every learned router scores
 below the single best model on held-out queries, an LLM router just picks that model, and majority voting loses to its own
 best member in 75–93% of three-model ensembles.
 
 **Correction notice.** The first release (June 2026) reported a co-failure tail on mathematics and code that pairwise ρ
 underpriced about 2.5×. That tail was manufactured by our own evaluation: of 58 all-wrong events (52
-distinct questions), 39 were grader defects (reference answers such as "x=5" or "864 \mbox{ inches}^2" that no
-response could match), and the rest were wrong or ambiguous references, multi-answer code problems and truncation; the
+distinct questions), 44 were grader defects (reference answers such as "x=5" or "864 \mbox{ inches}^2" that no
+response could match), and the rest were wrong or ambiguous references, code outputs exact-match grading rejected, and truncation; the
 3 that survive sit on 2 ambiguous MMLU-Pro questions asked for a direct answer. The spurious tail
 carried the underpricing signature the theory predicts for a common-mode atom, and is now reported as a finding. Full
 details: [DATA_AUDIT.md](DATA_AUDIT.md).
+
+## Certify your own model pool in one line
+
+Grade your models on a held-out set, save a CSV with one row per question and one column per model (1 = correct, 0 = wrong),
+and run:
+
+```bash
+python3 harness/beta_certificate.py --csv my_grades.csv --overhead 0.02
+```
+
+It prints the ceiling 1 − β, the single-best accuracy and the certified upper bound on what any router, vote or cascade over
+that pool can gain (95% confidence, Bonferroni-corrected for picking the best model in-sample). No API calls, no training.
+
+## Benchmark errata
+
+[`audit/benchmark_errata.md`](audit/benchmark_errata.md) lists the MATH-500, MATH-Hard, MMLU-Pro, MMLU, GSM8K and ARC questions
+our audit found with wrong or ambiguous reference answers, and the MATH-500 / MATH-Hard questions a naive grader marks
+all-wrong: references written like "x=5", "10,\!080" or "864 \mbox{ inches}^2", or answers with nested braces. If you evaluate on
+these benchmarks, check your grader against that list.
 
 ## Reproduce every number
 
@@ -73,4 +92,13 @@ Code: MIT. Data and paper text: CC BY 4.0. See [LICENSE](LICENSE).
 
 ## Citation
 
-See [CITATION.cff](CITATION.cff).
+```bibtex
+@article{chen2026cofailure,
+  title   = {Combining {LLMs} Rarely Beats the Single Best Model: A Provable Co-Failure Ceiling Across 67 Frontier Models},
+  author  = {Chen, Josef},
+  journal = {arXiv preprint arXiv:2606.27288},
+  year    = {2026}
+}
+```
+
+See also [CITATION.cff](CITATION.cff).
