@@ -44,24 +44,23 @@
 \maketitle
 
 \begin{abstract}
-Routing, voting, cascades and mixture-of-agents promise accuracy beyond any single model. We prove they
-cannot deliver it past a hard ceiling, and we measure that ceiling on 67 models. For any policy that returns one member's
-answer (a router, a vote, a cascade), accuracy is capped at $1-\beta$, where $\beta$ is the rate at
-which every model is wrong on the same query. The field reads pairwise error correlation $\rho$ instead; we prove
-that $\rho$ cannot identify $\beta$: identical pairwise error laws can differ in
-$\beta$, and a model calibrated to $\rho$ underprices any common-mode failure by a factor that grows with the pool. A
-Clopper--Pearson bound on $\beta$ turns one graded query set into a \$0 certificate on the largest gain any such policy
-can deliver, before a router is built. We measure $\beta$ across $\nMathM$ models from $21$ providers, from GPT-5.5,
-Claude Opus 4.8, Gemini 3.1 Pro and DeepSeek V4 down to small open-weight models, and
-audit every question they all miss. On MATH-500, MATH-Hard, AIME 2024--25 and GPQA-Diamond, not one question defeats
-every model ($\beta=0$; ${<}\,\nMathBetaHi$ on MATH-500 at $95\%$ confidence), and the best single model already scores
-$\nMathSB$ on MATH-500 and $\nHardSB$ on MATH-Hard. The headroom that remains is out of reach: on the 15-model pools every
-learned router scores below the single best model on held-out queries, an LLM router simply picks that model, and
-majority voting loses to its own best member in $\nBNegSatPct$--$\nBNegHardPct\%$ of three-model ensembles. Combining models rarely beats
-the single best model, not because models fail together, but because the best model is already at the ceiling or no router
-we could build knows when to leave it. The one co-failure tail we did find was manufactured by our own first-release grader:
-reference answers no response could match made every model fail at once, a common-mode atom that pairwise $\rho$ could not
-see and the all-wrong audit exposed. This version corrects that release (App.~\ref{app:audit}).
+Multi-model LLM systems, including routing, voting, cascades, fusion, and mixture-of-agents (MoA), are increasingly
+used to push accuracy beyond any single model. We show that the achievable gain has a ceiling, fixed by a quantity
+other than the one the field usually reports. For any policy whose output is one of the member models' answers, such
+as a router, a majority vote, or a cascade, accuracy cannot exceed $1-\beta$, where $\beta$ is the rate at which
+every model is wrong on the same query. Practice instead reports the average pairwise error correlation $\rho$, and
+we prove that $\rho$ cannot identify $\beta$: error laws with identical marginals and identical pairwise correlations
+can still differ in $\beta$. A Clopper--Pearson bound on $\beta$ turns one graded, held-out query set into a \$0
+certificate on the largest gain any such policy could deliver, before a router is trained. Across $\nMathM$ frontier
+models from $21$ providers, among them GPT-5.5, Claude Opus 4.8, Gemini 3.1 Pro, Grok-4.3, DeepSeek V4,
+Qwen3.7-Max, and Kimi K2.7, not a single MATH-500, MATH-Hard, AIME or GPQA-Diamond question defeats every model
+($\beta=0$; below $\nMathBetaHi$ on MATH-500 at $95\%$ confidence), and the best single model already reaches $\nMathSB$ on MATH-500.
+The MATH-500 tail of our first release was a grading artifact, yet a correctly (tetrachoric)
+calibrated single-factor model underprices it $\nArtRatioTet$-fold, by a margin that widens with the size of the pool: the
+blind spot the theory predicts. Majority voting loses to its own best member
+in $\nBNegSatPct$--$\nBNegHardPct\%$ of ensembles. Re-asking the same GPQA-Diamond questions in free-response form
+opens no tail either ($\beta=0$; a five-judge LLM panel, $\kappa$ from $\nKappaLo$ to $\nKappaHi$). On our pool, and on tasks where answers can be checked, combining models rarely
+beats the single best model: every learned router we train scores below it on held-out queries.
 \end{abstract}
 
 \section{Introduction}
