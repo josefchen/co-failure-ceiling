@@ -1,0 +1,46 @@
+[
+ {
+  "id": "gsm8k:119",
+  "question": "Solve the problem. Show brief reasoning, then write the final answer after '####'.\n\nAdrien's total salary was 30 percent higher than Lylah's. Four years later, his salary had increased, and he was earning 40% more than what he was making four years ago. If Adrien's and Lylah's salary increased simultaneously, and Adrien earned $40000 four years ago, calculate the total salary the two were receiving four years later?"
+ },
+ {
+  "id": "mmlu:7",
+  "question": "Question: Statement 1 | A ring homomorphism is one to one if and only if the kernel is {0}. Statement 2 | Q is an ideal in R.\nA. True, True\nB. False, False\nC. True, False\nD. False, True\nAnswer with the single letter (A, B, C, or D) only."
+ },
+ {
+  "id": "mmlu:24",
+  "question": "Question: Statement 1 | Every maximal ideal is a prime ideal. Statement 2 | If I is a maximal ideal of a commutative ring R, then R/I is field.\nA. True, True\nB. False, False\nC. True, False\nD. False, True\nAnswer with the single letter (A, B, C, or D) only."
+ },
+ {
+  "id": "mmlu:34",
+  "question": "Question: Statement 1 | If T: V -> W is a linear transformation and dim(V ) < dim(W) < 1, then T must be injective. Statement 2 | Let dim(V) = n and suppose that T: V -> V is linear. If T is injective, then it is a bijection.\nA. True, True\nB. False, False\nC. True, False\nD. False, True\nAnswer with the single letter (A, B, C, or D) only."
+ },
+ {
+  "id": "mmlu:62",
+  "question": "Question: Statement 1 | Every quotient ring of every commutative ring is again a commutative ring. Statement 2 | An ideal N in a ring R with unity 1 is all of R if and only if 1 in N.\nA. True, True\nB. False, False\nC. True, False\nD. False, True\nAnswer with the single letter (A, B, C, or D) only."
+ },
+ {
+  "id": "arc:54",
+  "question": "Question: Images from the Voyager and the Galileo spacecraft provide evidence Europa has a liquid ocean under a surface of ice that results in part from distinctive, surface-cracking patterns produced by which events?\nA. volcanic eruptions\nB. tectonic movements\nC. asteroid impacts\nD. solar flares\nAnswer with the single letter (A, B, C, or D) only."
+ },
+ {
+  "id": "mmlupro:11",
+  "question": "Question: The six dimensions usually considered to constitute the external marketing environment include all of the following except:\nA. Political considerations.\nB. Weather conditions\nC. Personal preferences of the marketing team\nD. Economics issues.\nE. Technology trends\nF. Socio-cultural aspects.\nG. Global factors.\nH. Competitive landscape\nI. Industry regulations\nJ. Environmental concerns\nAnswer with the single letter only."
+ },
+ {
+  "id": "mmlupro:13",
+  "question": "Question: As what is ensuring that one individual does not carry the burden of a whole work task referred to?\nA. Work delegation\nB. Workload balancing\nC. Work distribution\nD. Work specialisation\nE. Work rotation\nF. Work redundancy\nG. Work shift\nH. Work division\nI. Work schedule\nJ. Work design\nAnswer with the single letter only."
+ },
+ {
+  "id": "mmlupro:55",
+  "question": "Question:  The ________ perspective on sustainability resulted from growth models that analysed the carrying capacity of the planet, overall concluding that the finite capacity of the earth and_______, ________ and _______ by current and past generations could reduce quality of life for future generations. This contrasts with the environmental perspective with focuses on the need to maintain and preserve the natural environment.\nA. Environmental, Overuse of resources, Underpopulation, Sustainable practices\nB. Environmental, Underuse of resources, Overpopulation, Over pollution\nC. Sociopolitical, Underuse of resources, Overpopulation, Unsustainability\nD. Economic, Balanced use of resources, Stable population, Sustainable practices\nE. Environmental, Overuse of resources, Underpopulation, Unsustainability\nF. Sociopolitical, Overuse of resources, Overpopulation, Over pollution\nG. Economic, Overuse of resources, Overpopulation, Over pollution,\nH. Economic, Overuse of resources, Stable population, Over pollution\nI. Environmental, Balanced use of resources, Overpopulation, Unsustainability\nJ. Economic, Underuse of resources, Underpopulation, Unsustainability\nAnswer with the single letter only."
+ },
+ {
+  "id": "mmlupro:170",
+  "question": "Question: On January 1, 1964, Stead and Company purchased a delivery truck for $4,000. It is estimated that the truck will have a useful life of four years, and that at the end of that time it will have a salvage value (resale value) of $400. It is expected that the truck will be used for 72,000 miles. Find the depreciation per year, if the truck was used for 20,000 miles during the first year, 25,000 miles during the second year, 18,000 miles during the third year and 9,000 miles during the fourth year. Use the units of production method for determining depreciation.\nA. $1,500.00\nB. $1,000.00\nC. $2,000.00\nD. $1,200.00\nE. $2,500.00\nF. $2,400.00\nG. $1,800.00\nH. $3,600.00\nI. $2,800.00\nJ. $4,000.00\nAnswer with the single letter only."
+ },
+ {
+  "id": "mathhard:140",
+  "question": "Solve the problem. Show brief reasoning, then give the final answer in \\boxed{}.\n\nThe sum of a 15-term arithmetic series with first term 7  is $-210$.  What is the common difference?"
+ }
+]

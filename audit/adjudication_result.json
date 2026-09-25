@@ -1,0 +1,123 @@
+[
+ {
+  "qid": "gsm8k:119",
+  "reference": "95200",
+  "A": "99076.92",
+  "A_well_posed": false,
+  "B": "99076.92",
+  "B_well_posed": false,
+  "class": "ambiguous item",
+  "A_notes": "Adrien then = 40000, now = 1.4*40000 = 56000. 'Adrien 30% higher than Lylah' means Lylah = 40000/1.3 = 30769.23; if both salaries rise by the same 40% (as 'increased simultaneously' suggests), Lylah now = 43076.92, so the total is 99076.92. The problem never states Lylah's raise, and the answer isn't a round number; the clean answer 95200 only comes from misreading the 30% as Lylah = 70% of Adrien (28000 -> 39200).",
+  "B_notes": "Lylah = 40000/1.3 = 30769.23; both rise 40%: Adrien 56000 + Lylah 43076.92 = 99076.92. The answer isn't a whole number, and the popular misreading (Lylah = 0.7*40000 = 28000) gives 95200. It is also unclear whether Lylah's raise is 40%."
+ },
+ {
+  "qid": "mmlu:7",
+  "reference": "D",
+  "A": "C",
+  "A_well_posed": true,
+  "B": "C",
+  "B_well_posed": true,
+  "class": "reference error",
+  "A_notes": "S1 true: a ring homomorphism is also an additive group homomorphism, so it is injective iff its kernel is {0}. S2 false: Q is not closed under multiplication by reals (sqrt(2)*1 is not in Q), so it is not an ideal of R.",
+  "B_notes": "Injective iff trivial kernel is true for ring homomorphisms. Q is not an ideal of R: 1 is in Q, but sqrt(2)*1 is not."
+ },
+ {
+  "qid": "mmlu:24",
+  "reference": "B",
+  "A": "A",
+  "A_well_posed": false,
+  "B": "A",
+  "B_well_posed": false,
+  "class": "ambiguous item",
+  "A_notes": "If rings are assumed commutative with unity, both statements are true (A). If unity is not assumed (Fraleigh's convention), both are false: in 2Z the ideal 4Z is maximal but not prime, and 2Z/4Z is not a field. That makes B defensible too.",
+  "B_notes": "Assuming commutative rings with unity, both statements are true (A). Without unity or commutativity, Statement 1 fails, e.g. 4Z is maximal but not prime in 2Z, which gives D. If unity is not assumed, Statement 2 also fails (2Z/4Z is not a field), which gives B."
+ },
+ {
+  "qid": "mmlu:34",
+  "reference": "A",
+  "A": "A",
+  "A_well_posed": false,
+  "B": "D",
+  "B_well_posed": false,
+  "class": "genuine co-failure",
+  "A_notes": "As written, dim(W) < 1 forces dim W = 0, and then dim V < 0 is impossible, so S1 is vacuously true. S2 is true by rank-nullity, giving A. The '< 1' is probably a garbled '< infinity'; read that way, S1 is false (the zero map is a counterexample) and the answer would be D.",
+  "B_notes": "Statement 2 is true: an injective operator on a finite-dimensional space is bijective. Read literally, 'dim V < dim W < 1' can never hold, so Statement 1 is vacuously true (A). The likely intent was '< infinity', where the zero map is a counterexample, making Statement 1 false (D)."
+ },
+ {
+  "qid": "mmlu:62",
+  "reference": "C",
+  "A": "A",
+  "A_well_posed": true,
+  "B": "A",
+  "B_well_posed": true,
+  "class": "reference error",
+  "A_notes": "S1 true: a quotient of a commutative ring inherits commutativity, since (a+I)(b+I) = ab+I = ba+I. S2 true: if 1 is in N then r = r*1 is in N for every r, and the converse is immediate.",
+  "B_notes": "A quotient of a commutative ring is commutative. An ideal contains 1 iff it is all of R: 1 in N gives r = r*1 in N for every r."
+ },
+ {
+  "qid": "arc:54",
+  "reference": "C",
+  "A": "B",
+  "A_well_posed": true,
+  "B": "B",
+  "B_well_posed": true,
+  "class": "reference error",
+  "A_notes": "Europa's cracks and ridges come from tidal flexing and ice-shell tectonics over a subsurface ocean, which fits 'tectonic movements'. Volcanic eruptions, asteroid impacts and solar flares do not produce these patterns.",
+  "B_notes": "Europa's cracks and lineae come from tidal flexing and tectonic-style movement of the ice shell, not from volcanism, impacts or solar flares."
+ },
+ {
+  "qid": "mmlupro:11",
+  "reference": "G",
+  "A": "G",
+  "A_well_posed": false,
+  "B": "C",
+  "B_well_posed": false,
+  "class": "genuine co-failure",
+  "A_notes": "The six standard dimensions (PESTLE) match A, D, E, F, I (legal/regulation) and J exactly, which leaves four exceptions: B (weather), C (the marketing team's preferences, which is internal), G (global factors) and H (competition, part of the micro-environment). G is the likely intended answer of the original item, but B, C and H are equally defensible.",
+  "B_notes": "No single standard 'six dimensions' list exists: PESTLE, and Pride & Ferrell's list with competitive and regulatory forces, both qualify. Several options fall outside any of them: B (weather), C (the marketing team's preferences), G (global factors) and, depending on the text, H or I. C is the only one that is clearly internal. G is plausible if the intended list is PESTLE."
+ },
+ {
+  "qid": "mmlupro:13",
+  "reference": "D",
+  "A": "D",
+  "A_well_posed": false,
+  "B": "D",
+  "B_well_posed": false,
+  "class": "genuine co-failure",
+  "A_notes": "The standard textbook definition (e.g. Robbins) says work specialisation means a whole job is not done by one individual but split into steps, which points to D. However, H (work division, i.e. division of labour) is nearly a synonym, and B (workload balancing) and C (work distribution) also fit the wording in everyday usage.",
+  "B_notes": "Work specialisation, also called division of labour, splits a task so no one person does all of it (textbook definition). H (work division), B (workload balancing) and C (work distribution) are close synonyms and also defensible."
+ },
+ {
+  "qid": "mmlupro:55",
+  "reference": "B",
+  "A": "G",
+  "A_well_posed": true,
+  "B": "G",
+  "B_well_posed": true,
+  "class": "reference error",
+  "A_notes": "Growth models of the planet's carrying capacity (Limits to Growth) are the economic perspective, and the passage itself rules out environmental. The three drivers are overuse of resources, overpopulation and over pollution. The only competitor is F (Sociopolitical with the same three drivers), which depends on which textbook's taxonomy is used.",
+  "B_notes": "The economic perspective grew out of limits-to-growth carrying-capacity models: overuse of resources, overpopulation and over-pollution. It contrasts with the environmental perspective. F uses the wrong perspective label."
+ },
+ {
+  "qid": "mmlupro:170",
+  "reference": "H",
+  "A": "B",
+  "A_well_posed": false,
+  "B": "B",
+  "B_well_posed": false,
+  "class": "ambiguous item",
+  "A_notes": "Rate = (4000-400)/72000 = $0.05 per mile, so the four years give $1000, $1250, $900 and $450. The question asks for 'depreciation per year' but has a single-answer format and names no year. Only year 1 ($1000, B) appears among the options; H ($3600) is the total over all four years, not a yearly figure.",
+  "B_notes": "The rate is (4000-400)/72000 = $0.05 per mile, so yearly depreciation is 1000, 1250, 900 and 450. It differs each year, so 'the depreciation per year' has no single value. B matches only year 1, and H ($3,600) is the four-year total."
+ },
+ {
+  "qid": "mathhard:140",
+  "reference": "3",
+  "A": "-3",
+  "A_well_posed": true,
+  "B": "-3",
+  "B_well_posed": true,
+  "class": "reference error",
+  "A_notes": "S = (15/2)(2*7 + 14d) = 105(1+d) = -210 gives 1+d = -2, so d = -3.",
+  "B_notes": "S = 15/2*(14 + 14d) = 105 + 105d = -210, so d = -3."
+ }
+]

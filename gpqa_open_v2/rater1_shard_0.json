@@ -1,0 +1,200 @@
+[
+ {
+  "qid": "gpqaopen:0",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "'Which option could be their energy difference' asks for any value above the lifetime-broadening threshold (hbar/tau ~ 10^-7 to 10^-6 eV); 10^-4 eV is just one admissible value, and asking for the minimum resolvable difference would give ~10^-6 eV, not the gold."
+ },
+ {
+  "qid": "gpqaopen:4",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained spin-1/2 eigenvector problem; with theta the standard polar angle of n from z, the normalized +hbar/2 eigenvector is uniquely (cos(theta/2), sin(theta/2)) up to a global phase."
+ },
+ {
+  "qid": "gpqaopen:8",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The four candidate molecules are listed in the stem itself, so 'which of the following' is answerable without the options; the triphenylene tris-anhydride is the intended unique C3h molecule. (Any argument that flexible triisopropyl borate can adopt a C3h conformer is inherent to the original item, not created by the conversion.)"
+ },
+ {
+  "qid": "gpqaopen:12",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The stem itself says product 4 is a mixture of isomers and the correct answer is 'one of them'; the trans-methoxy ester from the other epoxide diastereomer (e.g. 1R,2R,4R) is equally valid, and dropping stereochemistry would change the quantity the gold names."
+ },
+ {
+  "qid": "gpqaopen:16",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained equilibrium calculation: [Ca2+] = sqrt(0.02/5e10) ~ 6.3e-7 M, a unique numeric answer."
+ },
+ {
+  "qid": "gpqaopen:20",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The gold has two parts, but part B (which of methyl 2-hydroxypropanoate / dimethyl fumarate shows optical isomerism) was cut off with the options; its candidate compounds appear only in option text, so asking for B would require adding option content."
+ },
+ {
+  "qid": "gpqaopen:24",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Stem is self-contained but the reactants are not unique: 2,8-dimethylspiro[4.5]decan-6-one is also obtained by pinacol rearrangement of 3,3'-dimethyl-[1,1'-bi(cyclopentane)]-1,1'-diol, and the homoallylic alcohol B could equally come from [2,3]-Wittig rearrangement of benzyl 1,1-dimethylallyl ether."
+ },
+ {
+  "qid": "gpqaopen:28",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The four mutant sequences are shown in the stem; only Mutant 2 creates an early premature stop codon (TAA) in exon 1 (Mutants 3 and 4 are in-frame indels, Mutant 1 missense), so the answer is unique."
+ },
+ {
+  "qid": "gpqaopen:32",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained; the exo [4+2] adduct of 2,5-dimethylthiophene and maleic anhydride (sulfur-bridged 4,7-epithioisobenzofuran-1,3-dione) is a single, uniquely defined compound."
+ },
+ {
+  "qid": "gpqaopen:36",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained sequence (dithiolane alkylation, hydrolysis to 3-pentanone, Wittig with the 3-pentylidene ylide) gives 3,4-diethylhex-3-ene with 3 13C signals; unique numeric answer."
+ },
+ {
+  "qid": "gpqaopen:40",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained; relativistic addition of 1/n and v gives (1+nv)/(n+v), a unique expression."
+ },
+ {
+  "qid": "gpqaopen:44",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained; filling levels with two spin states each gives ground, first and second excited energies of 10E, 15E and 18E uniquely."
+ },
+ {
+  "qid": "gpqaopen:48",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Stem is self-contained, but for reaction A (amide acetal + but-3-en-2-ol, H+/heat) an expert would give the [3,3] Claisen-type product (hex-4-enamide) or the 1-(but-3-en-2-yloxy)ethenamine intermediate, not the gold's (Z)-1-(but-2-en-2-yloxy)ethen-1-amine, which is reachable only by elimination among options."
+ },
+ {
+  "qid": "gpqaopen:52",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The four candidate formulas are listed in the stem; a disubstituted benzene bearing an ester, a propenyl group and two CH3 groups (no CH2) is C11H12O2 uniquely."
+ },
+ {
+  "qid": "gpqaopen:56",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Self-contained, but the gold 251.271 fm follows only from non-relativistic momentum p = sqrt(2mE) for 50 MeV electrons; a competent expert using relativistic kinematics (p ~ 50.5 MeV/c) gets ~35.6 fm, so the gold is not the answer an expert would reach."
+ },
+ {
+  "qid": "gpqaopen:60",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "There is no question sentence, and the final product is not unique in free response: heating an aryldiazonium tetrafluoroborate is Balz-Schiemann (3-bromofluorobenzene), and aryl-cation/radical arylation of anisole gives ortho/para mixtures, so the para biaryl gold is one of several defensible answers."
+ },
+ {
+  "qid": "gpqaopen:64",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "'Select a suitable mechanism' refers to reasoning, not options; anionic oxy-Cope then H+ (A) and an LDA ester-enolate Claisen with no acid workup (B, lithium carboxylate, as the stem's acid/base hint signals) give unique products."
+ },
+ {
+  "qid": "gpqaopen:68",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Self-contained, but the data give a mean decay length beta*gamma*c*tau0 ~ 1.885 um and a required resolution of -lambda*ln(0.3) ~ 2.27 um, not the gold 2.08 um (the MC options differ only by orders of magnitude), so an expert's free answer would not match the gold."
+ },
+ {
+  "qid": "gpqaopen:72",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained; relativistic velocity subtraction gives 0.1/0.7 ~ 0.14c and total energy 2.5 + 3.46 ~ 5.96 mc^2, both unique."
+ },
+ {
+  "qid": "gpqaopen:76",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "'Select' refers to options, and even rephrased, product A is not unique: benzyl prenyl ether with BuLi can undergo [2,3]-Wittig (2,2-dimethyl-1-phenylbut-3-en-1-ol) as well as the gold's [1,2]-Wittig; the polycyclic B name is also effectively identifiable only against the options."
+ },
+ {
+  "qid": "gpqaopen:80",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Reagent-route selection where many synthetic sequences are valid; in addition, the options and gold are truncated to '1. Zn, ether', so there is no complete gold answer."
+ },
+ {
+  "qid": "gpqaopen:84",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: K proportional to Mp/sqrt(a) gives sqrt(a2/a1) = 0.75*5/7 ~ 0.536 = Teq1/Teq2, a unique numeric answer."
+ },
+ {
+  "qid": "gpqaopen:88",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained; the intended sequence (fragmentation to 7-methylenebicyclo[3.3.1]nonan-3-one, MPV reduction, ozonolysis) makes the carbinol CH the most deshielded non-exchangeable H, a triplet of triplets; single-term answer."
+ },
+ {
+  "qid": "gpqaopen:92",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "'Which of the following explains' is a statement-selection item; without options several observations are defensible (Ct rising with concentration, replicate spread of 0.6 cycles exceeding 0.3), so there is no unique free answer."
+ },
+ {
+  "qid": "gpqaopen:96",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained; the unique mechanism is inactivation of the extra X chromosome, whose molecular basis is the gold's post-zygotic chromatin (histone) methylation."
+ },
+ {
+  "qid": "gpqaopen:100",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "'Select the suitable reagent' refers to options, and the gold names a catalyst B the stem never mentions; many acids (TsOH, AcOH, CSA) catalyze enamine formation, so B has no unique free answer."
+ },
+ {
+  "qid": "gpqaopen:104",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: amplitude 0.2*(1-(5000/6000)^4) ~ 0.1035, so Rpl/Rstar = sqrt(0.1035) ~ 0.32; unique."
+ },
+ {
+  "qid": "gpqaopen:108",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "'Which of the following partial waves is not permitted' picks one forbidden transition among unseen options; infinitely many partial waves are forbidden, so no rewrite gives a unique answer."
+ },
+ {
+  "qid": "gpqaopen:112",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Candidate formulas are listed in the stem; a carboxylic acid (broad 3000, 1700, m/z 45) with a C=C (1650, vinyl H) is C6H10O2 uniquely."
+ },
+ {
+  "qid": "gpqaopen:116",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The four compounds are listed in the stem; only the atropisomeric tetra-ortho-substituted biphenyl (1) and methyl lactate (2) are chiral, so '1 and 2' is unique."
+ },
+ {
+  "qid": "gpqaopen:120",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained with the regio- and stereochemical rules given; cuprate attack at the less hindered epoxide carbon with inversion yields a single stereodefined product."
+ },
+ {
+  "qid": "gpqaopen:124",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: third excited state E = (3 + 3/2) hbar omega = 9/2 hbar omega with degeneracy (n+1)(n+2)/2 = 10; unique."
+ },
+ {
+  "qid": "gpqaopen:128",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: hint a) fixes A as 3,4-dimethylcyclopentan-1-one; cyanohydrin, reduction and Tiffeneau-Demjanov ring expansion give 3,4-dimethylcyclohexan-1-one uniquely (consistent with IR 1715)."
+ }
+]

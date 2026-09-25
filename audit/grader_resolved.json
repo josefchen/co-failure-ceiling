@@ -1,0 +1,411 @@
+[
+ {
+  "matrix": "matrix_hardAv3_final.json",
+  "qid": "mmlupro:59",
+  "reference": "I",
+  "answers_marked_correct": {
+   "I": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:106",
+  "reference": "\\frac43",
+  "answers_marked_correct": {
+   "\\frac{4}{3}": 47,
+   "\\dfrac{4}{3}": 15,
+   "4/3": 2,
+   "y=\\dfrac{4}{3}": 1,
+   "y = \\frac{4}{3}": 1,
+   "y=\\frac{4}{3}": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:146",
+  "reference": "\\frac{\\sqrt{3}}{3}",
+  "answers_marked_correct": {
+   "\\frac{\\sqrt{3}}{3}": 47,
+   "\\dfrac{\\sqrt{3}}{3}": 11,
+   "\\dfrac{\\sqrt3}{3}": 4,
+   "\\frac{\\sqrt3}{3}": 2
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:166",
+  "reference": "\\frac{270}7\\text{ degrees}",
+  "answers_marked_correct": {
+   "\\frac{270}{7}": 36,
+   "\\dfrac{270}{7}": 11,
+   "270/7": 3,
+   "\\tfrac{270}{7}": 1,
+   "\\frac{270}{7}^\\circ": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:181",
+  "reference": "\\frac{\\sqrt{3}}{3}",
+  "answers_marked_correct": {
+   "\\frac{\\sqrt{3}}{3}": 49,
+   "\\dfrac{\\sqrt{3}}{3}": 12,
+   "\\frac{\\sqrt3}{3}": 4,
+   "\\dfrac{\\sqrt3}{3}": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:198",
+  "reference": "10,\\!080",
+  "answers_marked_correct": {
+   "10080": 60,
+   "7! \\times 2!": 1,
+   "2 \\times 7!": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:217",
+  "reference": "11,\\! 111,\\! 111,\\! 100",
+  "answers_marked_correct": {
+   "11111111100": 53
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:228",
+  "reference": "288 \\pi",
+  "answers_marked_correct": {
+   "288\\pi": 54
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:23",
+  "reference": "x=5",
+  "answers_marked_correct": {
+   "5": 60,
+   "x = 5": 5
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:235",
+  "reference": "\\frac 59",
+  "answers_marked_correct": {
+   "\\frac{5}{9}": 53,
+   "\\dfrac{5}{9}": 11,
+   "5/9": 2,
+   "\\frac59": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:242",
+  "reference": "\\$32,\\!348",
+  "answers_marked_correct": {
+   "32348": 49,
+   "32,\\!348": 2,
+   "32,348": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:257",
+  "reference": "864 \\mbox{ inches}^2",
+  "answers_marked_correct": {
+   "864": 67
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:284",
+  "reference": "3 \\pm 2 \\sqrt{2}",
+  "answers_marked_correct": {
+   "3 + 2\\sqrt{2}, 3 - 2\\sqrt{2}": 4,
+   "3-2\\sqrt2,\\ 3+2\\sqrt2": 1,
+   "3+2\\sqrt{2},\\,3-2\\sqrt{2}": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:301",
+  "reference": "5.4 \\text{ cents}",
+  "answers_marked_correct": {
+   "5.4": 57,
+   "5.4\\text{ cents}": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:305",
+  "reference": "\\frac9{19}",
+  "answers_marked_correct": {
+   "\\frac{9}{19}": 51,
+   "\\dfrac{9}{19}": 12,
+   "9/19": 2,
+   "\\tfrac{9}{19}": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:73",
+  "reference": "\\frac{3\\sqrt{3}}{4}",
+  "answers_marked_correct": {
+   "\\frac{3\\sqrt{3}}{4}": 50,
+   "\\dfrac{3\\sqrt{3}}{4}": 9,
+   "\\frac{3\\sqrt3}{4}": 4,
+   "\\dfrac{3 \\sqrt{3}}{4}": 2,
+   "\\tfrac{3\\sqrt{3}}{4}": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketE3_final.json",
+  "qid": "math500:96",
+  "reference": "1 \\pm \\sqrt{19}",
+  "answers_marked_correct": {
+   "1 - \\sqrt{19}, 1 + \\sqrt{19}": 13,
+   "1-\\sqrt{19},\\ 1+\\sqrt{19}": 5,
+   "1 + \\sqrt{19}, 1 - \\sqrt{19}": 5,
+   "1-\\sqrt{19},\\,1+\\sqrt{19}": 3,
+   "1+\\sqrt{19}, 1-\\sqrt{19}": 3,
+   "1-\\sqrt{19}, 1+\\sqrt{19}": 3,
+   "1 - \\sqrt{19},\\ 1 + \\sqrt{19}": 3,
+   "1+\\sqrt{19},\\ 1-\\sqrt{19}": 2,
+   "1+\\sqrt{19},\\,1-\\sqrt{19}": 2,
+   "1+\\sqrt{19},1-\\sqrt{19}": 2,
+   "\\,1-\\sqrt{19},\\;1+\\sqrt{19}\\,": 2,
+   "1-\\sqrt{19},1+\\sqrt{19}": 1,
+   "1 + \\sqrt{19},\\ 1 - \\sqrt{19}": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:190",
+  "reference": "b=4",
+  "answers_marked_correct": {
+   "4": 60,
+   "b = 4": 2
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:208",
+  "reference": "(-\\infty, -14)\\cup(-3,\\infty)",
+  "answers_marked_correct": {
+   "(-\\infty, -14) \\cup (-3, \\infty)": 40,
+   "(-\\infty,-14)\\cup(-3,\\infty)": 10,
+   "(-\\infty,\\,-14)\\cup(-3,\\,\\infty)": 2,
+   "(-\\infty,\\,-14)\\,\\cup\\,(-3,\\,\\infty)": 2
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:211",
+  "reference": "\\$32,\\!348",
+  "answers_marked_correct": {
+   "32348": 49,
+   "32,\\!348": 2,
+   "32,348": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:213",
+  "reference": "1599 \\text{ dollars}",
+  "answers_marked_correct": {
+   "1599": 40
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:238",
+  "reference": "x = 3",
+  "answers_marked_correct": {
+   "3": 61
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:244",
+  "reference": "\\frac 43",
+  "answers_marked_correct": {
+   "\\frac{4}{3}": 44,
+   "\\dfrac{4}{3}": 11,
+   "4/3": 3,
+   "\\frac43": 2,
+   "\\tfrac{4}{3}": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:255",
+  "reference": "118 \\text{ dollars}",
+  "answers_marked_correct": {
+   "118": 63
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:256",
+  "reference": "(-\\infty,-8)\\cup (8,\\infty)",
+  "answers_marked_correct": {
+   "(-\\infty, -8) \\cup (8, \\infty)": 45,
+   "(-\\infty,-8)\\cup(8,\\infty)": 14,
+   "(-\\infty, -8)\\cup(8, \\infty)": 2,
+   "(-\\infty,-8) \\cup (8,\\infty)": 2,
+   "(-\\infty,-8)\\,\\cup\\,(8,\\infty)": 1,
+   "(-\\infty,\\,-8)\\,\\cup\\,(8,\\,\\infty)": 1,
+   "(-\\infty,\\ -8)\\ \\cup\\ (8,\\ \\infty)": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:29",
+  "reference": "(-\\infty,-2)\\cup (-2,3)\\cup (3,\\infty)",
+  "answers_marked_correct": {
+   "(-\\infty, -2) \\cup (-2, 3) \\cup (3, \\infty)": 50,
+   "(-\\infty,-2)\\cup(-2,3)\\cup(3,\\infty)": 13,
+   "(-\\infty,\\ -2)\\ \\cup\\ (-2,\\ 3)\\ \\cup\\ (3,\\ \\infty)": 1,
+   "(-\\infty,\\,-2)\\,\\cup\\,(-2,\\,3)\\,\\cup\\,(3,\\,\\infty)": 1,
+   "(-\\infty,-2)\\;\\cup\\;(-2,3)\\;\\cup\\;(3,\\infty)": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:37",
+  "reference": "-\\frac1{2x}",
+  "answers_marked_correct": {
+   "k(x) = -\\frac{1}{2x}": 16,
+   "-\\frac{1}{2x}": 15,
+   "-\\dfrac{1}{2x}": 6,
+   "k(x)=-\\frac{1}{2x}": 4,
+   "k(x) = -\\dfrac{1}{2x}": 4,
+   "k(x)=-\\frac1{2x}": 1,
+   "k(x)= -\\frac{1}{2x}": 1,
+   "k(x)=-\\dfrac{1}{2x}": 1
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:75",
+  "reference": "x=5",
+  "answers_marked_correct": {
+   "5": 60,
+   "x = 5": 5
+  }
+ },
+ {
+  "matrix": "matrix_marketMH_final.json",
+  "qid": "mathhard:95",
+  "reference": "(-\\infty,0)\\cup (0,\\infty)",
+  "answers_marked_correct": {
+   "(-\\infty, 0) \\cup (0, \\infty)": 37,
+   "(-\\infty,0)\\cup(0,\\infty)": 22,
+   "(-\\infty,0) \\cup (0,\\infty)": 2,
+   "(-\\infty,0)\\,\\cup\\,(0,\\infty)": 1
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:0",
+  "reference": "\\left( 3, \\frac{\\pi}{2} \\right)",
+  "answers_marked_correct": {
+   "\\left(3, \\frac{\\pi}{2}\\right)": 6,
+   "(3, \\frac{\\pi}{2})": 3,
+   "(3,\\tfrac{\\pi}{2})": 2,
+   "\\left(3,\\frac{\\pi}{2}\\right)": 2,
+   "\\left(3,\\dfrac{\\pi}{2}\\right)": 1,
+   "(3,\\frac{\\pi}{2})": 1
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:100",
+  "reference": "145^\\circ",
+  "answers_marked_correct": {
+   "145": 4
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:103",
+  "reference": "(3,4]",
+  "answers_marked_correct": {
+   "(3, 4]": 1
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:106",
+  "reference": "\\frac43",
+  "answers_marked_correct": {
+   "\\frac{4}{3}": 9,
+   "\\dfrac{4}{3}": 3,
+   "y=\\dfrac{4}{3}": 1,
+   "\\tfrac{4}{3}": 1,
+   "y = \\frac{4}{3}": 1
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:23",
+  "reference": "x=5",
+  "answers_marked_correct": {
+   "5": 13,
+   "x = 5": 2
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:25",
+  "reference": "1,-2",
+  "answers_marked_correct": {
+   "-2, 1": 3,
+   "-2,1": 2,
+   "-2,\\ 1": 1,
+   "$$-2, 1$$": 1
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:31",
+  "reference": "11\\sqrt2",
+  "answers_marked_correct": {
+   "11\\sqrt{2}": 15
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:43",
+  "reference": "70 \\sqrt{2}",
+  "answers_marked_correct": {
+   "70\\sqrt{2}": 2
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:73",
+  "reference": "\\frac{3\\sqrt{3}}{4}",
+  "answers_marked_correct": {
+   "\\frac{3\\sqrt{3}}{4}": 10,
+   "\\dfrac{3\\sqrt{3}}{4}": 2,
+   "\\frac{3\\sqrt3}{4}": 1,
+   "\\tfrac{3\\sqrt{3}}{4}": 1,
+   "\\dfrac{3 \\sqrt{3}}{4}": 1
+  }
+ },
+ {
+  "matrix": "matrix_stageA2v3_final.json",
+  "qid": "math500:96",
+  "reference": "1 \\pm \\sqrt{19}",
+  "answers_marked_correct": {
+   "1+\\sqrt{19},\\ 1-\\sqrt{19}": 1,
+   "1-\\sqrt{19},\\,1+\\sqrt{19}": 1,
+   "1-\\sqrt{19}, 1+\\sqrt{19}": 1,
+   "1+\\sqrt{19}, 1-\\sqrt{19}": 1,
+   "1 + \\sqrt{19},1 - \\sqrt{19}": 1
+  }
+ }
+]

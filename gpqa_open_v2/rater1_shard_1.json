@@ -1,0 +1,200 @@
+[
+ {
+  "qid": "gpqaopen:1",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained multistep synthesis asking for a carbon count; the sequence (Grignard addition, oxidation, sulfoxonium-ylide cyclopropanation) gives a unique count of 11. The '3 was treated' typo is readily read as product 2."
+ },
+ {
+  "qid": "gpqaopen:5",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: the potential separates into anisotropic Cartesian oscillators (2kx^2 + ky^2/2), giving the unique spectrum (2n_x + n_y + 3/2)hbar*sqrt(k/m)."
+ },
+ {
+  "qid": "gpqaopen:9",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The candidate planets a-d are listed in the stem, so the question is self-contained; the 5-Earth-mass Earth-composition planet (c) is uniquely densest due to compression."
+ },
+ {
+  "qid": "gpqaopen:13",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "No option reference; the stem describes the PFA-only 'phantom peak' phenomenon whose standard answer is active promoters/enhancers (hyper-ChIPable open regions). Mild judgement element but a single expected answer."
+ },
+ {
+  "qid": "gpqaopen:17",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Self-contained, but with standard bracket notation [Si/H]_1 = +0.3 and [Si/H]_2 = -0.3, giving a ratio of 10^0.6 ~ 4; the gold ~12.6 requires a nonstandard reading (combining brackets with solar Fe and Mg values), so the gold is not the unique answer a competent expert would reach."
+ },
+ {
+  "qid": "gpqaopen:21",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The answer space (weaker/stronger, faster/slower) is defined in the stem itself, so no unseen options are referenced; the gold combination is the intended unique answer."
+ },
+ {
+  "qid": "gpqaopen:25",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The stem omits the reaction and the list of dienes to be ranked; the gold's reactant identity and B ordering cannot be asked for without adding option/missing content."
+ },
+ {
+  "qid": "gpqaopen:29",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Emission at 2.3393 eV is ~530 nm (green); a complementary-colour argument gives red while a Stokes-shift argument (absorption at higher energy) gives blue/violet, so the gold is not a unique free-response answer."
+ },
+ {
+  "qid": "gpqaopen:33",
+  "label": "REWRITE",
+  "rewritten_stem": "\"1,2-Rearrangement reaction in which vicinal diols are allowed to react with acid is called Pinacol Pinacolone rearrangement reaction. This reaction proceeds through the formation of carbocation that cause the shifting of one of the groups.\nFor the compounds given below, what are the major products A, B, and C of the Pinacol rearrangement?\n3-methyl-4-phenylhexane-3,4-diol + H+ ---> A\n3-(4-hydroxyphenyl)-2-phenylpentane-2,3-diol + H+ ---> B\n1,1,2-tris(4-methoxyphenyl)-2-phenylethane-1,2-diol + H+ ---> C",
+  "rationale": "The 'which are the possible products' phrasing selects among unseen options; asking for the major products A, B and C is self-contained, and carbocation stability plus migratory aptitude give the gold products uniquely."
+ },
+ {
+  "qid": "gpqaopen:37",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The stem omits the actual reaction (substrate and reagent A), and the gold also specifies a particular reagent-sequence formatting; no rewrite can recover it without adding option content."
+ },
+ {
+  "qid": "gpqaopen:41",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained numeric problem: T_eq ~ a^-1/2 gives a3/a1 = (1.4*2.3)^2 and P ~ a^3/2 gives ~33.4 uniquely."
+ },
+ {
+  "qid": "gpqaopen:45",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: self-metathesis of the racemate gives E and Z isomers of (R,R), (S,S) and meso 3,6-dimethyloct-4-ene, i.e. 6 stereoisomeric products."
+ },
+ {
+  "qid": "gpqaopen:49",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: each loop contributes a factor 1/(4pi)^2, so 1/(4pi)^6 implies 3 loops uniquely."
+ },
+ {
+  "qid": "gpqaopen:53",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Starting-material selection: besides the terminal octa-1,7-diene, internal-alkene dienes (e.g. extended deca-2,8-diene analogues losing butene) are also valid RCM precursors, so the gold is one of several correct answers."
+ },
+ {
+  "qid": "gpqaopen:57",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "'Which of the following theories' selects among unseen options; as a free-response question many UV-finite theories (e.g. N=4 SYM, topological theories) would also qualify, so the gold is not unique."
+ },
+ {
+  "qid": "gpqaopen:61",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Reagent-route selection with multiple valid sequences; moreover the options and gold are truncated to step 1 only (and gold duplicates another option), so no self-contained question has this answer."
+ },
+ {
+  "qid": "gpqaopen:65",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The four candidate symmetries are listed in the stem, so the question is self-contained; Lorentz, Poincare and CPT (not CP) must hold, giving 1,2,4 uniquely."
+ },
+ {
+  "qid": "gpqaopen:69",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained identification puzzle; the clues determine the compounds and hence a unique point group for E, with no reference to options."
+ },
+ {
+  "qid": "gpqaopen:73",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: exponential (memoryless) decay gives 1 - 0.68^1.5 ~ 44% uniquely."
+ },
+ {
+  "qid": "gpqaopen:77",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained derivation request; the unique answer is the Lienard-Wiechert potentials in the stated notation, matching the gold."
+ },
+ {
+  "qid": "gpqaopen:81",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained multistep sequence asking for the major isomer's structure; the Diels-Alder selectivities fix a unique stereoisomer, which the gold names."
+ },
+ {
+  "qid": "gpqaopen:85",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The ester group of the half-ester (isobutyl) cannot be derived from the stem; any alkyl ester would work, so asking for A and B without importing option content has no unique answer."
+ },
+ {
+  "qid": "gpqaopen:89",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: intramolecular aldol, Grignard addition, PCC oxidation and oxidative ozonolysis (O3/H2O) give 3,4-dimethyl-5,6-dioxooctanoic acid uniquely."
+ },
+ {
+  "qid": "gpqaopen:93",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Starting-material/route selection: the target can be made by several routes, and even for the IMDA precursor the specific alkene geometry in the gold is not fixed by the unstereodefined target, so the gold is not unique."
+ },
+ {
+  "qid": "gpqaopen:97",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Starting-material selection: besides ring-opening cross-metathesis of bicyclo[3.2.0]hept-6-ene, cross-metathesis of 1,2-divinylcyclopentane with propene also gives the product, so the gold is one of several valid answers."
+ },
+ {
+  "qid": "gpqaopen:101",
+  "label": "REWRITE",
+  "rewritten_stem": "You identified a new ligand-receptor pair initially expressed in the neural crest cells and want to understand the developmental fate of their interaction. The receptor is a monomeric transmembrane barrel with eight alpha helices, four extracellular helices, and three beta sheets that create a binding site for the ligand. The ligand is a coiled-coil of two alpha helices. You create a bicistronic lox-Cre vector with the ligand ORF at the 5' position, fused to mCherry; the receptor ORF is at the 3' and fused to the eGFP at the C-terminus. The ligand is under the CBA promoter, and upstream of the receptor is the IRES regulatory element. Between the ligand ORF and mCherry, there is a stop in a loxP-stop-loxP cassette, and between the receptor and the eGFP, there is a stop in the lox2272-stop-lox2272 cassette. You had also raised antibodies against the overexpressed proteins and now use them to test the construct expression on the Western blot after plasmid transfection to primary astrocyte culture. Total proteins give a signal proportional to the actin loading. You finally breed a mouse model homozygous for your construct in the wt background. You cross it to SOX10-Cre hemizygous mice; after the offspring is born you visualize them under the fluorescent confocal microscope. You do not observe a green signal. What is the most likely reason for it?",
+  "rationale": "Only the final sentence references the answers; the construct details point to a single designed cause (the residual 34-bp lox2272 site after Cre excision puts eGFP out of frame). Somewhat judgement-based but the stem is engineered toward this answer."
+ },
+ {
+  "qid": "gpqaopen:105",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The stem omits the reaction partner (acrolein) needed for product B, and the gold asks for both A and B; B cannot be requested without adding missing content."
+ },
+ {
+  "qid": "gpqaopen:109",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The five stars are listed in the stem, so it is self-contained; horizon visibility plus magnitude limits give Star3 and Star5 uniquely (Star3's stated apparent magnitude already includes extinction)."
+ },
+ {
+  "qid": "gpqaopen:113",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Reagent selection where several choices are chemically valid (e.g. acid or bisulfite for cyanohydrin formation; HCl, H2SO4, etc. for nitrile hydrolysis); the gold is one of several correct answers."
+ },
+ {
+  "qid": "gpqaopen:117",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: bromination of the enol gives the alpha-bromoketone 2-bromo-4,4-dimethylcyclopentanone uniquely."
+ },
+ {
+  "qid": "gpqaopen:121",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: product 4 is ethyl 1-cyanocyclohexane-1-carboxylate, which has 8 chemically distinct hydrogen environments (6 diastereotopic ring sets plus OCH2 and CH3)."
+ },
+ {
+  "qid": "gpqaopen:125",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained: two diastereomeric methoxy alcohols plus (R,R)/(S,S)/meso pentane-2,4-diol give 5 chiral-HPLC peaks and 4 normal-phase peaks uniquely."
+ },
+ {
+  "qid": "gpqaopen:129",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The answer depends on the assumed atmospheric UV cutoff (~3000-3500 A gives z ~1.5-1.9); without the options, materially different estimates are equally defensible, so 1.9 is not a unique free-response answer."
+ }
+]

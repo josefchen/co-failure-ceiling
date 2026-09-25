@@ -1,0 +1,79 @@
+[
+  {
+    "id": "gsm8k:119",
+    "answer": "99076.92",
+    "confidence": "low",
+    "well_posed": false,
+    "notes": "Adrien then = 40000, now = 1.4*40000 = 56000. 'Adrien 30% higher than Lylah' means Lylah = 40000/1.3 = 30769.23; if both salaries rise by the same 40% (as 'increased simultaneously' suggests), Lylah now = 43076.92, so the total is 99076.92. The problem never states Lylah's raise, and the answer isn't a round number; the clean answer 95200 only comes from misreading the 30% as Lylah = 70% of Adrien (28000 -> 39200)."
+  },
+  {
+    "id": "mmlu:7",
+    "answer": "C",
+    "confidence": "high",
+    "well_posed": true,
+    "notes": "S1 true: a ring homomorphism is also an additive group homomorphism, so it is injective iff its kernel is {0}. S2 false: Q is not closed under multiplication by reals (sqrt(2)*1 is not in Q), so it is not an ideal of R."
+  },
+  {
+    "id": "mmlu:24",
+    "answer": "A",
+    "confidence": "medium",
+    "well_posed": false,
+    "notes": "If rings are assumed commutative with unity, both statements are true (A). If unity is not assumed (Fraleigh's convention), both are false: in 2Z the ideal 4Z is maximal but not prime, and 2Z/4Z is not a field. That makes B defensible too."
+  },
+  {
+    "id": "mmlu:34",
+    "answer": "A",
+    "confidence": "medium",
+    "well_posed": false,
+    "notes": "As written, dim(W) < 1 forces dim W = 0, and then dim V < 0 is impossible, so S1 is vacuously true. S2 is true by rank-nullity, giving A. The '< 1' is probably a garbled '< infinity'; read that way, S1 is false (the zero map is a counterexample) and the answer would be D."
+  },
+  {
+    "id": "mmlu:62",
+    "answer": "A",
+    "confidence": "high",
+    "well_posed": true,
+    "notes": "S1 true: a quotient of a commutative ring inherits commutativity, since (a+I)(b+I) = ab+I = ba+I. S2 true: if 1 is in N then r = r*1 is in N for every r, and the converse is immediate."
+  },
+  {
+    "id": "arc:54",
+    "answer": "B",
+    "confidence": "high",
+    "well_posed": true,
+    "notes": "Europa's cracks and ridges come from tidal flexing and ice-shell tectonics over a subsurface ocean, which fits 'tectonic movements'. Volcanic eruptions, asteroid impacts and solar flares do not produce these patterns."
+  },
+  {
+    "id": "mmlupro:11",
+    "answer": "G",
+    "confidence": "low",
+    "well_posed": false,
+    "notes": "The six standard dimensions (PESTLE) match A, D, E, F, I (legal/regulation) and J exactly, which leaves four exceptions: B (weather), C (the marketing team's preferences, which is internal), G (global factors) and H (competition, part of the micro-environment). G is the likely intended answer of the original item, but B, C and H are equally defensible."
+  },
+  {
+    "id": "mmlupro:13",
+    "answer": "D",
+    "confidence": "low",
+    "well_posed": false,
+    "notes": "The standard textbook definition (e.g. Robbins) says work specialisation means a whole job is not done by one individual but split into steps, which points to D. However, H (work division, i.e. division of labour) is nearly a synonym, and B (workload balancing) and C (work distribution) also fit the wording in everyday usage."
+  },
+  {
+    "id": "mmlupro:55",
+    "answer": "G",
+    "confidence": "medium",
+    "well_posed": true,
+    "notes": "Growth models of the planet's carrying capacity (Limits to Growth) are the economic perspective, and the passage itself rules out environmental. The three drivers are overuse of resources, overpopulation and over pollution. The only competitor is F (Sociopolitical with the same three drivers), which depends on which textbook's taxonomy is used."
+  },
+  {
+    "id": "mmlupro:170",
+    "answer": "B",
+    "confidence": "medium",
+    "well_posed": false,
+    "notes": "Rate = (4000-400)/72000 = $0.05 per mile, so the four years give $1000, $1250, $900 and $450. The question asks for 'depreciation per year' but has a single-answer format and names no year. Only year 1 ($1000, B) appears among the options; H ($3600) is the total over all four years, not a yearly figure."
+  },
+  {
+    "id": "mathhard:140",
+    "answer": "-3",
+    "confidence": "high",
+    "well_posed": true,
+    "notes": "S = (15/2)(2*7 + 14d) = 105(1+d) = -210 gives 1+d = -2, so d = -3."
+  }
+]

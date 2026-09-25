@@ -1,0 +1,7 @@
+# Versions used to produce the released numbers (2026-09-25). The offline analysis needs only these.
+numpy==2.2.6
+scipy==1.17.1
+scikit-learn==1.8.0
+matplotlib==3.10.9
+huggingface_hub>=1.17
+sympy==1.14.0

@@ -1,0 +1,873 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>Combining LLMs Rarely Beats the Single Best Model: the co-failure ceiling</title>
+<meta name="description" content="Interactive companion to the paper “Combining LLMs Rarely Beats the Single Best Model: A Provable Co-Failure Ceiling Across 67 Frontier Models” (Josef Chen, KAIKAKU). The deployment-relevant object is β = P(all models wrong); a one-sample certificate bounds every router, vote, and cascade.">
+<meta property="og:title" content="Combining LLMs Rarely Beats the Single Best Model">
+<meta property="og:description" content="β = P(all models wrong) is the ceiling. An interactive companion to the paper.">
+<meta property="og:type" content="article">
+<!-- og:url and the raster card both want the deployed origin. Until the site has a real host, point at
+     nothing rather than a placeholder that 404s: uncomment and set absolute URLs (og:url, og:image) on deploy. -->
+<!-- <meta property="og:url" content="https://EXAMPLE-ORIGIN/"> -->
+<!-- <meta property="og:image" content="https://EXAMPLE-ORIGIN/og-image.png"><meta property="og:image:type" content="image/png"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta property="og:image:alt" content="β = P(all wrong) — Orchestration Is Allocation"> -->
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Combining LLMs Rarely Beats the Single Best Model">
+<meta name="twitter:description" content="β = P(all models wrong) is the ceiling. An interactive companion to the paper.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2314161A'/%3E%3Ctext x='16' y='23' font-size='20' text-anchor='middle' fill='%23E4633F' font-family='Georgia,serif'%3E%CE%B2%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,340;9..144,440;9..144,560&family=Geist:wght@300..600&family=Geist+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#14161A; --s1:#1B1E23; --s2:#24272D; --well:#1A1D22;
+  --border:rgba(255,255,255,.08); --hair:rgba(255,255,255,.06);
+  --text:#F2F3F5; --dim:#9298A1; --faint:#8A9099;
+  --accent:#E96A45; --accent-dim:rgba(233,106,69,.16); --accent-line:rgba(233,106,69,.45);
+  /* semantic verdict tokens — decoupled from the held-out DOMAIN hues. GO gets its own confident green,
+     one chroma step up from the muddy domain teal; the TEXT token is lifted above the fill L so the label
+     clears WCAG AA on the 8% wash. STOP reuses the warm β accent (risk is the one place warm is licensed). */
+  --go:oklch(0.72 0.13 150); --go-text:oklch(0.82 0.12 150); --go-line:oklch(0.72 0.13 150 / .5); --go-fill:oklch(0.72 0.13 150 / .1);
+  /* held-out functional palette — domain hues authored in OKLCH at matched L≈0.74, C≈0.085, decoupled from the β accent */
+  --d-math:oklch(0.74 0.085 215); --d-mathhard:oklch(0.74 0.085 155); --d-code:oklch(0.74 0.085 95); --d-gpqa:oklch(0.74 0.085 295);
+  /* low-chroma neutral fills for the per-item dot strip — the data is binary, hue carries regime not category */
+  --d-math-dim:oklch(0.42 0.03 215); --d-gpqa-dim:oklch(0.42 0.03 295);
+  /* darker text variants of the domain hues — dark theme already clears AA at L0.74, so the text token
+     equals the hue here; the light block below overrides them lower for paper-white legibility */
+  --d-math-text:var(--d-math); --d-mathhard-text:var(--d-mathhard); --d-code-text:var(--d-code); --d-gpqa-text:var(--d-gpqa);
+  --serif:"Fraunces",Georgia,serif; --sans:"Geist",-apple-system,system-ui,sans-serif; --mono:"Geist Mono",ui-monospace,Menlo,monospace;
+  --maxw:1180px; --prose:68ch;
+  --e-out:cubic-bezier(.2,.7,.2,1);
+  /* size-stepped negative tracking scale */
+  --tr-display:-.032em; --tr-h2:-.018em; --tr-lede:-.012em; --tr-body:-.006em; --tr-ui:-.003em; --tr-caps:.08em;
+}
+*{box-sizing:border-box;margin:0}
+html{color-scheme:dark}
+html:focus-within{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--sans);font-weight:420;
+  font-feature-settings:"cv01" 1,"ss03" 1,"tnum" 1,"lnum" 1;-webkit-font-smoothing:antialiased;
+  line-height:1.55;letter-spacing:var(--tr-body);overflow-x:hidden}
+.grain{position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.045;mix-blend-mode:overlay;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.42' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E")}
+.wrap{position:relative;z-index:1;max-width:var(--maxw);margin-inline:auto;padding-inline:28px}
+.num{font-family:var(--mono);font-variant-numeric:tabular-nums lining-nums;font-feature-settings:"zero" 1,"ss01" 1}
+.eyebrow{font-family:var(--mono);font-size:11.5px;letter-spacing:var(--tr-caps);text-transform:uppercase;color:var(--faint)}
+.beta{color:var(--accent)}
+/* the page's central glyph: lowercase β in Geist Mono carries a cap-height ascender and reads as 'B' at small
+   sizes. Render the symbol itself in the italic serif (unambiguous descender beta) while numerals stay mono. */
+.gb{font-family:var(--serif);font-style:italic;letter-spacing:0}
+/* nav */
+nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;justify-content:space-between;
+  padding:14px 28px;backdrop-filter:blur(14px);background:color-mix(in oklab,var(--bg) 78%,transparent);
+  border-bottom:.5px solid var(--hair)}
+nav .brand{font-family:var(--mono);font-weight:500;font-size:13px;letter-spacing:.02em;text-transform:uppercase;color:var(--text);margin-right:18px;min-width:0}
+nav .brand .b-mid{color:var(--faint)}
+nav .links{display:flex;gap:22px;align-items:center;font-size:13.5px;color:var(--dim);letter-spacing:var(--tr-ui)}
+nav a{color:inherit;text-decoration:none;transition:color .14s var(--e-out)}
+nav a:hover{color:var(--text)}
+nav a.paper{color:var(--dim)}
+nav a.paper:hover{color:var(--text)}
+/* arXiv id not yet assigned — the Paper marker is intentionally non-clickable so a reader can never land on a 404 */
+nav .paper-pending{color:var(--faint);cursor:default;display:inline-flex;align-items:baseline;gap:6px}
+nav .paper-pending .paper-soon{font-family:var(--mono);font-size:10px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--faint);border:.5px solid var(--border);border-radius:5px;padding:1px 5px;line-height:1.3}
+@media(max-width:680px){nav .paper-pending .paper-soon{display:none}}
+/* mobile: drop the section anchors (they live in the margin-rail TOC), keep Paper + theme toggle so the chrome never crushes */
+@media(max-width:680px){
+  nav{padding-inline:20px}
+  nav .brand{white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font-size:12px}
+  nav .links{gap:16px}
+  nav .links a:not(.paper){display:none}
+}
+.toggle{font-family:var(--mono);font-size:11px;border:.5px solid var(--border);background:transparent;color:var(--dim);
+  padding:5px 9px;border-radius:7px;cursor:pointer;letter-spacing:.04em}
+.toggle:hover{color:var(--text);border-color:var(--border)}
+/* two-track grid: prose column + persistent margin rail */
+.track{display:grid;grid-template-columns:minmax(0,var(--prose)) minmax(0,1fr);gap:48px;align-items:start}
+.track>*{min-width:0}/* let grid children shrink below content width so a wide SVG pans inside .panx instead of stretching the card */
+@media(max-width:920px){.track{grid-template-columns:minmax(0,1fr);gap:0}}
+.rail{position:sticky;top:84px;font-family:var(--mono);font-size:11px;line-height:1.7;color:var(--faint);
+  letter-spacing:.02em;padding-top:4px}
+.rail .rk{color:var(--dim)}
+.rail .rsep{display:block;height:1px;background:var(--hair);margin:12px 0}
+@media(max-width:920px){.rail{position:static;border-left:2px solid var(--hair);padding:2px 0 2px 16px;margin:28px 0 0}}
+/* hero */
+header{padding-block:clamp(56px,9vh,104px) 56px}
+header .eyebrow{margin-bottom:20px}
+h1{font-family:var(--serif);font-weight:340;font-size:clamp(2.2rem,5vw,3.5rem);line-height:1.05;letter-spacing:var(--tr-display);max-width:16ch}
+h1 em{font-style:italic;color:var(--accent)}
+.lede{margin-top:22px;max-width:54ch;font-size:clamp(1.05rem,1.4vw,1.22rem);color:var(--dim);line-height:1.5;font-weight:420;letter-spacing:var(--tr-lede)}
+/* hero stat — ONE dominant β with its load-bearing law underneath; the format-flip number is demoted
+   to a quiet supporting aside so a skimmer reads the headline number and 'accuracy ≤ 1−β' in five seconds, not two
+   co-equal numbers. */
+.herostat{display:flex;align-items:flex-end;gap:clamp(32px,5vw,72px);margin-top:34px;flex-wrap:wrap}
+.herostat .item{display:flex;flex-direction:column;gap:9px}
+.herostat .item.lead .big{font-family:var(--mono);font-weight:300;font-size:clamp(3.2rem,8.2vw,5rem);
+  letter-spacing:-.04em;line-height:.9;color:var(--accent)}
+.herostat .item.lead .lbl{max-width:34ch}
+/* the law line: the one equation a skimmer must leave with, set in mono directly under the stat */
+.herostat .hero-law{font-family:var(--mono);font-size:13px;letter-spacing:.01em;color:var(--dim);
+  font-variant-numeric:tabular-nums;display:flex;align-items:baseline;gap:0;flex-wrap:wrap}
+.herostat .hero-law .gb{color:var(--accent)}
+.herostat .hero-law-rule{color:var(--text);border-bottom:1px solid var(--accent-line);padding-bottom:1px}
+.herostat .lbl{font-size:13px;color:var(--faint);max-width:34ch;letter-spacing:var(--tr-ui);line-height:1.5}
+.herostat .lbl .num{color:var(--dim)}
+/* supporting aside — smaller, ranged left of a hairline; the flip's β jump as a labelled secondary fact */
+.herostat .hero-aside{display:flex;flex-direction:column;gap:5px;align-self:flex-end;padding-bottom:.4em;
+  padding-left:clamp(20px,3vw,32px);border-left:.5px solid var(--hair);max-width:30ch}
+.herostat .hero-aside-k{font-size:10.5px;letter-spacing:.07em;text-transform:uppercase;color:var(--faint)}
+.herostat .hero-aside-v{font-family:var(--mono);font-size:22px;letter-spacing:-.01em;color:var(--dim);
+  font-variant-numeric:tabular-nums}
+.herostat .hero-aside-v .gb{color:var(--dim)}
+.herostat .hero-aside-v .beta{color:var(--accent)}
+.herostat .hero-aside-arr{color:var(--faint);padding:0 2px}
+.herostat .hero-aside-l{font-size:12px;color:var(--faint);letter-spacing:var(--tr-ui);line-height:1.45}
+.herostat .hero-aside-l a{color:var(--dim);text-decoration:none;border-bottom:.5px solid var(--border);transition:color .14s var(--e-out),border-color .14s var(--e-out)}
+.herostat .hero-aside-l a:hover{color:var(--accent);border-bottom-color:var(--accent-line)}
+@media(max-width:620px){
+  .herostat{gap:26px}
+  .herostat .hero-aside{border-left:0;border-top:.5px solid var(--hair);padding-left:0;padding-top:16px;
+    padding-bottom:0;max-width:100%;width:100%}
+}
+.herospec{margin-top:30px;font-size:12px;color:var(--faint);letter-spacing:.01em}
+/* sections */
+section{padding-block:clamp(72px,11vh,120px) clamp(40px,7vh,72px);border-top:.5px solid var(--hair)}
+/* thesis is a short prose bridge, not a full instrument section — drop its budget so the certificate
+   (the hero instrument) follows immediately rather than behind a tall low-density essay */
+#thesis{padding-block:clamp(56px,8vh,88px) clamp(36px,6vh,56px)}
+.sechead{display:grid;grid-template-columns:minmax(0,var(--prose)) 1fr;gap:48px;align-items:start;margin-bottom:38px}
+@media(max-width:920px){.sechead{grid-template-columns:1fr;gap:14px}}
+/* Linear/Stripe numbered-rail convention: align the numeral's CAP-HEIGHT to the h2's cap-height, not its
+   baseline. baseline-align drops the lone digit ~9px low against a two-line head ('A $0 pre-deployment
+   certificate'), leaving it floating. align-items:start + a small translateY locks the digit to the first
+   line's cap, so it reads anchored whether the head is one line or two. */
+.sechead .h-main{display:grid;grid-template-columns:auto 1fr;gap:22px;align-items:start}
+.secno{font-family:var(--serif);font-weight:340;font-size:clamp(1.3rem,2vw,1.7rem);color:var(--faint);
+  letter-spacing:-.01em;font-variant-numeric:lining-nums;line-height:1;transform:translateY(.16em)}
+h2{font-family:var(--serif);font-weight:440;font-size:clamp(1.7rem,2.6vw,2.1rem);letter-spacing:var(--tr-h2);line-height:1.12;max-width:20ch}
+.sechead p{color:var(--dim);font-size:15.5px;max-width:46ch;align-self:start;margin-top:.45em;letter-spacing:var(--tr-body)}
+.prose{max-width:var(--prose)}
+.prose p{margin:18px 0;color:#d7dade;letter-spacing:var(--tr-body)}
+.prose p:first-child{margin-top:0}
+/* card / instrument */
+.fig{background:var(--s1);border:.5px solid var(--border);border-radius:16px;padding:28px;margin:34px 0;
+  box-shadow:0 1px 0 rgba(255,255,255,.02) inset,0 18px 40px -28px rgba(0,0,0,.55)}
+.fig .figlbl{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:18px;gap:16px}
+/* provenance half of the figlbl: same mono family but demoted to lowercase + --faint so the FIG-id (title)
+   and the run-id (provenance) don't read as a matched caps pair. One is the label, one is the source. */
+.fig .figlbl .figsrc{font-family:var(--mono);font-size:11.5px;letter-spacing:.01em;text-transform:none;
+  color:var(--faint);text-align:right;font-variant-numeric:tabular-nums}
+.fig .cap{font-size:13px;color:var(--dim);margin-top:16px;max-width:60ch;line-height:1.5;letter-spacing:var(--tr-body)}
+.fig .cap b{color:var(--text);font-weight:510}
+.controls{display:flex;flex-wrap:wrap;gap:22px;align-items:center;margin:4px 0 20px}
+.ctl{display:flex;flex-direction:column;gap:7px;min-width:0}
+.ctl label{font-size:11.5px;color:var(--faint);font-family:var(--mono);letter-spacing:.03em}
+.ctl .val{font-family:var(--mono);font-variant-numeric:tabular-nums;color:var(--text);font-size:14px}
+input[type=range]{-webkit-appearance:none;appearance:none;height:18px;background:transparent;width:210px;outline:none;cursor:pointer;
+  /* --val (0..1) drives a left-of-thumb track fill; set by JS on input */
+  --val:1}
+input[type=range]::-webkit-slider-runnable-track{height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--text) 0 calc(var(--val)*100%),var(--s2) calc(var(--val)*100%) 100%)}
+input[type=range]::-moz-range-track{height:3px;border-radius:3px;
+  background:linear-gradient(90deg,var(--text) 0 calc(var(--val)*100%),var(--s2) calc(var(--val)*100%) 100%)}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:15px;height:15px;border-radius:50%;background:var(--text);
+  margin-top:-6px;cursor:pointer;border:2px solid var(--bg);box-shadow:0 0 0 1px var(--border);
+  transition:transform .13s var(--e-out),box-shadow .13s var(--e-out)}
+input[type=range]::-moz-range-thumb{width:15px;height:15px;border-radius:50%;background:var(--text);
+  cursor:pointer;border:2px solid var(--bg);box-shadow:0 0 0 1px var(--border);
+  transition:transform .13s var(--e-out),box-shadow .13s var(--e-out)}
+input[type=range]:hover::-webkit-slider-thumb{box-shadow:0 0 0 1px var(--border),0 0 0 5px var(--hair)}
+input[type=range]:hover::-moz-range-thumb{box-shadow:0 0 0 1px var(--border),0 0 0 5px var(--hair)}
+input[type=range]:active::-webkit-slider-thumb{transform:scale(1.18)}
+input[type=range]:active::-moz-range-thumb{transform:scale(1.18)}
+input[type=number]{font-family:var(--mono);background:var(--well);border:.5px solid var(--border);color:var(--text);
+  border-radius:8px;padding:8px 10px;width:88px;font-size:14px;font-variant-numeric:tabular-nums}
+input:focus-visible,button:focus-visible,.seg button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.readout{display:flex;gap:30px;flex-wrap:wrap;padding:18px 0 4px;border-top:.5px solid var(--hair);margin-top:14px}
+.readout .r{display:flex;flex-direction:column;gap:3px}
+.readout .rv{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:24px;letter-spacing:-.02em;font-weight:400}
+.readout .rl{font-size:11.5px;color:var(--faint)}
+/* the full sentence already carries the verb ('Certified headroom… exceeds' / 'No policy can pay for itself'),
+   so the 2-letter icon-chip was the page's only label duplicated by a glyph — Rauno would cut it. Dropped;
+   the left pad is reclaimed and a thin colour bar on the leading edge carries the GO/STOP state instead. */
+.verdict{font-family:var(--mono);font-size:13px;padding:11px 14px 11px 16px;border-radius:9px;margin-top:16px;
+  border:.5px solid;position:relative;letter-spacing:.01em;overflow:hidden}
+.verdict::before{content:"";position:absolute;left:0;top:0;bottom:0;width:3px}
+.verdict.go{color:var(--go-text);border-color:var(--go-line);background:var(--go-fill)}
+.verdict.go::before{background:var(--go)}
+.verdict.stop{color:var(--accent);border-color:var(--accent-line);background:var(--accent-dim)}
+.verdict.stop::before{background:var(--accent)}
+/* segmented */
+.seg{display:inline-flex;background:var(--well);border:.5px solid var(--border);border-radius:10px;padding:3px}
+.seg button{font-family:var(--sans);font-weight:510;font-size:13px;color:var(--dim);background:transparent;border:0;
+  padding:8px 16px;border-radius:7px;cursor:pointer;transition:color .14s,background .2s var(--e-out);letter-spacing:var(--tr-ui)}
+.seg button[aria-pressed=true]{background:var(--s2);color:var(--text);box-shadow:0 1px 0 rgba(0,0,0,.2)}
+/* domains */
+.domains{display:grid;grid-template-columns:repeat(5,1fr);gap:12px}
+@media(max-width:1080px){.domains{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:680px){.domains{grid-template-columns:1fr 1fr}}
+@media(max-width:440px){.domains{grid-template-columns:1fr}}
+.dcard{background:var(--well);border:.5px solid var(--border);border-radius:13px;padding:18px;position:relative;overflow:hidden;display:flex;flex-direction:column}
+.dcard>.chip{margin-top:auto;align-self:flex-start}
+.dcard .dk{font-family:var(--mono);font-size:11px;color:var(--faint);text-transform:uppercase;letter-spacing:.05em}
+.dcard .dn{font-family:var(--sans);font-weight:560;font-size:16px;letter-spacing:var(--tr-ui);margin:9px 0 4px}
+.dcard .db{font-family:var(--mono);font-size:30px;letter-spacing:-.02em;margin-top:14px;font-variant-numeric:tabular-nums;font-weight:400}
+.dcard .dmeta{font-size:12px;color:var(--dim);margin-top:4px}
+.chip{display:inline-block;font-family:var(--mono);font-size:10.5px;padding:2px 7px;border-radius:20px;margin-top:12px;letter-spacing:.03em}
+.chip.ceiling{color:var(--d-hue-text,var(--text));background:color-mix(in oklab,var(--d-hue,var(--dim)) 14%,transparent)}
+.chip.realz{color:var(--d-math-text);background:color-mix(in oklab,var(--d-math) 14%,transparent)}
+.bar{height:4px;border-radius:3px;background:var(--d-hue,var(--dim));margin-top:14px;transform-origin:left;transition:transform .9s var(--e-out)}
+.bartrack{height:4px;border-radius:3px;background:var(--hair);margin-top:14px;position:relative;overflow:hidden}
+.bartrack .bar{margin-top:0;position:absolute;inset:0}
+.realz-tick{display:flex;align-items:center;gap:7px;margin-top:14px;font-family:var(--mono);font-size:10.5px;
+  letter-spacing:.03em;color:var(--d-math-text)}
+.realz-tick::before{content:"";flex:0 0 auto;width:8px;height:8px;border-radius:50%;
+  border:1.5px solid var(--d-math);background:transparent}
+.dcard .db{color:var(--d-hue-text,var(--text))}
+/* svg chart */
+svg{display:block;width:100%;height:auto;overflow:visible}
+.axis{stroke:var(--hair);stroke-width:1}
+.hairtick{stroke:var(--hair);stroke-width:1}
+.bandedge{stroke:var(--dim);stroke-width:.75;fill:none;opacity:.4}
+.refline{stroke:var(--dim);stroke-width:1}
+#certChart{margin:18px 0 2px}
+.tick{font-family:var(--mono);font-size:10.5px;fill:var(--faint);font-variant-numeric:tabular-nums}
+.endlabel{font-family:var(--mono);font-size:11.5px;font-variant-numeric:tabular-nums}
+.fcell{transition:fill .35s var(--e-out)}
+#flipChart{margin:6px 0 2px}
+.annote{font-family:var(--sans);font-size:11.5px;fill:var(--dim)}
+.leader{stroke:var(--faint);stroke-width:1;opacity:.5}
+/* ---- mobile figure legibility ----
+   The div/flip charts are authored in a 720-unit viewBox; at ~262px column width every text node would
+   render sub-5px. On phones we DON'T squash them — we wrap each in a horizontally pannable frame that
+   keeps the SVG at its full ~560px intrinsic width, so labels stay ~11px and the reader pans the figure. */
+.panx{overflow-x:auto;-webkit-overflow-scrolling:touch;overscroll-behavior-x:contain;width:100%;max-width:100%}
+.panx>svg{min-width:560px}
+.panx{scrollbar-width:thin;scrollbar-color:var(--border) transparent}
+.panx::-webkit-scrollbar{height:6px}
+.panx::-webkit-scrollbar-thumb{background:var(--border);border-radius:3px}
+.panhint{display:none;font-family:var(--mono);font-size:10px;letter-spacing:.04em;color:var(--faint);
+  margin:2px 0 0;text-align:right}
+/* the FIG 2/3 SVGs hold a 560px intrinsic min-width inside .panx. The hint must appear EXACTLY when the frame
+   actually scrolls — not on a width guess. A ResizeObserver toggles .can-pan on the .panx when scrollWidth >
+   clientWidth, so the 6px scrollbar is never an unlabelled affordance and the hint never lies about a frame
+   that already fits (the 560–920px two-track collapse zone, where a media query would mis-fire either way). */
+.panx.can-pan+.panhint{display:block}
+/* the certificate is the hero instrument and must be legible WITHOUT panning — so on phones the 720-wide
+   horizontal axis is hidden and a dedicated vertical stack (#certMobile) takes over: single-best row,
+   ceiling row, and the gain as a labelled bar. Pure presentation; values come from cert()'s own outputs. */
+#certMobile{display:none}
+@media(max-width:560px){
+  #certChart{display:none}
+  #certMobile{display:block;margin:18px 0 2px}
+  .cmrow{display:grid;grid-template-columns:1fr auto;align-items:baseline;gap:12px;padding:11px 0;border-top:.5px solid var(--hair)}
+  .cmrow:first-child{border-top:0}
+  .cmrow .cmk{font-family:var(--mono);font-size:12px;letter-spacing:.02em;color:var(--dim)}
+  .cmrow .cmv{font-family:var(--mono);font-size:20px;letter-spacing:-.01em;font-variant-numeric:tabular-nums;color:var(--text)}
+  .cmgain{padding-top:13px;border-top:.5px solid var(--hair)}
+  .cmgain .cmk{font-family:var(--mono);font-size:12px;color:var(--dim);display:flex;justify-content:space-between;align-items:baseline}
+  .cmgain .cmv{font-family:var(--mono);font-size:20px;letter-spacing:-.01em;font-variant-numeric:tabular-nums}
+  .cmbartrack{height:14px;border-radius:4px;background:var(--well);border:.5px solid var(--hair);margin-top:10px;position:relative;overflow:hidden}
+  .cmbarfill{position:absolute;top:0;bottom:0;left:0;border-radius:4px;transition:width .4s var(--e-out),background .2s}
+  .cmbarov{position:absolute;top:-3px;bottom:-3px;width:0;border-left:1.5px dashed var(--faint)}
+  .cmscale{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10px;color:var(--faint);margin-top:6px;font-variant-numeric:tabular-nums}
+  /* reclaim gutter width and let the certificate's four inputs go full-width 2-up (a lone slider grows to fill) */
+  .wrap{padding-inline:18px} .fig{padding:18px}
+  .controls{gap:14px 16px}
+  .ctl{flex:1 1 calc(50% - 8px)}
+  input[type=number]{width:100%} input[type=range]{width:100%}
+}
+/* the pool roster: all 67 models grouped by provider, tier-coloured */
+.poolstat{font-family:var(--mono);font-size:13px;color:var(--dim);letter-spacing:.01em;margin:0 0 26px}
+.poolstat .beta{color:var(--accent);font-weight:500}
+.poolgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(188px,1fr));gap:24px 28px;align-items:start}
+.provgroup .ph{display:flex;align-items:baseline;justify-content:space-between;gap:8px;margin-bottom:10px;border-bottom:.5px solid var(--hair);padding-bottom:6px}
+.provgroup .pn{font-family:var(--sans);font-weight:560;font-size:13px;color:var(--text);letter-spacing:var(--tr-ui)}
+.provgroup .pc{font-family:var(--mono);font-size:10.5px;color:var(--faint);font-variant-numeric:tabular-nums}
+.provgroup ul{list-style:none;display:flex;flex-direction:column;gap:5px;margin:0;padding:0}
+.mchip{font-family:var(--mono);font-size:11px;letter-spacing:.01em;color:var(--dim);display:flex;align-items:center;gap:8px;line-height:1.25}
+.mchip::before{content:"";width:5px;height:5px;border-radius:50%;flex:0 0 auto;background:var(--faint)}
+.mchip.f{color:var(--text);font-weight:500}
+.mchip.f::before{background:var(--accent)}
+.mchip.m::before{background:var(--d-math)}
+.mchip.c{color:var(--faint)}
+.tierdot{display:inline-block;width:7px;height:7px;border-radius:50%;vertical-align:middle;margin:0 2px}
+.tierdot.f{background:var(--accent)} .tierdot.m{background:var(--d-math)} .tierdot.c{background:var(--faint)}
+footer{padding-block:64px 90px;border-top:.5px solid var(--hair);color:var(--dim);font-size:13.5px}
+footer a{color:var(--text);text-decoration:none;border-bottom:.5px solid var(--border);transition:border-color .14s var(--e-out),color .14s var(--e-out)}
+footer a:hover{border-bottom-color:var(--text)}
+.foot-pending{color:var(--dim);border-bottom:.5px dashed var(--border);cursor:default}
+.foot-grid{display:flex;justify-content:space-between;gap:40px;flex-wrap:wrap}
+.foot-title{font-family:var(--sans);font-size:15px;font-weight:560;letter-spacing:var(--tr-ui);margin-bottom:8px;color:var(--text)}
+.mono-note{font-family:var(--mono);font-size:11.5px;color:var(--faint);line-height:1.7}
+/* coarse-pointer (touch) hit-target minimums — desktop sizes unchanged */
+@media(pointer:coarse){
+  .seg button{padding:12px 16px}
+  .toggle{padding:9px 11px}
+  input[type=range]::-webkit-slider-thumb{width:22px;height:22px;margin-top:-9px}
+  input[type=range]::-moz-range-thumb{width:22px;height:22px}
+}
+/* ---- glyph-dither hero (Intuition-style pixel bloom) ---- */
+.hero-dither{position:relative;width:100%;height:clamp(560px,84vh,880px);background:#070809;overflow:hidden;border-bottom:.5px solid var(--hair);cursor:crosshair}
+#glyphCanvas{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero-grad{position:absolute;inset:0;pointer-events:none;background:radial-gradient(130% 100% at 58% 48%,transparent 38%,rgba(7,8,9,.55) 100%)}
+.hd-chrome{position:absolute;inset:0;z-index:2;pointer-events:none}
+.hd-mark{position:absolute;top:clamp(26px,5vh,58px);left:clamp(20px,4vw,64px);margin:0;font-family:var(--serif);font-weight:340;font-size:clamp(2.8rem,9vw,6.6rem);line-height:.86;letter-spacing:-.03em;color:#F5F3F4;text-shadow:0 4px 60px rgba(0,0,0,.45)}
+.hd-tag{position:absolute;top:clamp(30px,5.4vh,66px);right:clamp(20px,4vw,64px);font-family:var(--mono);font-size:11.5px;letter-spacing:.09em;line-height:1.75;color:#CDD0D6;text-align:right;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.hd-date{position:absolute;left:clamp(8px,2.4vw,30px);top:50%;transform:translateY(-50%) rotate(180deg);writing-mode:vertical-rl;font-family:var(--mono);font-size:10.5px;letter-spacing:.16em;color:#7E848D}
+.hd-foot{position:absolute;left:clamp(20px,4vw,64px);bottom:clamp(24px,5vh,50px);display:flex;align-items:flex-end;gap:18px}
+.hd-foot .hd-beta{font-family:var(--mono);font-weight:300;font-size:clamp(30px,4.4vw,46px);letter-spacing:-.02em;line-height:.82;color:var(--accent)}
+.hd-foot .gb{color:var(--accent);font-family:var(--serif);font-style:italic}
+.hd-foot-l{font-family:var(--mono);font-size:10px;letter-spacing:.07em;line-height:1.65;color:#9298A1;padding-bottom:3px}
+.hd-hint{position:absolute;right:clamp(20px,4vw,64px);bottom:clamp(24px,5vh,50px);font-family:var(--mono);font-size:10px;letter-spacing:.06em;color:#6A707A;text-transform:uppercase}
+@media(max-width:640px){.hd-date{display:none}.hd-tag{font-size:9.5px}.hd-hint{display:none}.hd-mark{font-size:clamp(2.6rem,13vw,4rem)}}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<div class="grain" aria-hidden="true"></div>
+
+<nav>
+  <span class="brand" style="text-transform:none">Co-Failure Ceiling</span>
+  <span class="links">
+    <a href="#thesis">Thesis</a><a href="#certificate">Certificate</a><a href="#regime">Regimes</a><a href="#flip">The flip</a><a href="#pool">The pool</a>
+    <a class="paper" href="https://arxiv.org/abs/2606.27288" target="_blank" rel="noopener">Paper&#8201;<span class="paper-soon">arXiv</span></a>
+    <a class="paper" href="https://huggingface.co/datasets/josefchen/co-failure-67-models" target="_blank" rel="noopener">Data&#8201;<span class="paper-soon">HF</span></a>
+    <a class="paper" href="https://github.com/josefchen/co-failure-ceiling" target="_blank" rel="noopener">Code&#8201;<span class="paper-soon">GitHub</span></a>
+  </span>
+</nav>
+
+<header class="hero-dither" id="top">
+  <canvas id="glyphCanvas" aria-hidden="true"></canvas>
+  <div class="hero-grad" aria-hidden="true"></div>
+  <div class="hd-chrome">
+    <h1 class="hd-mark">CO&#8202;&middot;&#8202;FAILURE</h1>
+    <div class="hd-tag">WHEN EVERY MODEL IS<br>WRONG AT ONCE, NO<br>ENSEMBLE CAN WIN</div>
+    <div class="hd-date">2026 &middot; 06 &middot; 15 &nbsp;&middot;&nbsp; OPENROUTER FRONTIER</div>
+    <div class="hd-foot">
+      <span class="hd-beta num" id="heroBeta" data-ticker="{{MathBeta}}">{{MathBeta}}</span>
+      <span class="hd-foot-l"><span class="gb">β</span> = P(ALL MODELS WRONG) &middot; MATH-500, AUDITED<br>{{MathK}} OF {{MathN}} QUESTIONS &middot; {{MathM}} MODELS, 21 PROVIDERS</span>
+    </div>
+    <div class="hd-hint">move the cursor, the field scatters</div>
+  </div>
+</header>
+
+<section id="thesis" class="wrap">
+  <div class="sechead">
+    <div class="h-main"><span class="secno num">01</span><h2>If they are all wrong, no vote can win.</h2></div>
+    <p>Routing, voting, and cascading all hand back one model's answer. So your ceiling is set by how often every model is wrong at once. Call that β. It is not how often models agree (ρ).</p>
+    <p class="cap" style="margin-top:14px;max-width:60ch"><b>Updated September 2026.</b> The first version of this page reported a co-failure tail on MATH-500 (β = {{MathJuneBeta}}, {{MathJuneK}} of {{MathJuneN}}). An audit traced every one of those questions to an evaluation error ({{MathJuneGrader}} grading defects, {{MathJuneTrunc}} truncated answer); the corrected numbers are below, and what the error looked like to ρ is section 03. Details: <a href="https://github.com/josefchen/co-failure-ceiling/blob/main/DATA_AUDIT.md" target="_blank" rel="noopener">DATA_AUDIT.md</a>.</p>
+  </div>
+  <div class="track">
+    <div class="prose">
+      <p>Picture a panel of experts where you can only return one expert's answer. Choosing the best one helps, right up until a question lands on a blind spot they all share. Then no rule wins, because the right answer was never in the room.</p>
+      <p>That is the ceiling, and it is exact. Give a query to a pool of <span class="num">m</span> models. If <em>every</em> one is wrong, no selection policy (router, weighted vote, cascade, debate) can be right, since each returns one member's answer. Accuracy is capped at <span class="num">1−<span class="gb">β</span></span>, where <span class="beta num"><span class="gb">β</span> = P(all m wrong)</span>.</p>
+      <p>The field reports pairwise correlation ρ instead, and ρ is provably blind to β. You can hold the entire pairwise law fixed and still move β, a Fréchet-class fact we make exact in the paper. A single-factor copula calibrated on ρ <em>underprices</em> any common-mode failure, a bias that grows with pool size, because no pairwise number represents a shared blind spot. On today's frontier, once the grading is right, such blind spots turn out to be rare: the ceiling is high, and what limits combining models is knowing which one to trust.</p>
+    </div>
+    <aside class="rail" aria-label="Section 1 notes: definitions and the pairwise blind spot">
+      <span class="rk">DEFINITION</span><br>β = P(all m wrong)<br>ceiling = 1 − β
+      <span class="rsep"></span>
+      <span class="rk">BLIND SPOT</span><br>pairwise ρ fixed, β still free (Fréchet class)
+    </aside>
+  </div>
+</section>
+
+<!-- 1. CERTIFICATE -->
+<section id="certificate" class="wrap">
+  <div class="sechead">
+    <div class="h-main"><span class="secno num">02</span><h2>Know your ceiling before you build it.</h2></div>
+    <p>Grade the models once on a held-out set and count the questions all of them missed. That count alone caps what any router could add. No training, no cost. Move the inputs and watch the ceiling.</p>
+  </div>
+  <div class="track">
+    <div class="fig">
+      <div class="figlbl"><span class="eyebrow">FIG 1 · Realizability certificate</span><span class="figsrc" id="cert-src">MATH-500 default</span></div>
+      <div class="controls">
+        <div class="ctl"><label for="cK">all-models-wrong count K</label><input type="number" id="cK" min="0" value="{{MathK}}"></div>
+        <div class="ctl"><label for="cN">queries n</label><input type="number" id="cN" min="1" value="{{MathN}}"></div>
+        <div class="ctl"><label for="cAsb">single-best accuracy (lower confidence limit)</label><input type="number" id="cAsb" min="0" max="1" step="0.001" value="{{MathSBLo}}"></div>
+        <div class="ctl"><label for="cOv">orchestration overhead</label><input type="number" id="cOv" min="0" max="1" step="0.005" value="0.02"></div>
+      </div>
+      <svg id="certChart" viewBox="0 0 720 96" role="img" aria-label="Accuracy axis showing single-best upper bound, certified ceiling, and the gain between them"></svg>
+      <div id="certMobile" role="img" aria-label="Certificate, stacked for narrow screens: single-best, certified ceiling, and the maximum gain between them as a bar"></div>
+      <div class="readout" aria-live="polite">
+        <div class="r"><span class="rv beta" id="oBeta">·</span><span class="rl"><span class="gb">β</span>&#770; = K/n</span></div>
+        <div class="r"><span class="rv" id="oCeil">·</span><span class="rl">certified ceiling 1−<span class="gb">β</span>_lo (95% CP)</span></div>
+        <div class="r"><span class="rv" id="oGain">·</span><span class="rl">certified max gain</span></div>
+      </div>
+      <div class="verdict" id="oVerdict" role="status" aria-live="polite">Verdict pending</div>
+      <div class="cap"><b>Defaults are the paper's audited MATH-500 run</b> (K={{MathK}}, n={{MathN}}, {{MathM}} models, single best {{MathSB}} entered at its lower confidence limit {{MathSBLo}}, β̂ = <span class="num" id="capBeta">·</span>). The Clopper-Pearson lower bound on β turns the count K/n into a certified ceiling <span class="num">1−β_lo</span> on achievable accuracy, the most any router, vote, or cascade could reach. Subtracting the single-best accuracy upper-bounds the gain of every selection policy, from one labelled sample with no router trained. β_lo is the lower end of the two-sided 95% CP interval, and the default single-best value is its Bonferroni lower limit over the {{MathM}} models (the best model is picked from the same data), so the bound holds with ≥95% confidence, as in the paper; enter your own lower limit when you use it. With these defaults the certificate cannot rule out a gain of up to {{MathCert}}, the price of certifying with {{MathN}} questions and {{MathM}} candidate best models; the point estimate of the oracle gain is {{MathG}}.</div>
+    </div>
+    <aside class="rail" aria-label="Figure 1 notes: inputs, output formula, and scope">
+      <span class="rk">FIG 1 · INPUTS</span><br>K / n · A_single-best · overhead
+      <span class="rsep"></span>
+      <span class="rk">OUTPUT</span><br>G ≤ (1−β_lo) − A_sb<br>β_lo = lower end of 95% CP<br>A_sb at its lower limit · ≥95% upper bound on gain
+      <span class="rsep"></span>
+      <span class="rk">SCOPE</span><br>one labelled sample<br>$0 · no router trained
+    </aside>
+  </div>
+</section>
+
+<!-- 2. POOL-SIZE DIVERGENCE -->
+<section id="divergence" class="wrap">
+  <div class="sechead">
+    <div class="h-main"><span class="secno num">03</span><h2>What a grading error looks like to ρ.</h2></div>
+    <p>Our first release saw {{MathJuneK}} MATH-500 questions that every model got wrong ({{ArtK}} after the truncation control). Every one of those {{ArtK}} was a grading error: a reference answer such as “x=5” or “864 inches²” that no response could match. To a pairwise statistic that looks like a shared blind spot, and the underpricing grows with the pool. Drag the slider to see it open up.</p>
+  </div>
+  <div class="track">
+    <div class="fig">
+      <div class="figlbl"><span class="eyebrow">FIG 2 · An artifact atom (June MATH-500 grading)</span><span class="figsrc">random sub-pools</span></div>
+      <div class="controls">
+        <div class="ctl"><label for="kSlider">pool size k</label><input type="range" id="kSlider" min="2" max="67" value="67"><span class="val" id="kVal">k = 67</span></div>
+      </div>
+      <div class="panx"><svg id="divChart" viewBox="0 0 720 300" role="img" aria-label="Tetrachoric underpricing ratio rising with pool size"></svg></div>
+      <p class="panhint">scroll to pan &#8596;</p>
+      <div class="cap">The June tail (every question a grading error) over the tetrachoric single-factor prediction: median across {{ArtCompPools}} random k-model sub-pools per size, 5-95% band; at the full pool there is one pool. At <span class="num" id="kReadout">k=67</span> the “underpricing” is <span class="num beta" id="ratioReadout">·</span>. The signature identifies a common mode, not its cause; reading the all-wrong questions does.</div>
+    </div>
+    <aside class="rail" aria-label="Figure 2 notes: sampling, baseline, and robustness checks">
+      <span class="rk">FIG 2 · SAMPLING</span><br>random k-subsets<br>without replacement<br>band = 5-95% pctile<br>all pairs, exact
+      <span class="rsep"></span>
+      <span class="rk">REFERENCE</span><br>1× = ρ-exact (neutral)
+      <span class="rsep"></span>
+      <span class="rk">SAME ARTIFACT</span><br>full Σ Gaussian {{ArtFullRatio}}×<br>Clayton lower-tail {{ArtClayRatio}}×
+    </aside>
+  </div>
+</section>
+
+<!-- 3. FOUR-DOMAIN REGIME -->
+<section id="regime" class="wrap">
+  <div class="sechead">
+    <div class="h-main"><span class="secno num">04</span><h2>The ceiling, benchmark by benchmark.</h2></div>
+    <p>After the audit, no MATH-500, MATH-Hard, AIME or GPQA question defeats every model. The ceiling is near 1. Where the best model falls short, combining could help in principle, but only by knowing per question which model to trust.</p>
+  </div>
+  <div class="domains" id="domainGrid"></div>
+  <div class="cap" style="max-width:60ch;margin-top:22px;color:var(--dim);font-size:13px">Audited β with the as-graded count. Genuine co-failures appear only on MMLU-Pro, asked for a direct answer ({{MmluK}} of {{MmluN}}; the blind raters also judged that question ambiguous). The code problems every model fails all accept several correct outputs, which exact-match grading cannot verify.</div>
+</section>
+
+<!-- 5. THE FLIP -->
+<section id="flip" class="wrap">
+  <div class="sechead">
+    <div class="h-main"><span class="secno num">05</span><h2>Same questions, new format, still no shared blind spot.</h2></div>
+    <p>Take hard science questions and remove the options. Accuracy changes little, and the models miss different questions: on {{OpenN}} well-posed questions, none stumps them all. (Our first release reported 10 of 79; most of those could not be answered without their options.)</p>
+  </div>
+  <div class="track">
+    <div class="fig">
+      <div class="figlbl"><span class="eyebrow">FIG 3 · Content-controlled format flip</span><span class="figsrc" id="flip-judge">5-judge panel · κ {{KappaLo}}-{{KappaHi}}</span></div>
+      <div class="controls">
+        <div class="seg" role="group" aria-label="Question format">
+          <button id="segMC" aria-pressed="true">Multiple-choice</button>
+          <button id="segOpen" aria-pressed="false">Open-ended</button>
+        </div>
+      </div>
+      <div class="readout">
+        <div class="r"><span class="rv beta" id="fBeta">≈ 0</span><span class="rl">co-failure <span class="gb">β</span> (same questions)</span></div>
+        <div class="r"><span class="rv" id="fAcc">·</span><span class="rl">mean accuracy (matched models)</span></div>
+        <div class="r"><span class="rv" id="fAllwrong">·</span><span class="rl">all-models-wrong items / {{OpenN}}</span></div>
+      </div>
+      <div class="panx"><svg id="flipChart" viewBox="0 0 720 132" role="img" aria-label="Each cell is one GPQA-Diamond item; under open-ended format a block of all-models-wrong items lights up at the left where multiple-choice had none"></svg></div>
+      <p class="panhint">scroll to pan &#8596;</p>
+      <div class="cap">Each cell is one of the <b>{{OpenN}} GPQA-Diamond questions</b> that survive a screen, fixed before the new data, for questions answerable without their options, content held fixed. Toggle the <b>format</b>: in both, no question is failed by every model (multiple choice {{OpenMcK}}, free response {{OpenK}}). Under the strictest judge rule (all five must agree) and the lenient rule the counts are ({{OpenUnanK}} and {{OpenLenK}} all-wrong).</div>
+    </div>
+    <aside class="rail" aria-label="Figure 3 notes: sample, grading, and matched-model accuracy">
+      <span class="rk">FIG 3 · SAMPLE</span><br>GPQA-Diamond questions<br>open-ended n = {{OpenN}}<br>k = {{OpenK}} all-wrong
+      <span class="rsep"></span>
+      <span class="rk">GRADING</span><br>5 LLM judges<br>inter-rater κ {{KappaLo}}-{{KappaHi}}<br>not human-adjudicated
+      <span class="rsep"></span>
+      <span class="rk">MATCHED MODELS</span><br>mean acc {{OpenMcMean}} → {{OpenOpenMean}}<br>best model {{OpenMcBest}} → {{OpenOpenBest}}
+    </aside>
+  </div>
+</section>
+
+<!-- THE POOL -->
+<section id="pool" class="wrap">
+  <div class="sechead">
+    <div class="h-main"><span class="secno num">06</span><h2>The cast: 67 current models, 21 providers.</h2></div>
+    <p>Every number here recomputes live over one 2026 OpenRouter pool, from $30/Mtok flagships down to $0.03/Mtok open weights. The roster, the matrices, the grading, and the code are all released to rerun.</p>
+  </div>
+  <div class="poolstat"><span class="beta num">67</span> models &middot; <span class="beta num">21</span> providers &middot; priced live &middot; temperature 0 &middot; one model &times; question co-failure matrix per benchmark</div>
+  <div id="poolGrid" class="poolgrid"></div>
+  <div class="cap" style="max-width:64ch">Tier: <span class="tierdot f"></span> frontier &middot; <span class="tierdot m"></span> mid &middot; <span class="tierdot c"></span> cheap / open-weight. Every instrument above draws on this pool, and all of it is released to replicate: the full roster with live prices, the model &times; question outcome matrices, the grading, and the analysis code. Every number on this page regenerates offline.</div>
+</section>
+
+<footer class="wrap" id="paper">
+  <div class="foot-grid">
+    <div style="max-width:42ch">
+      <div class="foot-title">Combining LLMs Rarely Beats the Single Best Model</div>
+      <p style="color:var(--dim);font-size:13.5px">Josef Chen · KAIKAKU. Every figure here recomputes from committed outcome matrices over 67 models. The full reproducibility bundle is uploaded: the outcome matrices, graders, and analysis code that regenerate every number in the paper offline. Grading scope is stated honestly: the open-ended panel is five LLM judges, not human adjudication.</p>
+      <p style="margin-top:16px"><a href="https://arxiv.org/abs/2606.27288" target="_blank" rel="noopener">Read the paper on arXiv</a> <span class="mono-note" style="display:inline">&#160;arXiv:2606.27288</span></p>
+      <p style="margin-top:10px"><a href="https://github.com/josefchen/co-failure-ceiling" target="_blank" rel="noopener">Code and one-command reproduction on GitHub</a> <span class="mono-note" style="display:inline">&#160;reproduce.sh checks every number</span></p>
+      <p style="margin-top:10px"><a href="https://huggingface.co/datasets/josefchen/co-failure-67-models" target="_blank" rel="noopener">Browse the dataset on Hugging Face</a> <span class="mono-note" style="display:inline">&#160;67 models &middot; outcome matrices</span></p>
+    </div>
+    <div class="mono-note">
+      <span class="gb">β</span> = P(all models wrong)<br>ceiling = 1 − <span class="gb">β</span><br>G = P(single-best wrong) − <span class="gb">β</span><br><br>
+      MATH-500 · MATH-Hard · AIME<br>code_contests · GPQA · MMLU-Pro<br><br>
+      no fabricated numbers.<br>temperature 0 · CP intervals.
+    </div>
+  </div>
+</footer>
+
+<script>
+const DATA = {"domains":[{"name":"MATH-500","kind":"open-ended math","beta":{{MathBeta}},"k":{{MathK}},"n":{{MathN}},"graded":{{MathAwGraded}},"regime":"realizability"},{"name":"MATH-Hard","kind":"open-ended math","beta":{{HardBeta}},"k":{{HardK}},"n":{{HardN}},"graded":{{HardAwGraded}},"regime":"realizability"},{"name":"AIME 2024+25","kind":"integer answers","beta":{{AimeBeta}},"k":{{AimeK}},"n":{{AimeN}},"graded":{{AimeAwGraded}},"regime":"realizability"},{"name":"GPQA (multiple-choice)","kind":"science · MC","beta":{{GmcBeta}},"k":{{GmcK}},"n":{{GmcN}},"graded":{{GmcAwGraded}},"regime":"realizability"},{"name":"GPQA (open-ended)","kind":"science · free-response","beta":{{OpenBeta}},"k":{{OpenK}},"n":{{OpenN}},"graded":{{OpenK}},"regime":"realizability"}],
+"composition":{{json:artifact_math500.composition}},
+"gpqa_flip":{"mc_mean":{{OpenMcMean}},"open_mean":{{OpenOpenMean}},"mc_best":{{OpenMcBest}},"open_best":{{OpenOpenBest}},"mc_beta":0,"open_beta":{{OpenBeta}},"n":{{OpenN}},"kappa_lo":{{KappaLo}},"kappa_hi":{{KappaHi}},"judges":5}};
+// composition curve: {k: {median, p05, p95}} -> the list the chart expects
+DATA.composition_curve = Object.keys(DATA.composition).map(Number).sort((a,b)=>a-b)
+  .map(k => ({k, median: DATA.composition[k].median, lo: DATA.composition[k].p05 ?? DATA.composition[k].median, hi: DATA.composition[k].p95 ?? DATA.composition[k].median}));
+/* ---------- incomplete beta + Clopper-Pearson (no deps) ---------- */
+function logGamma(z){const g=7,c=[0.99999999999980993,676.5203681218851,-1259.1392167224028,771.32342877765313,-176.61502916214059,12.507343278686905,-0.13857109526572012,9.9843695780195716e-6,1.5056327351493116e-7];z-=1;let x=c[0];for(let i=1;i<g+2;i++)x+=c[i]/(z+i);const t=z+g+0.5;return 0.5*Math.log(2*Math.PI)+(z+0.5)*Math.log(t)-t+Math.log(x);}
+function betacf(a,b,x){const MAXIT=200,EPS=3e-12,FPMIN=1e-300;let qab=a+b,qap=a+1,qam=a-1,c=1,d=1-qab*x/qap;if(Math.abs(d)<FPMIN)d=FPMIN;d=1/d;let h=d;for(let m=1;m<=MAXIT;m++){let m2=2*m,aa=m*(b-m)*x/((qam+m2)*(a+m2));d=1+aa*d;if(Math.abs(d)<FPMIN)d=FPMIN;c=1+aa/c;if(Math.abs(c)<FPMIN)c=FPMIN;d=1/d;h*=d*c;aa=-(a+m)*(qab+m)*x/((a+m2)*(qap+m2));d=1+aa*d;if(Math.abs(d)<FPMIN)d=FPMIN;c=1+aa/c;if(Math.abs(c)<FPMIN)c=FPMIN;d=1/d;let del=d*c;h*=del;if(Math.abs(del-1)<EPS)break;}return h;}
+function betai(a,b,x){if(x<=0)return 0;if(x>=1)return 1;const bt=Math.exp(logGamma(a+b)-logGamma(a)-logGamma(b)+a*Math.log(x)+b*Math.log(1-x));return x<(a+1)/(a+b+2)?bt*betacf(a,b,x)/a:1-bt*betacf(b,a,1-x)/b;}
+function betaInv(p,a,b){let lo=0,hi=1,mid;for(let i=0;i<80;i++){mid=(lo+hi)/2;if(betai(a,b,mid)<p){lo=mid;}else{hi=mid;}}return mid;}
+function cpInterval(k,n,alpha=0.05){const lo=k===0?0:betaInv(alpha/2,k,n-k+1);const hi=k===n?1:betaInv(1-alpha/2,k+1,n-k);return[lo,hi];}
+const fmt=(x,d=3)=>x.toFixed(d), pct=x=>(x*100).toFixed(1)+'%';
+
+/* ---------- 1. certificate ---------- */
+const CERT_DEF={K:{{MathK}},n:{{MathN}},asb:{{MathSBLo}},ov:0.02};
+function cert(){
+  // parse-and-validate: if any field is empty/non-numeric, hold the last good render — clearing a box must
+  // never yield a confident verdict from a coerced 0. Counts are integerized and K is clamped to <= n.
+  const rawK=parseFloat(cK.value), rawN=parseFloat(cN.value), rawAsb=parseFloat(cAsb.value), rawOv=parseFloat(cOv.value);
+  if(![rawK,rawN,rawAsb,rawOv].every(Number.isFinite))return;
+  const n=Math.max(1,Math.round(rawN)), K=Math.max(0,Math.min(n,Math.round(rawK)));
+  const asb=Math.min(1,Math.max(0,rawAsb)), ov=Math.max(0,rawOv);
+  const k=K; const beta=k/n; const [blo,bhi]=cpInterval(k,n);
+  // Only beta is uncertain — the entered single-best is the known operating point. The CP lower bound on
+  // beta gives a certified UPPER bound on the ceiling (1−blo); the most any policy could gain over the
+  // incumbent is that ceiling minus the entered single-best — a valid one-sided 95% upper bound on the gain.
+  // Because it is an UPPER bound, "no policy can pay for itself" (gain < overhead) is a SOUND skip certificate.
+  const ceil=1-blo, certGain=ceil-asb;
+  oBeta.textContent=fmt(beta,3); oCeil.textContent=fmt(ceil,3); oGain.textContent=(certGain>=0?'+':'')+fmt(certGain,3);
+  const v=document.getElementById('oVerdict');
+  if(certGain<ov){
+    v.className='verdict stop';
+    v.textContent = ceil<asb
+      ? 'Even the certified ceiling '+fmt(ceil,3)+' sits below single-best '+fmt(asb,3)+'. No selection policy over this pool can beat the best single model.'
+      : 'No policy can pay for itself. Certified max gain '+fmt(certGain,3)+' is below overhead '+fmt(ov,3)+'. Skip orchestration.';
+  } else {
+    v.className='verdict go'; v.textContent='Certified max gain '+fmt(certGain,3)+' over single-best exceeds overhead. A router is worth evaluating.';
+  }
+  // source eyebrow tracks whether the instrument still shows the paper's default run
+  const isDefault=(K===CERT_DEF.K&&n===CERT_DEF.n&&Math.abs(asb-CERT_DEF.asb)<1e-9&&Math.abs(ov-CERT_DEF.ov)<1e-9);
+  certSrc.textContent=isDefault?'MATH-500 default':'custom inputs';
+  certChart.setAttribute('aria-label',`Certificate: single-best ${pct(asb)}, certified ceiling ${pct(ceil)}, max gain ${(certGain>=0?'+':'')+pct(certGain)}, verdict ${certGain<ov?'stop':'go'}`);
+  drawCert(asb,ceil,certGain,ov); // render only; reuses the math above, alters no value
+}
+/* certificate strip: a DATA-DRIVEN accuracy window (not a wasteful [0,1] axis). The single-best
+   operating point and the certified ceiling (1−β_lo) live in a narrow high-accuracy band, so the track
+   is clipped to a window around them and the GAIN between the two markers becomes the dominant
+   object — the lit segment (accent=STOP, green=GO). Pure rendering of cert()'s own outputs; the
+   only arithmetic here is axis affine-mapping for layout, never a reported value.
+   Right inset reserves room so the ceiling label (text-anchor=start) cannot leave the 720 viewBox. */
+const CC={l:54,r:92,y:50,w:574};
+function drawCert(sb,ceil,gain,ov){
+  // data-driven window: pad below the lower marker, above the upper, clamp to [0,1]
+  const dataLo=Math.min(sb,ceil), dataHi=Math.max(sb,ceil);
+  let xmin=Math.floor((dataLo-0.06)*20)/20, xmax=Math.min(1,dataHi+0.04);
+  xmin=Math.max(0,xmin); if(xmax-xmin<0.08){xmin=Math.max(0,xmax-0.08);} // never collapse to a line
+  const span=xmax-xmin||1;
+  const x=a=>CC.l+(Math.min(xmax,Math.max(xmin,a))-xmin)/span*CC.w;
+  const go=gain>=ov, lit=go?'var(--go)':'var(--accent)';
+  const xa=x(sb), xc=x(ceil), lo=Math.min(xa,xc), hi=Math.max(xa,xc);
+  let g='';
+  // baseline axis + 3 real-accuracy ticks: window floor / midpoint / window ceiling
+  g+=`<line class="axis" x1="${CC.l}" x2="${CC.l+CC.w}" y1="${CC.y}" y2="${CC.y}"/>`;
+  const mid=(xmin+xmax)/2;
+  [[xmin,'start'],[mid,'middle'],[xmax,'end']].forEach(([v,anc])=>{const xt=x(v);
+    g+=`<line class="hairtick" x1="${xt}" x2="${xt}" y1="${CC.y-4}" y2="${CC.y+4}"/><text class="tick" x="${xt}" y="${CC.y+20}" text-anchor="${anc}">${pct(v)}</text>`;});
+  g+=`<text class="tick" x="${CC.l+CC.w}" y="${CC.y+33}" text-anchor="end" fill="var(--faint)">accuracy</text>`;
+  // gain segment (the lit headroom or the deficit) — now the largest mark on the strip
+  g+=`<rect x="${lo}" y="${CC.y-8}" width="${Math.max(0,hi-lo)}" height="16" rx="3" fill="${lit}" opacity="0.9"/>`;
+  // each label anchors to the FIXED corner on ITS OWN marker's side: the two labels always occupy opposite
+  // corners (so they can never collide), AND neither ever reads across the strip to the wrong mark — including
+  // the crossed regime at high beta where the certified ceiling falls below single-best and the markers swap sides.
+  const sbRight=xa>=xc;                                        // single-best marker on the right of the window?
+  const sbX=sbRight?CC.l+CC.w:CC.l, sbA=sbRight?'end':'start';
+  const ceX=sbRight?CC.l:CC.l+CC.w, ceA=sbRight?'start':'end';
+  g+=`<line x1="${xa}" x2="${xa}" y1="${CC.y-18}" y2="${CC.y+18}" stroke="var(--dim)" stroke-width="1.5"/>`;
+  g+=`<text class="endlabel" x="${sbX}" y="${CC.y-23}" text-anchor="${sbA}" fill="var(--dim)">single-best ${pct(sb)}</text>`;
+  g+=`<line x1="${xc}" x2="${xc}" y1="${CC.y-18}" y2="${CC.y+18}" stroke="${lit}" stroke-width="2"/>`;
+  g+=`<circle cx="${xc}" cy="${CC.y}" r="3.5" fill="${lit}" stroke="var(--bg)" stroke-width="1.5"/>`;
+  g+=`<text class="endlabel" x="${ceX}" y="${CC.y-23}" text-anchor="${ceA}" fill="${lit}">ceiling ${pct(ceil)}</text>`;
+  g+=`<text class="endlabel" x="${ceX}" y="${CC.y-9}" text-anchor="${ceA}" fill="${lit}">max gain ${(gain>=0?'+':'')+pct(gain)}</text>`;
+  certChart.innerHTML=g;
+  drawCertMobile(sb,ceil,gain,ov,go,lit);
+}
+/* dedicated narrow-screen composition for the hero instrument — a vertical stack so every label lands
+   at full UI type size with no panning. Renders the SAME outputs cert() already computed (sb, ceil,
+   gain, ov); the only arithmetic is bar-width layout mapping, never a reported value. */
+function drawCertMobile(sb,ceil,gain,ov,go,lit){
+  const m=document.getElementById('certMobile'); if(!m)return;
+  // gain bar: a small accuracy window [floor, ceil] so the gain segment from single-best→ceiling is visible.
+  const floor=Math.max(0,Math.min(sb,ceil)-0.05), top=Math.min(1,Math.max(sb,ceil,sb+ov)+0.01), sp=(top-floor)||1;
+  const xp=a=>((Math.min(top,Math.max(floor,a))-floor)/sp*100);
+  const xa=xp(sb), xc=xp(ceil), barL=Math.min(xa,xc), barW=Math.abs(xc-xa);
+  m.innerHTML=
+   `<div class="cmrow"><span class="cmk">single-best</span><span class="cmv">${pct(sb)}</span></div>`+
+   `<div class="cmrow"><span class="cmk">ceiling 1−<span class="gb">β</span></span><span class="cmv" style="color:${lit}">${pct(ceil)}</span></div>`+
+   `<div class="cmgain"><div class="cmk"><span>certified max gain</span><span class="cmv" style="color:${lit};font-size:16px">${(gain>=0?'+':'')+pct(gain)}</span></div>`+
+     `<div class="cmbartrack"><div class="cmbarfill" style="left:${barL}%;width:${barW}%;background:${lit};opacity:.9"></div>`+
+       `<div class="cmbarov" style="left:${xp(sb+ov)}%" title="overhead"></div></div>`+
+     `<div class="cmscale"><span>${pct(floor)}</span><span>accuracy</span><span>${pct(top)}</span></div></div>`;
+}
+const certSrc=document.getElementById('cert-src');
+[cK,cN,cAsb,cOv].forEach(el=>el.addEventListener('input',cert));
+// cap documents the DEFAULT β̂ from DATA — sourced once so prose can never drift from the instrument
+document.getElementById('capBeta').textContent=DATA.domains[0].beta.toFixed(3);
+// single-source the hero figures from DATA too, so the headline β and its 1−β̂ can never drift from the data object
+(function(){const b=DATA.domains[0].beta,hb=document.getElementById('heroBeta'),hc=document.getElementById('heroCeil');
+  if(hb){hb.dataset.ticker=b.toFixed(3);hb.textContent=b.toFixed(3);} if(hc)hc.textContent=(1-b).toFixed(3);})();
+
+/* ---------- 2. divergence chart ---------- */
+const dc=DATA.composition_curve, W=720,H=300,P={l:46,r:64,t:20,b:34};
+const xs=k=>P.l+(k-2)/(67-2)*(W-P.l-P.r), ys=r=>{const max=3;return H-P.b-(r/max)*(H-P.t-P.b);};
+function drawDiv(kMax){
+  const pts=dc.filter(d=>d.k<=kMax);
+  let g='';
+  // grounded baselines: a hairline x-axis at the plot floor and a faint 0 datum, so the slope isn't read as exaggerated.
+  g+=`<line class="axis" x1="${P.l}" x2="${W-P.r}" y1="${ys(0)}" y2="${ys(0)}"/>`;
+  g+=`<text class="tick" x="${P.l-8}" y="${ys(0)+3}" text-anchor="end" fill="var(--faint)">0</text>`;
+  // y-ticks direct-labelled, no full ruled grid.
+  [1,2,3].forEach(r=>{g+=`<text class="tick" x="${P.l-8}" y="${ys(r)+3}" text-anchor="end">${r}×</text>`;});
+  [2,16,32,48,67].forEach(k=>g+=`<line class="hairtick" x1="${xs(k)}" x2="${xs(k)}" y1="${ys(0)}" y2="${ys(0)+4}"/><text class="tick" x="${xs(k)}" y="${H-P.b+16}" text-anchor="middle">${k}</text>`);
+  // axis titles so the figure is legible detached from its caption (Distill/OWID: self-describing figures)
+  g+=`<text class="tick" x="${W-P.r}" y="${H-5}" text-anchor="end" fill="var(--faint)">pool size k →</text>`;
+  g+=`<text class="tick" x="${P.l}" y="${P.t-7}" text-anchor="start" fill="var(--faint)">β underpricing &#160;·&#160; empirical vs ρ-exact</text>`;
+  // single meaningful reference: 1× = ρ exact (dashed).
+  g+=`<line class="refline" x1="${P.l}" x2="${W-P.r}" y1="${ys(1)}" y2="${ys(1)}" stroke-dasharray="4 4"/><text class="tick" x="${W-P.r}" y="${ys(1)-6}" text-anchor="end" fill="var(--dim)">1× (ρ exact)</text>`;
+  // band + line in NEUTRAL ink — the plotted quantity is an underpricing ratio, not β itself, so it
+  // must not read as a second hero-risk object competing with the certificate's STOP/β accent.
+  const band=pts.map(d=>`${xs(d.k)},${ys(d.hi)}`).concat(pts.slice().reverse().map(d=>`${xs(d.k)},${ys(d.lo)}`)).join(' ');
+  g+=`<polygon points="${band}" fill="var(--hair)"/>`;
+  g+=`<path class="bandedge" d="${pts.map((d,i)=>`${i?'L':'M'}${xs(d.k)} ${ys(d.hi)}`).join(' ')}"/>`;
+  g+=`<path class="bandedge" d="${pts.map((d,i)=>`${i?'L':'M'}${xs(d.k)} ${ys(d.lo)}`).join(' ')}"/>`;
+  // median line
+  const line=pts.map((d,i)=>`${i?'L':'M'}${xs(d.k)} ${ys(d.median)}`).join(' ');
+  g+=`<path d="${line}" fill="none" stroke="var(--text)" stroke-width="2"/>`;
+  const last=pts[pts.length-1];
+  // NEUTRAL terminal marker + label. The plotted quantity is an underpricing RATIO, not β, so it must not
+  // borrow the warm accent reserved strictly for the certificate verdict and the flip co-failure block —
+  // the curve's monotone rise already carries the danger without colour (held-out-palette rule).
+  const onFull=last.k===67;
+  g+=`<circle cx="${xs(last.k)}" cy="${ys(last.median)}" r="3.5" fill="var(--text)" stroke="var(--bg)" stroke-width="2"/>`;
+  if(onFull)g+=`<line x1="${xs(last.k)}" x2="${xs(last.k)}" y1="${ys(last.median)-9}" y2="${ys(last.median)+9}" stroke="var(--text)" stroke-width="1.5"/>`;
+  g+=`<text class="endlabel" x="${xs(last.k)+8}" y="${ys(last.median)+4}" fill="var(--text)">${last.median.toFixed(1)}×</text>`;
+  divChart.innerHTML=g;
+  divChart.setAttribute('aria-label',`Underpricing ratio rising with pool size; at k=${last.k} the empirical co-failure tail is ${last.median.toFixed(1)} times the rho-exact prediction`);
+  kReadout.textContent='k='+last.k; ratioReadout.textContent=last.median.toFixed(1)+'×';
+}
+function syncRange(el){const min=+el.min,max=+el.max;el.style.setProperty('--val',((+el.value-min)/(max-min)));}
+kSlider.addEventListener('input',()=>{
+  // the curve snaps to the nearest support point at or below the thumb; show the SAME k on the control so the
+  // label, the caption readout and the plotted endpoint can never disagree.
+  const sel=dc.filter(d=>d.k<=+kSlider.value), snapped=(sel.length?sel[sel.length-1]:dc[0]).k;
+  kVal.textContent='k = '+snapped; kSlider.setAttribute('aria-valuetext',snapped+' models');
+  syncRange(kSlider); drawDiv(+kSlider.value);
+});
+
+/* ---------- 3. domain grid ---------- */
+function domains(){
+  const order=DATA.domains;
+  const hue=['--d-math','--d-mathhard','--d-code','--d-gpqa','--d-gpqa'];
+  const maxB=Math.max(...order.map(d=>d.beta||0),0.13);
+  domainGrid.innerHTML=order.map((d,i)=>{
+    const lead=i===0?' lead':'';
+    const ceiling=d.regime==='ceiling';
+    const reg=ceiling?'<span class="chip ceiling">ceiling-bound · <span class="gb">β</span>&gt;0</span>':'<span class="chip realz">realizability-bound · <span class="gb">β</span>≈0</span>';
+    const tetra=`<span class="dmeta">${d.graded} all-wrong as graded → ${d.k} after audit</span>`;
+    const barw=((d.beta||0)/maxB);
+    // ceiling cards: β bar in the domain's held-out hue, scaled vs the largest β.
+    // β=0 cards: an explicit realizability tick — zero is a designed state, not an empty bar.
+    const encode=ceiling
+      ? `<div class="bartrack"><div class="bar" style="transform:scaleX(${barw})"></div></div>`
+      : `<div class="realz-tick">realizable · gain is pure disagreement</div>`;
+    return `<div class="dcard${lead}" style="--d-hue:var(${hue[i]});--d-hue-text:var(${hue[i]}-text)"><div><span class="dk">${d.kind}</span><div class="dn">${d.name}</div>
+      <div class="db num"><span class="gb">β</span> ${d.beta?d.beta.toFixed(3):'≈ 0'}</div>
+      <span class="dmeta">k=${d.k} of ${d.n}</span><br>${tetra}
+      ${encode}</div>${reg}</div>`;
+  }).join('');
+}
+
+/* ---------- 4. flip — 79-item dot strip; the all-wrong block is the signature motion moment ---------- */
+const flip=DATA.gpqa_flip;
+const reduceMotion=()=>matchMedia('(prefers-reduced-motion:reduce)').matches;
+// each cell is one GPQA-Diamond item (v2 question set); any all-models-wrong items would be the leftmost block.
+const FN=flip.n, FK=Math.round(flip.open_beta*FN);
+const FG={cols:27,gap:4,cell:0,bx:20,by:26,rowGap:6}; // geometry in the 720-wide viewBox
+FG.cell=(680-(FG.cols-1)*FG.gap)/FG.cols; // ~21.3
+const rowsN=Math.ceil(FN/FG.cols);
+// reading order so the all-wrong block is a contiguous patch at the top-left, not scattered
+const cellXY=i=>{const r=Math.floor(i/FG.cols),c=i%FG.cols;
+  return {x:FG.bx+c*(FG.cell+FG.gap),y:FG.by+r*(FG.cell+FG.rowGap)};};
+let flipCells='';
+for(let i=0;i<FN;i++){const {x,y}=cellXY(i);
+  flipCells+=`<rect class="fcell" data-i="${i}" x="${x}" y="${y}" width="${FG.cell}" height="${FG.cell}" rx="3"/>`;}
+const stripBottom=FG.by+rowsN*(FG.cell+FG.rowGap);
+// brace over the contiguous all-wrong block (cells 0..FK-1, all in row 0): groups the co-failure
+// tail as a distinct object so it reads as a block of the distribution, not "the first 10 cells".
+const braceL=FG.bx, braceR=FG.bx+FK*(FG.cell+FG.gap)-FG.gap, braceY=FG.by-9, braceMid=(braceL+braceR)/2;
+const bracePath=`M${braceL} ${braceY} q0 -5 5 -5 H${braceMid-5} q5 0 5 -5 q0 5 5 5 H${braceR-5} q5 0 5 5`;
+flipChart.innerHTML=`<g id="fStrip">${flipCells}</g>
+  <g id="fBrace" opacity="0"><path d="${bracePath}" fill="none" stroke="var(--accent-line)" stroke-width="1"/>
+    <text class="annote" x="${braceMid}" y="${braceY-7}" text-anchor="middle" fill="var(--accent)">co-failure block</text></g>
+  <text id="fStripLbl" class="annote" x="${FG.bx}" y="${stripBottom+13}"></text>
+  <text class="tick" x="${FG.bx+680}" y="${stripBottom+13}" text-anchor="end">${FN} GPQA-Diamond items</text>`;
+const fcells=[...flipChart.querySelectorAll('.fcell')], fStripLbl=document.getElementById('fStripLbl'),
+  fBrace=document.getElementById('fBrace');
+// paint cell base states: under open, cells 0..FK-1 are all-wrong (accent); rest neutral. lit = opacity ramp.
+function paintCells(open,lit){
+  fcells.forEach((el,i)=>{
+    const wrong=open&&i<FK;
+    el.setAttribute('fill',wrong?'var(--accent)':(open?'var(--d-gpqa-dim)':'var(--d-math-dim)'));
+    el.setAttribute('opacity',wrong?lit.toFixed(3):'1');
+    el.setAttribute('stroke',wrong?'var(--accent-line)':'none');
+    el.setAttribute('stroke-width',wrong?'0.75':'0');
+  });
+  // the brace tracks the same reveal ramp; absent under MC (no co-failure block)
+  fBrace.setAttribute('opacity',open?lit.toFixed(3):'0');
+}
+let flipRAF=null;
+function drawFlip(open){
+  fBeta.textContent=open?flip.open_beta.toFixed(3):'≈ 0';
+  fAcc.textContent=pct(open?flip.open_mean:flip.mc_mean);
+  fBeta.style.color=open?'var(--accent)':'var(--d-math)';
+  fStripLbl.setAttribute('fill',open?'var(--accent)':'var(--faint)');
+  if(flipRAF)cancelAnimationFrame(flipRAF);
+  if(!open){ // MC: no co-failure block to reveal
+    paintCells(false,0); fAllwrong.textContent='0'; fAllwrong.style.color='var(--d-math)';
+    fStripLbl.textContent='no co-failure tail';
+    return;
+  }
+  fAllwrong.style.color='var(--accent)';
+  // settle the final state synchronously first, so the strip is correct even if rAF is throttled
+  // (background tab / reduced-motion); the reveal below only re-plays it as the signature moment.
+  paintCells(true,1); fAllwrong.textContent=String(FK); fStripLbl.textContent=FK+' all-models-wrong items';
+  if(reduceMotion())return;
+  // signature moment: the 10 all-wrong cells fade in while the counter ticks 0→10
+  const dur=720, t0=performance.now(), ease=p=>1-Math.pow(1-p,3);
+  const step=t=>{const p=Math.min(1,(t-t0)/dur),e=ease(p);
+    paintCells(true,e);
+    const c=Math.round(FK*e); fAllwrong.textContent=String(c); fStripLbl.textContent=c+' all-models-wrong items';
+    if(p<1){flipRAF=requestAnimationFrame(step);}else{paintCells(true,1);fAllwrong.textContent=String(FK);fStripLbl.textContent=FK+' all-models-wrong items';}};
+  flipRAF=requestAnimationFrame(step);
+}
+segMC.onclick=()=>{segMC.setAttribute('aria-pressed',true);segOpen.setAttribute('aria-pressed',false);drawFlip(false);};
+segOpen.onclick=()=>{segOpen.setAttribute('aria-pressed',true);segMC.setAttribute('aria-pressed',false);drawFlip(true);};
+
+/* ---------- tickers ---------- */
+function tickers(){document.querySelectorAll('[data-ticker]').forEach(el=>{const tgt=+el.dataset.ticker,dec=(tgt%1!==0)?3:0;let s=null;const dur=900;let done=false;
+  const settle=()=>{if(!done){done=true;el.textContent=tgt.toFixed(dec);}};
+  const step=t=>{if(done)return;s=s??t;const p=Math.min(1,(t-s)/dur),e=1-Math.pow(1-p,3);el.textContent=(tgt*e).toFixed(dec);if(p<1)requestAnimationFrame(step);else settle();};
+  if(matchMedia('(prefers-reduced-motion:reduce)').matches){el.textContent=tgt.toFixed(dec);return;}
+  new IntersectionObserver((es,o)=>es.forEach(en=>{if(en.isIntersecting){requestAnimationFrame(step);
+    // hard floor: if rAF is throttled (background tab / headless), still land the true value — never rest on a partial number
+    setTimeout(settle,dur+250);o.disconnect();}}),{threshold:.6}).observe(el);});}
+
+cert();syncRange(kSlider);drawDiv(67);domains();
+// paint the MC default statically; the all-wrong reveal fires only on user toggle to open-ended
+drawFlip(false);
+tickers();
+/* pan-hint truth: a .panx frame shows its 'scroll to pan' caption only while it genuinely overflows.
+   ResizeObserver keeps the .can-pan flag accurate across the two-track collapse and orientation changes —
+   no media-query guess, so the hint can never label a frame that already fits, nor go missing on one that
+   scrolls. Pure presentation toggle; alters no figure data. */
+
+/* ---------- the pool roster: all 67 models (real OpenRouter ids), grouped by provider ---------- */
+const ROSTER=[{n:"GPT-5.5",p:"OpenAI",t:"f"},{n:"Claude Opus 4.8",p:"Anthropic",t:"f"},{n:"Claude Sonnet 4.6",p:"Anthropic",t:"f"},{n:"GPT-5.4",p:"OpenAI",t:"f"},{n:"GPT-5.2",p:"OpenAI",t:"f"},{n:"Gemini 3.1 Pro",p:"Google",t:"f"},{n:"GPT-5.1",p:"OpenAI",t:"m"},{n:"Gemini 3.5 Flash",p:"Google",t:"m"},{n:"Jamba Large 1.7",p:"AI21",t:"m"},{n:"Mistral Medium 3.5",p:"Mistral",t:"m"},{n:"Qwen3.6-Max",p:"Qwen",t:"m"},{n:"Palmyra X5",p:"Writer",t:"m"},{n:"Claude Haiku 4.5",p:"Anthropic",t:"m"},{n:"GLM-5.2",p:"Z.ai",t:"m"},{n:"Qwen3-Max",p:"Qwen",t:"m"},{n:"Qwen3.7-Max",p:"Qwen",t:"m"},{n:"Kimi K2.7 Code",p:"Moonshot",t:"m"},{n:"Qwen3-Coder-Plus",p:"Qwen",t:"m"},{n:"GLM-5.1",p:"Z.ai",t:"m"},{n:"Hermes 4 405B",p:"Nous",t:"m"},{n:"Grok-4.3",p:"xAI",t:"m"},{n:"Kimi K2",p:"Moonshot",t:"m"},{n:"Qwen3.5-397B",p:"Qwen",t:"m"},{n:"Nemotron-3-Ultra",p:"NVIDIA",t:"m"},{n:"Qwen3.5-122B",p:"Qwen",t:"m"},{n:"GPT-5-mini",p:"OpenAI",t:"m"},{n:"GLM-5",p:"Z.ai",t:"m"},{n:"GLM-4.7",p:"Z.ai",t:"m"},{n:"GLM-4.6",p:"Z.ai",t:"m"},{n:"Mistral Large",p:"Mistral",t:"m"},{n:"Gemini 3.1 Flash-Lite",p:"Google",t:"m"},{n:"Qwen3.7-Plus",p:"Qwen",t:"m"},{n:"MiniMax M3",p:"MiniMax",t:"c"},{n:"Step-3.7 Flash",p:"StepFun",t:"c"},{n:"Qwen3-Next-80B",p:"Qwen",t:"c"},{n:"MiniMax M2",p:"MiniMax",t:"c"},{n:"MiniMax M2.7",p:"MiniMax",t:"c"},{n:"DeepSeek V3.1 Terminus",p:"DeepSeek",t:"c"},{n:"MiniMax M2.5",p:"MiniMax",t:"c"},{n:"DeepSeek V4 Pro",p:"DeepSeek",t:"c"},{n:"MiMo V2.5 Pro",p:"Xiaomi",t:"c"},{n:"DeepSeek V3.1 Chat",p:"DeepSeek",t:"c"},{n:"Qwen-Plus",p:"Qwen",t:"c"},{n:"Gemma 2 27B",p:"Google",t:"c"},{n:"Llama-4 Maverick",p:"Meta",t:"c"},{n:"Solar Pro 3",p:"Upstage",t:"c"},{n:"Nemotron-3-Super",p:"NVIDIA",t:"c"},{n:"Nemotron-Super 49B",p:"NVIDIA",t:"c"},{n:"Llama-3.1 70B",p:"Meta",t:"c"},{n:"Hermes 4 70B",p:"Nous",t:"c"},{n:"GPT-5-nano",p:"OpenAI",t:"c"},{n:"Phi-4-mini",p:"Microsoft",t:"c"},{n:"DeepSeek V3.2",p:"DeepSeek",t:"c"},{n:"Llama-3.2 3B",p:"Meta",t:"c"},{n:"Llama-3.3 70B",p:"Meta",t:"c"},{n:"Nemotron-3-Nano",p:"NVIDIA",t:"c"},{n:"DeepSeek V4 Flash",p:"DeepSeek",t:"c"},{n:"GPT-OSS-120B",p:"OpenAI",t:"c"},{n:"GPT-OSS-20B",p:"OpenAI",t:"c"},{n:"Gemma 3n E4B",p:"Google",t:"c"},{n:"Granite 4.0 Micro",p:"IBM",t:"c"},{n:"Qwen3-235B",p:"Qwen",t:"c"},{n:"Granite 4.1 8B",p:"IBM",t:"c"},{n:"Mistral Small 24B",p:"Mistral",t:"c"},{n:"Llama-3.1 8B",p:"Meta",t:"c"},{n:"Mistral NeMo",p:"Mistral",t:"c"},{n:"Ling-2.6 Flash",p:"InclusionAI",t:"c"}];
+(function pool(){
+  const el=document.getElementById('poolGrid'); if(!el)return;
+  const g={}; ROSTER.forEach(m=>{(g[m.p]=g[m.p]||[]).push(m);});
+  const order=Object.keys(g).sort((a,b)=>g[b].length-g[a].length||a.localeCompare(b));
+  const rank={f:0,m:1,c:2};
+  el.innerHTML=order.map(p=>{
+    const ms=g[p].slice().sort((a,b)=>rank[a.t]-rank[b.t]||a.n.localeCompare(b.n));
+    return `<div class="provgroup"><div class="ph"><span class="pn">${p}</span><span class="pc">${ms.length}</span></div><ul>`+
+      ms.map(m=>`<li class="mchip ${m.t}">${m.n}</li>`).join('')+`</ul></div>`;
+  }).join('');
+})();
+
+/* ---------- glyph-dither hero: bloom.png sampled to a pixel grid, scattered by a fluid cursor trail ---------- */
+(function glyphDither(){
+  const cv=document.getElementById('glyphCanvas'); if(!cv||!cv.getContext) return;
+  const ctx=cv.getContext('2d',{alpha:false});
+  const reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  const img=new Image();
+  img.crossOrigin='anonymous';   // HF serves Space assets from a cross-origin CDN (us.aws.cdn.hf.co, ACAO:*); load CORS-clean so getImageData() never taints the canvas
+  let cells=[],cell=10,cols=0,rows=0,W=0,H=0,dpr=1,ready=false;
+  function layout(){
+    const rect=cv.getBoundingClientRect(); W=Math.max(1,rect.width); H=Math.max(1,rect.height);
+    dpr=Math.min(2,window.devicePixelRatio||1);
+    cv.width=Math.round(W*dpr); cv.height=Math.round(H*dpr); ctx.setTransform(dpr,0,0,dpr,0,0);
+    cell=Math.max(7,Math.round(W/128));            // grid density (≈ glyph scale)
+    cols=Math.ceil(W/cell); rows=Math.ceil(H/cell); sample();
+  }
+  function sample(){
+    if(!img.complete||!img.naturalWidth) return;
+    const off=document.createElement('canvas'); off.width=cols; off.height=rows;
+    const o=off.getContext('2d');
+    const ir=img.naturalWidth/img.naturalHeight, cr=cols/rows; let sw,sh,sx,sy;   // cover-fit
+    if(ir>cr){ sh=img.naturalHeight; sw=sh*cr; sx=(img.naturalWidth-sw)/2; sy=0; }
+    else { sw=img.naturalWidth; sh=sw/cr; sx=0; sy=(img.naturalHeight-sh)/2; }
+    o.drawImage(img,sx,sy,sw,sh,0,0,cols,rows);
+    let d; try{ d=o.getImageData(0,0,cols,rows).data; }catch(_){ fallbackBg(); return; }   // tainted-canvas guard: never leave the hero blank
+    cells.length=0;
+    for(let j=0;j<rows;j++)for(let i=0;i<cols;i++){
+      const k=(j*cols+i)*4, R=d[k],G=d[k+1],B=d[k+2];
+      const l=(0.299*R+0.587*G+0.114*B)/255;
+      if(l<0.05) continue;                          // skip near-black: cleaner dither + faster
+      cells.push({bx:i*cell+cell*0.5, by:j*cell+cell*0.5, r:R,g:G,b:B,l, ox:0,oy:0});
+    }
+    ready=true;
+  }
+  let mx=-1e4,my=-1e4;
+  const pt=e=>{const rect=cv.getBoundingClientRect(); mx=e.clientX-rect.left; my=e.clientY-rect.top;};
+  const out=()=>{mx=-1e4;my=-1e4;};
+  const hdr=cv.closest('.hero-dither')||cv;
+  hdr.addEventListener('pointermove',pt,{passive:true}); hdr.addEventListener('pointerleave',out);
+  const RAD=130, STR=30;
+  function frame(t){
+    if(ready){
+      ctx.fillStyle='#070809'; ctx.fillRect(0,0,W,H);
+      for(let n=0;n<cells.length;n++){ const c=cells[n]; let jit=0;
+        if(!reduce){
+          const dx=c.bx-mx, dy=c.by-my, dist=Math.sqrt(dx*dx+dy*dy); let tx=0,ty=0;
+          if(dist<RAD){ const f=1-dist/RAD; jit=f;
+            const ang=Math.atan2(dy,dx)+Math.sin(c.bx*0.045+c.by*0.03+t*0.0021)*1.5;   // noise-displaced direction
+            const push=f*f*STR; tx=Math.cos(ang)*push; ty=Math.sin(ang)*push-push*0.25;
+          }
+          c.ox+=(tx-c.ox)*0.16; c.oy+=(ty-c.oy)*0.16;                                   // ease in/out = trail + dissipation
+        }
+        const px=c.bx+c.ox, py=c.by+c.oy, s=cell*(0.42+0.74*c.l), h=s*0.5;
+        if(jit>0.22){                                                                   // chromatic split while scattered
+          const o2=jit*3.2; ctx.globalAlpha=0.5;
+          ctx.fillStyle='rgb('+c.r+',46,52)'; ctx.fillRect(px-o2-h,py-h,s,s);
+          ctx.fillStyle='rgb(54,'+c.g+',190)'; ctx.fillRect(px+o2-h,py-h,s,s);
+          ctx.globalAlpha=1;
+        }
+        ctx.fillStyle='rgb('+c.r+','+c.g+','+c.b+')'; ctx.fillRect(px-h,py-h,s,s);
+      }
+    }
+    requestAnimationFrame(frame);
+  }
+  function fallbackBg(){                          // degrade to a plain cover image if pixels still can't be read
+    if(hdr){ hdr.style.backgroundImage="url('bloom.png?v=5')"; hdr.style.backgroundSize='cover'; hdr.style.backgroundPosition='center'; }
+    cv.style.display='none';
+  }
+  img.onerror=fallbackBg;
+  img.onload=()=>{ layout(); requestAnimationFrame(frame); };
+  img.src='bloom.png?v=5';
+  let rt; addEventListener('resize',()=>{clearTimeout(rt);rt=setTimeout(layout,160);},{passive:true});
+})();
+
+(function panHints(){
+  const frames=[...document.querySelectorAll('.panx')];
+  const sync=el=>el.classList.toggle('can-pan',el.scrollWidth-el.clientWidth>1);
+  const all=()=>frames.forEach(sync);
+  const ro=('ResizeObserver'in window)?new ResizeObserver(es=>es.forEach(e=>sync(e.target))):null;
+  frames.forEach(el=>{sync(el);ro&&ro.observe(el);});
+  // resize listener regardless of RO — guarantees the hint tracks viewport changes even where RO is throttled
+  addEventListener('resize',all,{passive:true});
+  addEventListener('orientationchange',all,{passive:true});
+})();
+</script>
+</body>
+</html>

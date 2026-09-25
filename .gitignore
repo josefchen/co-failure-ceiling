@@ -1,0 +1,19 @@
+# data are fetched from the pinned Hugging Face revision (scripts/fetch_data.py); never committed
+runs/*
+!runs/.gitkeep
+responses/
+# local-only: response cache, quarantined cache entries, secrets, build products
+harness/cache/
+harness/cache_quarantine/
+.secrets/
+__pycache__/
+*.pyc
+paper/*.aux
+paper/*.log
+paper/*.out
+paper/*.fls
+paper/*.fdb_latexmk
+paper/*.blg
+paper/*.bbl
+paper/*.synctex.gz
+.DS_Store

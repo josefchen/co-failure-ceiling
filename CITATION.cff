@@ -1,0 +1,30 @@
+cff-version: 1.2.0
+message: "If you use this code or data, please cite the paper."
+title: "co-failure-ceiling: code and data for the co-failure ceiling on LLM routing, voting and mixture-of-agents"
+type: software
+authors:
+  - family-names: Chen
+    given-names: Josef
+    affiliation: KAIKAKU
+repository-code: "https://github.com/josefchen/co-failure-ceiling"
+url: "https://arxiv.org/abs/2606.27288"
+license: MIT
+version: "2.0.0"
+date-released: "2026-09-25"
+keywords:
+  - LLM ensembles
+  - model routing
+  - mixture-of-agents
+  - co-failure
+  - reproducibility
+preferred-citation:
+  type: article
+  authors:
+    - family-names: Chen
+      given-names: Josef
+      affiliation: KAIKAKU
+  title: "When Does Combining Language Models Help? A Co-Failure Ceiling on Routing, Voting, and Mixture-of-Agents Across 67 Frontier Models"
+  journal: arXiv
+  year: 2026
+  doi: "10.48550/arXiv.2606.27288"
+  url: "https://arxiv.org/abs/2606.27288"

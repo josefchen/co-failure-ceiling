@@ -1,0 +1,194 @@
+[
+ {
+  "qid": "gpqaopen:3",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "\"Which of those equations\" refers to Maxwell's equations named in the stem, not to unseen options, so the stem is self-contained. With magnetic monopoles the unique physics answer is Gauss's law for magnetism plus Faraday's law, i.e. the gold."
+ },
+ {
+  "qid": "gpqaopen:7",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "\"Which conclusion ... can you draw\" is a judgement over a three-part conjunction, and the gold's third clause (G1 epistatic to G3) is not forced by the data, since g1g3 (10%) matches neither single mutant. Several materially different conclusions are defensible in free response."
+ },
+ {
+  "qid": "gpqaopen:11",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained two-body decay kinematics problem; energy-momentum conservation gives a unique pair of kinetic energies (4.12 MeV for the muon, 29.8 MeV for the neutrino), matching the gold."
+ },
+ {
+  "qid": "gpqaopen:15",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The compounds to be counted are listed inside the stem, so no option content is missing, and the count of optically active members is a unique number (3)."
+ },
+ {
+  "qid": "gpqaopen:19",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The four candidate assumptions are spelled out in the stem; the options only label subsets. The unique answer is the subset 1, 2, 4, equal to the gold."
+ },
+ {
+  "qid": "gpqaopen:23",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained puzzle with a determinate numeric answer: the constraints fix mixture X as cyclohexene plus a non-conjugated cyclohexadiene, giving 18 hydrogen atoms in total."
+ },
+ {
+  "qid": "gpqaopen:27",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "\"What is the structure of product 4?\" is a self-contained synthesis question, and the enantiopure (S) starting material fixes absolute as well as relative configuration, so the gold structure is the unique product."
+ },
+ {
+  "qid": "gpqaopen:31",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained relativistic energy calculation for a Li-6 nucleus at 0.96c; the unique answer is about 20.1 GeV, matching the gold."
+ },
+ {
+  "qid": "gpqaopen:35",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "No option reference; the stated energy corresponds to a redshifted 21 cm line, and because it is seen in absorption the medium is uniquely the cold atomic (cold neutral) ISM, the warm phase being excluded."
+ },
+ {
+  "qid": "gpqaopen:39",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained; \"on top of each other\" uniquely means the compounds co-elute (same Rf) because their polarities are too similar, which is the gold's content."
+ },
+ {
+  "qid": "gpqaopen:43",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The stem asks which of the \"experiments listed below\" will not help, and the gold is one unseen experimental protocol; no rewrite can pose the question without importing option content."
+ },
+ {
+  "qid": "gpqaopen:47",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained counting question about a uniquely determined product (cyclopentanecarbaldehyde), with 6 chemically distinct hydrogens as in the gold."
+ },
+ {
+  "qid": "gpqaopen:51",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained LTE Boltzmann-ratio calculation; the two temperatures and the transition wavelength give a unique factor of about 4.5."
+ },
+ {
+  "qid": "gpqaopen:55",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Asking for \"the transition route and the corresponding probability\" has no unique answer: the intermediate can be |2,1,m> with m = -1, 0 or +1, each with probability 1/3, and the gold arbitrarily names the m = 0 route."
+ },
+ {
+  "qid": "gpqaopen:59",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained proper-time calculation; with the standard LMC distance the unique answer is about 80 years, matching the gold (and the astronaut survives)."
+ },
+ {
+  "qid": "gpqaopen:63",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained quantitative puzzle: the mass and gas data identify the two ammonium salts uniquely, giving 17 atoms in total as in the gold."
+ },
+ {
+  "qid": "gpqaopen:67",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained spin-precession question with the unique answer gamma*B, the Larmor frequency about the new field direction."
+ },
+ {
+  "qid": "gpqaopen:71",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained counting question about a uniquely determined final product; the answer is the single number 4, as in the gold."
+ },
+ {
+  "qid": "gpqaopen:75",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "\"What is the first thing you notice?\" is ill-posed as free response: several observations from this experiment are defensible, so the gold is not the unique answer to any self-contained question."
+ },
+ {
+  "qid": "gpqaopen:79",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "Two input-output examples do not determine the mapping; even restricted to per-letter weights the system is underdetermined, so without the four candidate values the gold 315 is not the unique answer."
+ },
+ {
+  "qid": "gpqaopen:83",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The stem is a sentence fragment completed by the unseen options, and \"the key factor\" is a judgement with no unique free-response answer (the distinct/complex roots and the partial-fraction split are two descriptions of the same mechanism, and stability is also defensible)."
+ },
+ {
+  "qid": "gpqaopen:87",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained immunology question; high variability in the variable heavy chain of proliferating cells in Peyer's patches uniquely indicates somatic hypermutation."
+ },
+ {
+  "qid": "gpqaopen:91",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained bond-energy calculation with a unique result (1900 kJ/mol for C12H22, i.e. 11.44 kJ/g); the gold is that same quantity expressed per gram."
+ },
+ {
+  "qid": "gpqaopen:95",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained calculation; the angular size and distance give a Bekenstein-Hawking entropy of order 10^62 J/K, robust to the radius-versus-diameter reading."
+ },
+ {
+  "qid": "gpqaopen:99",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "\"Identify the incorrect statement\" refers to four unseen statements, and the gold is one such statement; no rewrite exists without importing option content."
+ },
+ {
+  "qid": "gpqaopen:103",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained RV-method ratio problem; K scales as P^(-1/3) at fixed masses, so the period ratio is uniquely (5/7)^3 = 0.36."
+ },
+ {
+  "qid": "gpqaopen:107",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "The stem itself asks for an order-of-magnitude comparison rather than referring to options; the paramagnetic term (about 6e-5 eV) is far below the 2.55 eV transition energy, so the unique answer is the gold's strong inequality."
+ },
+ {
+  "qid": "gpqaopen:111",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained multi-part quantum calculation; the probabilities 9/14 and 5/14 and the expectation value hbar/7 are uniquely determined, matching all parts of the gold."
+ },
+ {
+  "qid": "gpqaopen:115",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "\"Identify compound D\" is self-contained, and the Diels-Alder of cis-2-butene with the (1E,3E)-dienol fixes the constitution and the relative configuration given in the gold (the absolute labels are the usual racemate convention)."
+ },
+ {
+  "qid": "gpqaopen:119",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained question with a unique scaling answer: for a uniform stellar density the number per unit parallax goes as 1/plx^4."
+ },
+ {
+  "qid": "gpqaopen:123",
+  "label": "KEEP",
+  "rewritten_stem": null,
+  "rationale": "Self-contained decay-length problem; requiring the survival fraction to go from 1/3 to 2/3 scales the Lorentz factor by ln3/ln1.5, giving the unique answer about 54."
+ },
+ {
+  "qid": "gpqaopen:127",
+  "label": "EXCLUDE",
+  "rewritten_stem": null,
+  "rationale": "The stem asks which of four unseen plasmid sequences to use and the gold is one full nucleotide sequence; any self-contained version would have to supply the candidate sequences, and no unique coding sequence follows from the protein alone."
+ }
+]
