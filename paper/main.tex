@@ -44,23 +44,30 @@
 \maketitle
 
 \begin{abstract}
-Routing, voting, cascades and mixture-of-agents (MoA) promise accuracy beyond any single model. We prove a hard ceiling
-on all of them and measure it on $\nMathM$ frontier models. For any policy that returns one member's answer, accuracy is
-capped at $1-\beta$, where $\beta$ is the rate at which every model is wrong on the same query. The field reads pairwise
-error correlation $\rho$ instead, and we prove that $\rho$ cannot identify $\beta$: identical pairwise error laws can
-differ in $\beta$, and a model calibrated to $\rho$ underprices any common-mode failure by a factor that grows with the
-pool. A Clopper--Pearson bound on $\beta$ turns one graded query set into a \$0 certificate on the most any router, vote
-or cascade can gain. Across $\nMathM$ models from $21$ providers (GPT-5.5, Claude Opus 4.8, Gemini 3.1 Pro, Grok-4.3,
-DeepSeek V4, Qwen3.7-Max, Kimi K2.7 and $60$ more), audited question by question, not a single MATH-500, MATH-Hard,
-AIME, GPQA-Diamond or competition-code question defeats every model ($\beta=0$; ${<}\,\nMathBetaHi$ on MATH-500 at
-$95\%$ confidence), and the best single model already scores $\nMathSB$ on MATH-500. The headroom that remains is out
-of reach: on 15-model pools every learned router scores below the single best model on held-out queries, an LLM router
-simply picks it, and majority voting loses to its own best member in $\nBNegSatPct$--$\nBNegHardPct\%$ of ensembles.
-Every co-failure tail our first release reported was manufactured by the evaluation (answer keys no response could
-match, valid code outputs rejected by exact match), yet a tetrachoric model calibrated to $\rho$ underprices the
-MATH-500 one $\nArtRatioTet$-fold, more as the pool grows: the blind spot the theory predicts. We release the
-$\nMathM$-model outcome matrices with every raw response, a one-line certificate for any model pool, and benchmark errata
-for MATH-500, MATH-Hard, MMLU, MMLU-Pro, GSM8K and ARC.
+Agentic systems often use ensembling or routing strategies that draw answers from multiple models. These
+approaches have been reported to substantially outperform the best constituent model. We provide an upper bound that
+applies to any such system that returns the output of one of the models. This upper bound is determined by the common
+failure rate, the rate at which all models fail, which we call $\beta$.
+
+We show that pairwise error correlation ($\rho$), commonly used to predict the benefits of ensembling, cannot reveal
+$\beta$, since identical pairwise correlations may have different $\beta$s. When models share a common failure mode,
+models calibrated on $\rho$ underestimate $\beta$ by a gap that grows with model count. In contrast, a Clopper--Pearson
+bound on $\beta$ provides a free upper bound on ensembling gains, valid at $95\%$ confidence. On the spurious
+common-failure tail of our first MATH-500 release, a tetrachoric model matched to pairwise correlations
+underestimates it $\nArtRatioTet\times$, more for larger model counts.
+
+We analyze up to $\nMathM$ frontier models from $21$ providers on MATH-500, MATH-Hard, AIME, GPQA-Diamond and a
+competition code benchmark, and at smaller scale on MMLU(-Pro), GSM8K and ARC. On the first five, no problem defeats
+every model: on MATH-500, with $95\%$ confidence, $\beta$ is below $\nMathBetaHi$ and no ensemble gains more than
+$\nMathCert$ over the best single model, which already scores $\nMathSB$.
+
+On pools of $15$ models, learned routers do worse than the best model on unseen problems, and an LLM router
+always picks it. Majority voting does worse than its best member in $\nBNegSatPct$--$\nBNegHardPct\%$
+of the ensembles we analyze.
+
+The common-failure rates reported in our first release were artifacts: answer keys no grader could match, wrong or
+ambiguous answer keys, and correct programs rejected by exact-match grading. We release the $\nMathM$-model outcome
+matrices, all model responses, code to compute certificates, and errata for six benchmarks.
 \end{abstract}
 
 \section{Introduction}
